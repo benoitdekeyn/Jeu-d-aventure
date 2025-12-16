@@ -1,3 +1,6 @@
+
+import java.util.Stack;
+
 /**
  * Classe GameEngine - le moteur du jeu "le mystere des ruines Sheikah".
  * 
@@ -8,7 +11,7 @@ public class GameEngine
 {
     private Parser        aParser;
     private Room          aCurrentRoom;
-    private Room          aPreviousRoom;
+    private Stack<Room>   aPreviousRooms;
     private UserInterface aGui;
     private String        aImagesFolder = "Images/";
 
@@ -19,6 +22,7 @@ public class GameEngine
     {
         this.aParser = new Parser();
         this.createRooms();
+        this.aPreviousRooms = new Stack<Room>();
     }
 
     public void setGUI( final UserInterface pUserInterface )
@@ -88,7 +92,6 @@ public class GameEngine
         
         // room de départ
         this.aCurrentRoom = vSud;
-        this.aPreviousRoom = null;
     } // createRooms
 
     /**
@@ -189,7 +192,7 @@ public class GameEngine
             return;
         } 
         
-        this.aPreviousRoom = this.aCurrentRoom;
+        this.aPreviousRooms.push(this.aCurrentRoom);
         this.aCurrentRoom = vNextRoom;
         printLocationInfo();
         displayLocationImage();
@@ -204,12 +207,11 @@ public class GameEngine
             this.aGui.println("tapez seulement \"retour\" si vous voulez revenir à la salle précédente.");
             return;
         }
-        if ( this.aPreviousRoom == null ) {
+        if ( this.aPreviousRooms.isEmpty() ) {
             this.aGui.println("Vous ne pouvez pas revenir en arrière.");
             return;
         }
-        this.aCurrentRoom = this.aPreviousRoom;
-        this.aPreviousRoom = null;
+        this.aCurrentRoom = this.aPreviousRooms.pop();
         printLocationInfo();
         displayLocationImage();
     } // goBack
