@@ -12,7 +12,7 @@ public class Room
     private String aDescription;
     private HashMap<String, Room> exits;
     private String aImageName;
-    private Item aItem;
+    private HashMap<String, Item> aItems;
     
     /**
      * Constructeur de la classe Room.
@@ -24,6 +24,7 @@ public class Room
         this.aDescription = pDescription;
         this.exits = new HashMap<String, Room>();
         this.aImageName = pImage;
+        this.aItems = new HashMap<String, Item>();
     } // constructeur
 
     /**
@@ -76,9 +77,9 @@ public class Room
      * Définit l'item contenu dans cette salle.
      * @param pItem L'item à placer (ou null pour retirer l'item)
      */
-    public void setItem( final Item pItem )
+    public void addItem( final Item pItem )
     {
-        this.aItem = pItem;
+        this.aItems.put(pItem.getName(), pItem);
     }
 
     /**
@@ -86,8 +87,12 @@ public class Room
      */
     private String getItemString()
     {
-        if ( this.aItem != null ) {
-            return "Objets présents : \n - " + this.aItem.getLongDescription();
+        if ( !this.aItems.isEmpty() ) {
+            StringBuilder vItemString = new StringBuilder("Objets présents :");
+            for ( Item vItem : this.aItems.values() ) {
+                vItemString.append("\n - ").append(vItem.getLongDescription());
+            }
+            return vItemString.toString();
         }
         else {
             return "Aucun objet ici.";

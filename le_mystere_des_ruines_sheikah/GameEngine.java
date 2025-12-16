@@ -46,9 +46,10 @@ public class GameEngine
         Room vArbre       = new Room("en hauteur, dans l'arbre au-dessus des ruines", "arbre.png");
 
         // Création des Items
-        Item vMap    = new Item("carte", "une carte ancienne", 0.1);
-        Item vClef   = new Item("clé", "une clé ancienne", 0.5);
-        Item vSword  = new Item("épée", "une épée rouillée", 2.0);
+        Item vCarte     = new Item("carte", "une carte ancienne", 0.1);
+        Item vClef      = new Item("clé", "une clé ancienne", 0.5);
+        Item vBranche   = new Item("branche", "une branche solide", 1.2);
+        Item vEpee      = new Item("épée", "une épée rouillée", 2.0);
 
         // zones extérieures
         vNord.setExit("est", vEst);
@@ -77,9 +78,10 @@ public class GameEngine
         vArbre.setExit("bas", vToitRuines);
 
         // Placement des Items dans les rooms
-        vMurNord.setItem(vMap);
-        vMurOuest.setItem(vSword);
-        vArbre.setItem(vClef);
+        vMurNord.addItem(vCarte);
+        vMurOuest.addItem(vEpee);
+        vArbre.addItem(vClef);
+        vArbre.addItem(vBranche);
         
         // room de départ
         this.aCurrentRoom = vSud;
