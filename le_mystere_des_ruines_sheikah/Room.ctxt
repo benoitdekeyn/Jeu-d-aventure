@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=Room
+comment1.params=pDescription\ pImage
+comment1.target=Room(java.lang.String,\ java.lang.String)
+comment1.text=\r\n\ Constructeur\ de\ la\ classe\ Room.\r\n\r\n\ @param\ pDescription\ la\ description\ textuelle\ de\ la\ salle\r\n
+comment2.params=
+comment2.target=java.lang.String\ getDescription()
+comment2.text=\r\n\ Renvoie\ la\ description\ textuelle\ de\ la\ salle.\r\n\r\n\ @return\ la\ description\ de\ la\ salle\r\n
+comment3.params=pDirection\ pNeighbor
+comment3.target=void\ setExit(java.lang.String,\ Room)
+comment3.text=\r\n\ D\u00E9finit\ une\ sortie\ depuis\ cette\ salle\ vers\ une\ salle\ voisine.\r\n\r\n\ @param\ pDirection\ la\ direction\ de\ la\ sortie\ (ex\:\ "nord",\ "est",\ "haut",\ ...)\r\n\ @param\ pNeighbor\ \ la\ salle\ cible\ pour\ cette\ direction\r\n
+comment4.params=pDirection
+comment4.target=Room\ getExit(java.lang.String)
+comment4.text=\r\n\ Renvoie\ la\ salle\ \u00E0\ laquelle\ m\u00E8ne\ la\ sortie\ donn\u00E9e.\r\n\r\n\ @param\ pDirection\ la\ direction\ demand\u00E9e\r\n\ @return\ la\ Room\ voisine\ pour\ cette\ direction,\ ou\ null\ si\ aucune\ sortie\ dans\ cette\ direction\r\n
+comment5.params=
+comment5.target=java.lang.String\ getExitString()
+comment5.text=\r\n\ Construit\ une\ cha\u00EEne\ de\ caract\u00E8res\ listant\ les\ sorties\ disponibles\ depuis\ cette\ salle.\r\n\r\n\ @return\ une\ cha\u00EEne\ de\ caract\u00E8res\ contenant\ les\ directions\ possibles\r\n
+comment6.params=
+comment6.target=java.lang.String\ getLongDescription()
+comment6.text=\r\n\ Renvoie\ une\ description\ longue\ de\ la\ salle,\ incluant\ les\ sorties\ disponibles.\r\n\r\n\ @return\ une\ cha\u00EEne\ de\ caract\u00E8res\ d\u00E9crivant\ la\ salle\ et\ ses\ sorties\r\n
+comment7.params=
+comment7.target=java.lang.String\ getImageName()
+comment7.text=\r\n\ Return\ a\ string\ describing\ the\ room's\ image\ name\r\n
+numComments=8
