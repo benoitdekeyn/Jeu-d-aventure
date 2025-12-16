@@ -10,6 +10,7 @@ public class CommandWords
     // Liste des mots de commande valides
     private final String[] aValidCommands = {
         "aller", 
+        "retour",
         "aide", 
         "quitter", 
         "regarder",

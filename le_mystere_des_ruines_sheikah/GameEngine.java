@@ -8,6 +8,7 @@ public class GameEngine
 {
     private Parser        aParser;
     private Room          aCurrentRoom;
+    private Room          aPreviousRoom;
     private UserInterface aGui;
     private String        aImagesFolder = "Images/";
 
@@ -87,6 +88,7 @@ public class GameEngine
         
         // room de départ
         this.aCurrentRoom = vSud;
+        this.aPreviousRoom = null;
     } // createRooms
 
     /**
@@ -125,6 +127,9 @@ public class GameEngine
                 break;
             case "aller" :
                 goRoom(vCommand);
+                break;
+            case "retour" :
+                goBack(vCommand);
                 break;
             case "aide" :
                 printHelp();
@@ -184,11 +189,30 @@ public class GameEngine
             return;
         } 
         
+        this.aPreviousRoom = this.aCurrentRoom;
         this.aCurrentRoom = vNextRoom;
         printLocationInfo();
         displayLocationImage();
     } // goRoom(*)
 
+    /**
+     * Execute la commande retour pour revenir à la salle précédente.
+     */
+    private void goBack(final Command pCommand)
+    {
+        if (pCommand.hasSecondWord()) {
+            this.aGui.println("tapez seulement \"retour\" si vous voulez revenir à la salle précédente.");
+            return;
+        }
+        if ( this.aPreviousRoom == null ) {
+            this.aGui.println("Vous ne pouvez pas revenir en arrière.");
+            return;
+        }
+        this.aCurrentRoom = this.aPreviousRoom;
+        this.aPreviousRoom = null;
+        printLocationInfo();
+        displayLocationImage();
+    } // goBack
 
     /**
      * Affiche l'aide et la liste des commandes disponibles.
