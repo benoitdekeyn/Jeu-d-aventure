@@ -9,6 +9,7 @@ public class GameEngine
     private Parser        aParser;
     private Room          aCurrentRoom;
     private UserInterface aGui;
+    private String        aImagesFolder = "Images/";
 
     /**
      * Constructor for objects of class GameEngine
@@ -22,6 +23,7 @@ public class GameEngine
     public void setGUI( final UserInterface pUserInterface )
     {
         this.aGui = pUserInterface;
+        this.aGui.setImagesFolder( this.aImagesFolder );
         this.printWelcome();
     }
 

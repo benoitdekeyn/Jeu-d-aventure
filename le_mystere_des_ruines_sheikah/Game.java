@@ -16,7 +16,6 @@ public class Game
     {
         this.aEngine = new GameEngine();
         this.aGui = new UserInterface( this.aEngine );
-        this.aGui.setImagesFolder( "images/" );
         this.aEngine.setGUI( this.aGui );
     }
 }
