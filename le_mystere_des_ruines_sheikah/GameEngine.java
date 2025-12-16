@@ -50,6 +50,7 @@ public class GameEngine
         Item vClef      = new Item("clé", "une clé ancienne", 0.5);
         Item vBranche   = new Item("branche", "une branche solide", 1.2);
         Item vEpee      = new Item("épée", "une épée rouillée", 2.0);
+        Item vBuche     = new Item("bûche", "une bûche lourde", 5.0);
 
         // zones extérieures
         vNord.setExit("est", vEst);
@@ -82,6 +83,7 @@ public class GameEngine
         vMurOuest.addItem(vEpee);
         vArbre.addItem(vClef);
         vArbre.addItem(vBranche);
+        vSud.addItem(vBuche);
         
         // room de départ
         this.aCurrentRoom = vSud;
