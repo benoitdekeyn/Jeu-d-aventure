@@ -33,6 +33,7 @@ public class GameEngine
      */
     private void createRooms()
     {
+        // Création des rooms
         Room vNord        = new Room("dans la zone au NORD des ruines",               "zone nord.png");
         Room vEst         = new Room("dans la zone à l'EST des ruines",               "zone est.png");
         Room vSud         = new Room("dans la zone au SUD des ruines",                "zone sud.png");
@@ -43,6 +44,11 @@ public class GameEngine
         Room vEscaliers   = new Room("aux escaliers du mur EST des ruines",           "escaliers.png");
         Room vToitRuines  = new Room("sur le dessus des ruines",                      "toit ruines.png");
         Room vArbre       = new Room("en hauteur, dans l'arbre au-dessus des ruines", "arbre.png");
+
+        // Création des Items
+        Item vMap    = new Item("carte", "une carte ancienne", 0.1);
+        Item vClef   = new Item("clé", "une clé ancienne", 0.5);
+        Item vSword  = new Item("épée", "une épée rouillée", 2.0);
 
         // zones extérieures
         vNord.setExit("est", vEst);
@@ -70,6 +76,11 @@ public class GameEngine
         vToitRuines.setExit("haut", vArbre);
         vArbre.setExit("bas", vToitRuines);
 
+        // Placement des Items dans les rooms
+        vMurNord.setItem(vMap);
+        vMurOuest.setItem(vSword);
+        vArbre.setItem(vClef);
+        
         // room de départ
         this.aCurrentRoom = vSud;
     } // createRooms

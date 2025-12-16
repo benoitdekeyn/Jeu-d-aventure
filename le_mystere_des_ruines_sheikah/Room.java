@@ -12,6 +12,7 @@ public class Room
     private String aDescription;
     private HashMap<String, Room> exits;
     private String aImageName;
+    private Item aItem;
     
     /**
      * Constructeur de la classe Room.
@@ -72,13 +73,34 @@ public class Room
     } // getExitString
 
     /**
-     * Renvoie une description longue de la salle, incluant les sorties disponibles.
-     *
-     * @return une chaîne de caractères décrivant la salle et ses sorties
+     * Définit l'item contenu dans cette salle.
+     * @param pItem L'item à placer (ou null pour retirer l'item)
+     */
+    public void setItem( final Item pItem )
+    {
+        this.aItem = pItem;
+    }
+
+    /**
+     * Renvoie une description de l'item présent (s'il y en a un).
+     */
+    private String getItemString()
+    {
+        if ( this.aItem != null ) {
+            return "Objets présents : \n - " + this.aItem.getLongDescription();
+        }
+        else {
+            return "Aucun objet ici.";
+        }
+    }
+
+    /**
+     * Renvoie une description longue de la salle, incluant les sorties et les items.
      */
     public String getLongDescription()
     {
-        return "Vous êtes " + this.aDescription + ".\n" + getExitString();
+        // On ajoute getItemString() à la description affichée
+        return "Vous êtes " + this.aDescription + ".\n" + this.getItemString() + "\n" + this.getExitString();
     } // getLongDescription
 
     /**
