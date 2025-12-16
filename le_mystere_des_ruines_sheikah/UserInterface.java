@@ -31,6 +31,7 @@ public class UserInterface implements ActionListener
     private JLabel     aImage;
     private String     aImagesFolder;
     private JButton    aBreathButton;
+    private JButton    aLookButton;
 
     /**
      * Construct a UserInterface. As a parameter, a Game Engine
@@ -120,6 +121,7 @@ public class UserInterface implements ActionListener
 
         this.aImage = new JLabel();
         this.aBreathButton = new JButton( "Respirer" );
+        this.aLookButton = new JButton( "Regarder" );
 
         JPanel vPanel = new JPanel();
         vPanel.setLayout( new BorderLayout() ); // ==> only five places
@@ -127,12 +129,14 @@ public class UserInterface implements ActionListener
         vPanel.add( vListScroller, BorderLayout.CENTER );
         vPanel.add( this.aEntryField, BorderLayout.SOUTH );
         vPanel.add( this.aBreathButton, BorderLayout.EAST );
+        vPanel.add( this.aLookButton, BorderLayout.WEST );
 
         this.aMyFrame.getContentPane().add( vPanel, BorderLayout.CENTER );
 
         // add some event listeners to some components
         this.aEntryField.addActionListener( this );
         this.aBreathButton.addActionListener( this );
+        this.aLookButton.addActionListener( this );
 
         // to end program when window is closed
         this.aMyFrame.addWindowListener(
@@ -157,10 +161,14 @@ public class UserInterface implements ActionListener
         if ( pE.getSource() == this.aBreathButton ) {
             this.aEngine.interpretCommand( "respirer" );
         }
+        else if ( pE.getSource() == this.aLookButton ) {
+            this.aEngine.interpretCommand( "regarder" );
+        }
         else {
             // commande terminale
             this.processCommand();
         }
+        
     } // actionPerformed(.)
 
     /**

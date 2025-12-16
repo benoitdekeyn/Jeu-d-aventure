@@ -82,8 +82,7 @@ public class GameEngine
             "Vous êtes enfin parvenu face aux ruines anciennes du peuple Sheikah. \n" +
             "Vous devez maintenant trouver cet artefact si précieux à l'intérieur des ruines. \n" +
             "\n" +
-            "Tapez 'aide' si vous avez besoin d'aide. \n" +
-            "\n");
+            "Tapez 'aide' si vous avez besoin d'aide. \n");
         printLocationInfo();
         displayLocationImage();
     } // printWelcome
@@ -95,7 +94,7 @@ public class GameEngine
      */
     public void interpretCommand( final String pCommandLine ) 
     {
-        this.aGui.println( "> " + pCommandLine );
+        this.aGui.println( "\n> " + pCommandLine );
         Command vCommand = this.aParser.getCommand( pCommandLine );
 
         if ( vCommand.isUnknown() ) {
