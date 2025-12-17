@@ -1,19 +1,19 @@
 #BlueJ class context
 comment0.target=Item
-comment0.text=\r\n\ Classe\ Item\ -\ un\ objet\ du\ jeu\ "le\ mystere\ des\ ruines\ Sheikah".\r\n\r\n\ @author\ \ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2025.12.25\r\n
+comment0.text=\r\n\ Classe\ Item\ -\ repr\u00E9sente\ un\ objet\ manipulable\ dans\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Chaque\ objet\ poss\u00E8de\ un\ nom,\ une\ description\ et\ un\ poids.\r\n\r\n\ @author\ \ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2025.12.25\r\n
 comment1.params=pName\ pDescription\ pWeight
 comment1.target=Item(java.lang.String,\ java.lang.String,\ double)
-comment1.text=\r\n\ Constructeur\ naturel\r\n\ @param\ pDescription\ Description\ de\ l'objet\ (ex\:\ "une\ \u00E9p\u00E9e\ rouill\u00E9e")\r\n\ @param\ pWeight\ Poids\ de\ l'objet\ (ex\:\ 2.5)\r\n\ @param\ pName\ Nom\ de\ l'objet\ (ex\:\ "\u00E9p\u00E9e")\r\n
+comment1.text=\r\n\ Cr\u00E9e\ un\ nouvel\ objet\ avec\ un\ nom,\ une\ description\ et\ un\ poids.\r\n\r\n\ @param\ pName\ le\ nom\ court\ de\ l'objet\ (ex\:\ "\u00E9p\u00E9e")\r\n\ @param\ pDescription\ la\ description\ d\u00E9taill\u00E9e\ de\ l'objet\ (ex\:\ "une\ \u00E9p\u00E9e\ rouill\u00E9e")\r\n\ @param\ pWeight\ le\ poids\ de\ l'objet\ en\ kilogrammes\r\n
 comment2.params=
 comment2.target=java.lang.String\ getDescription()
-comment2.text=\r\n\ Accesseur\ pour\ la\ description\r\n
+comment2.text=\r\n\ Renvoie\ la\ description\ d\u00E9taill\u00E9e\ de\ l'objet.\r\n\r\n\ @return\ la\ description\ de\ l'objet\r\n
 comment3.params=
 comment3.target=double\ getWeight()
-comment3.text=\r\n\ Accesseur\ pour\ le\ poids\r\n
+comment3.text=\r\n\ Renvoie\ le\ poids\ de\ l'objet.\r\n\r\n\ @return\ le\ poids\ de\ l'objet\ en\ kilogrammes\r\n
 comment4.params=
 comment4.target=java.lang.String\ getName()
-comment4.text=\r\n\ Accesseur\ pour\ le\ nom\r\n
+comment4.text=\r\n\ Renvoie\ le\ nom\ court\ de\ l'objet.\r\n\r\n\ @return\ le\ nom\ de\ l'objet\r\n
 comment5.params=
 comment5.target=java.lang.String\ getLongDescription()
-comment5.text=\r\n\ Retourne\ une\ description\ compl\u00E8te\ de\ l'item\r\n
+comment5.text=\r\n\ Renvoie\ une\ description\ compl\u00E8te\ de\ l'objet\ incluant\ le\ nom,\ la\ description\ et\ le\ poids.\r\n\r\n\ @return\ une\ cha\u00EEne\ format\u00E9e\ avec\ toutes\ les\ informations\ de\ l'objet\r\n
 numComments=6

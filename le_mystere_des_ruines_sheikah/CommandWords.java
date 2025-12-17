@@ -1,10 +1,11 @@
 /**
- * Cette classe contient une table d'énumération de tous les mots de commande
- * connus du jeu. Elle est utilisée pour reconnaître les commandes saisies.
+ * Classe CommandWords - contient la liste des mots de commande valides pour le jeu "le mystère des ruines Sheikah".
+ * Cette classe permet de vérifier si une commande ou une direction est valide.
  *
- * @author  Michael Kolling and David J. Barnes + D.Bureau + Benoît de Keyn
- * @version 2008.03.30 + 2019.09.25 + 2025.10.25
+ * @author  Michael Kolling, David J. Barnes, D. Bureau, Benoît de Keyn
+ * @version 2025.10.25
  */
+
 public class CommandWords
 {
     // Liste des mots de commande valides
@@ -28,11 +29,12 @@ public class CommandWords
     };
 
     /**
-     * Constructeur par défaut
+     * Crée un nouvel objet CommandWords.
+     * Les tableaux de commandes et de directions valides sont initialisés directement.
      */
     public CommandWords()
     {
-        // rien à faire : les tableaux sont initialisés directement comme constantess
+        // rien à faire : les tableaux sont initialisés directement comme constantes
     } // constructeur
 
     /**
@@ -68,7 +70,9 @@ public class CommandWords
     } // isDirection(*)
 
     /**
-     * Affiche toutes les commandes valides.
+     * Renvoie une chaîne de caractères contenant toutes les commandes valides.
+     *
+     * @return la liste formatée des commandes valides
      */
     public String getValidCommandsString() {
         StringBuilder commands = new StringBuilder();

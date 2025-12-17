@@ -1,5 +1,6 @@
-/**
- * Classe Command - une commande du jeu "le mystere des ruines Sheikah".
+/** 
+ * Classe Command - représente une commande saisie par l'utilisateur dans le jeu "le mystère des ruines Sheikah".
+ * Une commande est composée d'un mot principal et éventuellement d'un second mot.
  *
  * @author  Benoît de Keyn
  * @version 2025.10.25
@@ -11,10 +12,10 @@ public class Command
     private String aSecondWord ;
     
     /**
-     * Constructeur naturel
+     * Crée une nouvelle commande avec un mot principal et éventuellement un second mot.
      *
-     * @param pCommandWord le mot de la commande (ex: "aller", "aide", "quitter")
-     * @param pSecondWord  le second mot de la commande (peut être null si absent)
+     * @param pCommandWord le mot principal de la commande (ex: "aller", "aide", "quitter")
+     * @param pSecondWord le second mot de la commande, ou null si absent
      */
     public Command(final String pCommandWord, final String pSecondWord)
     {
@@ -25,7 +26,7 @@ public class Command
     /**
      * Renvoie le mot principal de la commande.
      *
-     * @return une chaîne de caractères contenant le mot de commande, ou null si commande inconnue
+     * @return le mot de commande, ou null si la commande est inconnue
      */
     public String getCommandWord()
     {
@@ -35,7 +36,7 @@ public class Command
     /**
      * Renvoie le second mot de la commande.
      *
-     * @return une chaîne de caractères contenant le second mot, ou null si aucun second mot
+     * @return le second mot, ou null si aucun second mot n'est présent
      */
     public String getSecondWord()
     {

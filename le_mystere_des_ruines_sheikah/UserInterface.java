@@ -16,11 +16,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
- * This class implements a simple graphical user interface with a 
- * text entry area, a text output area and an optional image.
+ * Classe UserInterface - l'interface graphique du jeu "le mystère des ruines Sheikah".
+ * Cette classe implémente une interface graphique simple avec une zone de saisie,
+ * une zone d'affichage de texte et une image optionnelle.
  * 
- * @author Michael Kolling + Benoît de Keyn
- * @version 1.0 (Jan 2003) DB edited (2023) + 2025.12.25
+ * @author Michael Kolling, Benoît de Keyn
+ * @version 2025.12.25
  */
 public class UserInterface implements ActionListener
 {
@@ -34,11 +35,10 @@ public class UserInterface implements ActionListener
     private JButton    aLookButton;
 
     /**
-     * Construct a UserInterface. As a parameter, a Game Engine
-     * (an object processing and executing the game commands) is
-     * needed.
+     * Crée une nouvelle interface utilisateur pour le jeu.
+     * Initialise les composants graphiques et les lie au moteur de jeu.
      * 
-     * @param gameEngine  The GameEngine object implementing the game logic.
+     * @param pGameEngine le moteur de jeu qui traite et exécute les commandes
      */
     public UserInterface( final GameEngine pGameEngine )
     {
@@ -48,7 +48,9 @@ public class UserInterface implements ActionListener
     } // UserInterface(.)
 
     /**
-     * Print out some text into the text area.
+     * Affiche du texte dans la zone de texte.
+     *
+     * @param pText le texte à afficher
      */
     public void print( final String pText )
     {
@@ -57,7 +59,9 @@ public class UserInterface implements ActionListener
     } // print(.)
 
     /**
-     * Print out some text into the text area, followed by a line break.
+     * Affiche du texte dans la zone de texte suivi d'un retour à la ligne.
+     *
+     * @param pText le texte à afficher
      */
     public void println( final String pText )
     {
@@ -65,7 +69,9 @@ public class UserInterface implements ActionListener
     } // println(.)
 
     /**
-     * Set the folder where images are stored.
+     * Définit le dossier où sont stockées les images.
+     *
+     * @param pFolder le chemin du dossier contenant les images
      */
     public void setImagesFolder( final String pFolder )
     {
@@ -73,7 +79,10 @@ public class UserInterface implements ActionListener
     } // setImagesFolder(.)
 
     /**
-     * Show an image file in the interface.
+     * Affiche une image dans l'interface graphique.
+     * L'image est redimensionnée automatiquement à 600x450 pixels.
+     *
+     * @param pImageName le nom du fichier image à afficher
      */
     public void showImage( final String pImageName )
     {
@@ -90,7 +99,9 @@ public class UserInterface implements ActionListener
     } // showImage(.)
 
     /**
-     * Enable or disable input in the entry field.
+     * Active ou désactive la saisie dans le champ de texte.
+     *
+     * @param pOnOff true pour activer la saisie, false pour la désactiver
      */
     public void enable( final boolean pOnOff )
     {
@@ -106,7 +117,8 @@ public class UserInterface implements ActionListener
     } // enable(.)
 
     /**
-     * Set up graphical user interface.
+     * Configure et crée l'interface utilisateur graphique.
+     * Initialise la fenêtre, les panneaux, les boutons et les écouteurs d'événements.
      */
     private void createGUI()
     {
@@ -153,7 +165,10 @@ public class UserInterface implements ActionListener
     } // createGUI()
 
     /**
-     * Actionlistener interface for entry textfield.
+     * Gère les événements d'action (clics sur boutons ou validation du champ de saisie).
+     * Dirige l'action vers la commande appropriée selon la source de l'événement.
+     *
+     * @param pE l'événement d'action déclenché
      */
     @Override public void actionPerformed( final ActionEvent pE ) 
     {
@@ -172,8 +187,8 @@ public class UserInterface implements ActionListener
     } // actionPerformed(.)
 
     /**
-     * A command has been entered in the entry field.  
-     * Read the command and do whatever is necessary to process it.
+     * Traite une commande saisie dans le champ de texte.
+     * Récupère le texte saisi, vide le champ et transmet la commande au moteur de jeu.
      */
     private void processCommand()
     {

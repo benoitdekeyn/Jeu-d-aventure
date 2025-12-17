@@ -1,11 +1,12 @@
-
 import java.util.Stack;
 
 /**
- * Classe GameEngine - le moteur du jeu "le mystere des ruines Sheikah".
- * 
- * @author  Michael Kolling and David J. Barnes + Benoît de Keyn
- * @version 1.0 (Jan 2003) DB edited (2019) + 2025.12.25
+ * Classe GameEngine - le moteur du jeu "le mystère des ruines Sheikah".
+ * Cette classe gère la logique principale du jeu, y compris la création des salles,
+ * le traitement des commandes et l'affichage des informations dans l'interface utilisateur.
+ *
+ * @author  Michael Kolling, David J. Barnes, Benoît de Keyn
+ * @version 2025.12.25
  */
 public class GameEngine
 {
@@ -16,7 +17,8 @@ public class GameEngine
     private String        aImagesFolder = "Images/";
 
     /**
-     * Constructor for objects of class GameEngine
+     * Crée un nouveau moteur de jeu.
+     * Initialise le parseur, crée toutes les salles et initialise la pile d'historique.
      */
     public GameEngine()
     {
@@ -25,6 +27,11 @@ public class GameEngine
         this.aPreviousRooms = new Stack<Room>();
     }
 
+    /**
+     * Définit l'interface utilisateur graphique et affiche le message de bienvenue.
+     *
+     * @param pUserInterface l'interface utilisateur à utiliser pour les affichages
+     */
     public void setGUI( final UserInterface pUserInterface )
     {
         this.aGui = pUserInterface;
@@ -110,9 +117,9 @@ public class GameEngine
     } // printWelcome
 
     /**
-     * Given a command, process (that is: execute) the command.
-     * If this command ends the game, true is returned, otherwise false is
-     * returned.
+     * Interprète et exécute une commande donnée sous forme de chaîne de caractères.
+     *
+     * @param pCommandLine la ligne de commande saisie par l'utilisateur
      */
     public void interpretCommand( final String pCommandLine ) 
     {
@@ -125,35 +132,21 @@ public class GameEngine
         }
 
         switch (vCommand.getCommandWord()) {
-            case "quitter" :
-                quit(vCommand);
-                break;
-            case "aller" :
-                goRoom(vCommand);
-                break;
-            case "retour" :
-                goBack(vCommand);
-                break;
-            case "aide" :
-                printHelp();
-                break;
-            case "respirer" :
-                breathe();
-                break;
-            case "regarder" :
-                look();
-                break;
-            default :
-                System.out.println("Cette commande n'a pas encore d'action associée.");
-                break;
+            case "quitter" -> quit(vCommand);
+            case "aller" -> goRoom(vCommand);
+            case "retour" -> goBack(vCommand);
+            case "aide" -> printHelp();
+            case "respirer" -> breathe();
+            case "regarder" -> look();
+            default -> System.out.println("Cette commande n'a pas encore d'action associée.");
         }
     } // interpretCommand(*)
 
     /**
      * Traite la commande "quitter".
+     * Vérifie qu'aucun second mot n'est présent et termine le jeu.
      *
-     * @param pCommand la commande reçue (doit ne pas avoir de second mot)
-     * @return true si le jeu doit se terminer, false sinon
+     * @param pCommand la commande reçue (ne doit pas avoir de second mot)
      */
     private void quit(final Command pCommand)
     {
@@ -166,10 +159,10 @@ public class GameEngine
     } // quit(*)
 
     /**
-     * Exécute la commande "aller" : tente de se déplacer dans la direction donnée.
+     * Exécute la commande "aller" pour se déplacer dans une direction.
+     * Vérifie que la direction est valide et que la sortie existe.
      *
      * @param pCommand la commande à traiter (doit contenir un second mot indiquant la direction)
-     *                  si le second mot est absent, affiche une erreur
      */
     private void goRoom( final Command pCommand ) 
     {
@@ -199,7 +192,10 @@ public class GameEngine
     } // goRoom(*)
 
     /**
-     * Execute la commande retour pour revenir à la salle précédente.
+     * Exécute la commande "retour" pour revenir à la salle précédente.
+     * Vérifie qu'il existe un historique de salles visitées.
+     *
+     * @param pCommand la commande reçue (ne doit pas avoir de second mot)
      */
     private void goBack(final Command pCommand)
     {
@@ -230,7 +226,8 @@ public class GameEngine
         this.aGui.println(this.aParser.getCommandsList());
     } // printHelp
     /**
-     * Traite la commande "respirer". Affiche seulement un texte.
+     * Traite la commande "respirer".
+     * Affiche un message indiquant que le joueur consomme de l'oxygène.
      */
     private void breathe()
     {
@@ -238,7 +235,8 @@ public class GameEngine
     }
 
     /**
-     * Affiche la description de la salle courante et les sorties disponibles.
+     * Traite la commande "regarder".
+     * Affiche la description de la salle courante, les objets présents et les sorties disponibles.
      */
     private void look()
     {

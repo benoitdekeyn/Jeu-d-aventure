@@ -1,24 +1,19 @@
 import java.util.StringTokenizer;
 
 /**
- * Ce parser lit la saisie utilisateur et tente de l'interpréter comme une
- * commande du jeu. Il tente d' extraire de la ligne donnée en paramètre, 
- * une commande composée de deux mots au maximum. 
- * Il renvoie la commande sous la forme d'un objet de la classe Command.
+ * Classe Parser - interprète les commandes saisies par l'utilisateur dans le jeu "le mystère des ruines Sheikah".
+ * Cette classe analyse les chaînes de caractères entrées et les convertit en objets Command.
  *
- * Le parser possède un ensemble de mots de commande connus. Il compare la
- * saisie utilisateur avec ces mots et, si le premier mot n'est pas connu,
- * retourne un objet Command marqué comme commande inconnue.
- *
- * @author  Michael Kolling and David J. Barnes + D.Bureau + Benoît de Keyn
- * @version 2008.03.30 + 2019.09.25 + 2025.12.15
+ * @author  Michael Kolling, David J. Barnes, D. Bureau, Benoît de Keyn
+ * @version 2025.12.15
  */
 public class Parser 
 {
     private CommandWords aValidCommands;  // (voir la classe CommandWords)
 
     /**
-     * Constructeur par défaut
+     * Crée un nouveau parseur de commandes.
+     * Initialise la liste des commandes valides.
      */
     public Parser() 
     {
@@ -26,24 +21,26 @@ public class Parser
     } // Parser()
 
     /**
-     * Lit la ligne suivante saisie par l'utilisateur et la convertit en objet Command.
+     * Analyse une ligne de commande et la convertit en objet Command.
      *
-     * Règles :
+     *  Règles :
      * - Si le premier mot n'est pas une commande connue, retourne Command(null, null).
      * - Si la commande accepte une direction et qu'un second mot est fourni :
      *     - retourne Command(mot, direction) si la direction est valide,
      *     - retourne Command(mot, "invalid") si la direction est invalide.
      * - Si aucun second mot n'est fourni, retourne Command(mot, null).
      *
-     * @return un objet Command représentant la commande saisie
+     * @param pInputLine la ligne de commande saisie par l'utilisateur
+     * @return un objet Command représentant la commande analysée
      */
     public Command getCommand( final String pInputLine) 
     {
-        String vWord1 = null;
-        String vWord2 = null;
 
         StringTokenizer vTokenizer = new StringTokenizer( pInputLine );
         
+        String vWord1;
+        String vWord2;
+
         if ( vTokenizer.hasMoreTokens() )
             vWord1 = vTokenizer.nextToken();      // on extrait le premier mot
         else
@@ -79,7 +76,9 @@ public class Parser
     } // getCommand()
 
     /**
-     * Affiche toutes les commandes valides.
+     * Renvoie une chaîne de caractères contenant toutes les commandes valides.
+     *
+     * @return la liste des commandes valides sous forme de chaîne
      */
     public String getCommandsList(){
         return this.aValidCommands.getValidCommandsString();

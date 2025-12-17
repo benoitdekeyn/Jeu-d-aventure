@@ -1,16 +1,19 @@
 /**
- * Classe Game - la main loop du jeu "le mystere des ruines Sheikah".
+ * Classe Game - représente la boucle principale du jeu "le mystère des ruines Sheikah".
+ * Cette classe initialise le moteur du jeu et l'interface utilisateur.
  *
  * @author  Benoît de Keyn
  * @version 2025.12.25
  */
+
 public class Game
 {
     private UserInterface aGui;
     private GameEngine aEngine;
 
     /**
-     * Crée le jeu et initialise sa carte interne. Crée l'interface et la lie au moteur du jeu.
+     * Crée et initialise le jeu.
+     * Instancie le moteur de jeu et l'interface utilisateur, puis les lie ensemble.
      */
     public Game() 
     {

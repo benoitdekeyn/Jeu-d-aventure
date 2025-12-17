@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=CommandWords
-comment0.text=\r\n\ Cette\ classe\ contient\ une\ table\ d'\u00E9num\u00E9ration\ de\ tous\ les\ mots\ de\ commande\r\n\ connus\ du\ jeu.\ Elle\ est\ utilis\u00E9e\ pour\ reconna\u00EEtre\ les\ commandes\ saisies.\r\n\r\n\ @author\ \ Michael\ Kolling\ and\ David\ J.\ Barnes\ +\ D.Bureau\ +\ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2008.03.30\ +\ 2019.09.25\ +\ 2025.10.25\r\n
+comment0.text=\r\n\ Classe\ CommandWords\ -\ contient\ la\ liste\ des\ mots\ de\ commande\ valides\ pour\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Cette\ classe\ permet\ de\ v\u00E9rifier\ si\ une\ commande\ ou\ une\ direction\ est\ valide.\r\n\r\n\ @author\ \ Michael\ Kolling,\ David\ J.\ Barnes,\ D.\ Bureau,\ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2025.10.25\r\n
 comment1.params=
 comment1.target=CommandWords()
-comment1.text=\r\n\ Constructeur\ par\ d\u00E9faut\r\n
+comment1.text=\r\n\ Cr\u00E9e\ un\ nouvel\ objet\ CommandWords.\r\n\ Les\ tableaux\ de\ commandes\ et\ de\ directions\ valides\ sont\ initialis\u00E9s\ directement.\r\n
 comment2.params=pString
 comment2.target=boolean\ isCommand(java.lang.String)
 comment2.text=\r\n\ V\u00E9rifie\ si\ une\ cha\u00EEne\ de\ caract\u00E8res\ donn\u00E9e\ est\ un\ mot\ de\ commande\ valide.\r\n\r\n\ @param\ pString\ la\ cha\u00EEne\ de\ caract\u00E8res\ \u00E0\ tester\r\n\ @return\ true\ si\ la\ cha\u00EEne\ de\ caract\u00E8res\ est\ un\ mot\ de\ commande\ connu,\ false\ sinon\r\n
@@ -12,5 +12,5 @@ comment3.target=boolean\ isDirection(java.lang.String)
 comment3.text=\r\n\ V\u00E9rifie\ si\ une\ cha\u00EEne\ de\ caract\u00E8res\ donn\u00E9e\ est\ une\ direction\ valide.\r\n\r\n\ @param\ pString\ la\ cha\u00EEne\ de\ caract\u00E8res\ \u00E0\ tester\r\n\ @return\ true\ si\ la\ cha\u00EEne\ de\ caract\u00E8res\ est\ une\ direction\ valide,\ false\ sinon\r\n
 comment4.params=
 comment4.target=java.lang.String\ getValidCommandsString()
-comment4.text=\r\n\ Affiche\ toutes\ les\ commandes\ valides.\r\n
+comment4.text=\r\n\ Renvoie\ une\ cha\u00EEne\ de\ caract\u00E8res\ contenant\ toutes\ les\ commandes\ valides.\r\n\r\n\ @return\ la\ liste\ format\u00E9e\ des\ commandes\ valides\r\n
 numComments=5

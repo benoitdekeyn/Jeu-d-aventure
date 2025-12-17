@@ -1,12 +1,12 @@
+import java.util.HashMap;
+
 /**
- * Classe Room - un lieu du jeu "le mystere des ruines Sheikah".
+ * Classe Room - représente une salle ou un lieu dans le jeu "le mystère des ruines Sheikah".
+ * Une salle peut contenir des objets et avoir des sorties vers d'autres salles.
  *
  * @author  Benoît de Keyn
  * @version 2025.10.25
  */
-
-import java.util.HashMap;
-
 public class Room
 {
     private String aDescription;
@@ -15,9 +15,10 @@ public class Room
     private HashMap<String, Item> aItems;
     
     /**
-     * Constructeur de la classe Room.
+     * Crée une nouvelle salle avec une description et une image associée.
      *
      * @param pDescription la description textuelle de la salle
+     * @param pImage le nom du fichier image représentant la salle
      */
     public Room(final String pDescription, final String pImage )
     {
@@ -74,8 +75,9 @@ public class Room
     } // getExitString
 
     /**
-     * Définit l'item contenu dans cette salle.
-     * @param pItem L'item à placer (ou null pour retirer l'item)
+     * Ajoute un objet dans cette salle.
+     *
+     * @param pItem l'objet à placer dans la salle
      */
     public void addItem( final Item pItem )
     {
@@ -83,7 +85,9 @@ public class Room
     }
 
     /**
-     * Renvoie une description de l'item présent (s'il y en a un).
+     * Construit une chaîne de caractères décrivant les objets présents dans la salle.
+     *
+     * @return une description des objets ou un message indiquant l'absence d'objets
      */
     private String getItemString()
     {
@@ -100,7 +104,10 @@ public class Room
     }
 
     /**
-     * Renvoie une description longue de la salle, incluant les sorties et les items.
+     * Renvoie une description complète de la salle.
+     * Inclut la description de la salle, les objets présents et les sorties disponibles.
+     *
+     * @return une description détaillée de la salle
      */
     public String getLongDescription()
     {
@@ -109,7 +116,9 @@ public class Room
     } // getLongDescription
 
     /**
-     * Return a string describing the room's image name
+     * Renvoie le nom du fichier image associé à la salle.
+     *
+     * @return le nom du fichier image
      */
     public String getImageName()
     {

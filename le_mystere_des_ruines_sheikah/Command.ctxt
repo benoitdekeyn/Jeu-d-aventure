@@ -1,15 +1,15 @@
 #BlueJ class context
 comment0.target=Command
-comment0.text=\r\n\ Classe\ Command\ -\ une\ commande\ du\ jeu\ "le\ mystere\ des\ ruines\ Sheikah".\r\n\r\n\ @author\ \ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2025.10.25\r\n
+comment0.text=\ \r\n\ Classe\ Command\ -\ repr\u00E9sente\ une\ commande\ saisie\ par\ l'utilisateur\ dans\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Une\ commande\ est\ compos\u00E9e\ d'un\ mot\ principal\ et\ \u00E9ventuellement\ d'un\ second\ mot.\r\n\r\n\ @author\ \ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2025.10.25\r\n
 comment1.params=pCommandWord\ pSecondWord
 comment1.target=Command(java.lang.String,\ java.lang.String)
-comment1.text=\r\n\ Constructeur\ naturel\r\n\r\n\ @param\ pCommandWord\ le\ mot\ de\ la\ commande\ (ex\:\ "aller",\ "aide",\ "quitter")\r\n\ @param\ pSecondWord\ \ le\ second\ mot\ de\ la\ commande\ (peut\ \u00EAtre\ null\ si\ absent)\r\n
+comment1.text=\r\n\ Cr\u00E9e\ une\ nouvelle\ commande\ avec\ un\ mot\ principal\ et\ \u00E9ventuellement\ un\ second\ mot.\r\n\r\n\ @param\ pCommandWord\ le\ mot\ principal\ de\ la\ commande\ (ex\:\ "aller",\ "aide",\ "quitter")\r\n\ @param\ pSecondWord\ le\ second\ mot\ de\ la\ commande,\ ou\ null\ si\ absent\r\n
 comment2.params=
 comment2.target=java.lang.String\ getCommandWord()
-comment2.text=\r\n\ Renvoie\ le\ mot\ principal\ de\ la\ commande.\r\n\r\n\ @return\ une\ cha\u00EEne\ de\ caract\u00E8res\ contenant\ le\ mot\ de\ commande,\ ou\ null\ si\ commande\ inconnue\r\n
+comment2.text=\r\n\ Renvoie\ le\ mot\ principal\ de\ la\ commande.\r\n\r\n\ @return\ le\ mot\ de\ commande,\ ou\ null\ si\ la\ commande\ est\ inconnue\r\n
 comment3.params=
 comment3.target=java.lang.String\ getSecondWord()
-comment3.text=\r\n\ Renvoie\ le\ second\ mot\ de\ la\ commande.\r\n\r\n\ @return\ une\ cha\u00EEne\ de\ caract\u00E8res\ contenant\ le\ second\ mot,\ ou\ null\ si\ aucun\ second\ mot\r\n
+comment3.text=\r\n\ Renvoie\ le\ second\ mot\ de\ la\ commande.\r\n\r\n\ @return\ le\ second\ mot,\ ou\ null\ si\ aucun\ second\ mot\ n'est\ pr\u00E9sent\r\n
 comment4.params=
 comment4.target=boolean\ hasSecondWord()
 comment4.text=\r\n\ Indique\ si\ la\ commande\ poss\u00E8de\ un\ second\ mot.\r\n\r\n\ @return\ true\ si\ un\ second\ mot\ est\ pr\u00E9sent,\ false\ sinon\r\n

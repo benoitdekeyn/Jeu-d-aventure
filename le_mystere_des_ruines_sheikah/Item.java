@@ -1,9 +1,11 @@
 /**
- * Classe Item - un objet du jeu "le mystere des ruines Sheikah".
+ * Classe Item - représente un objet manipulable dans le jeu "le mystère des ruines Sheikah".
+ * Chaque objet possède un nom, une description et un poids.
  *
  * @author  Benoît de Keyn
  * @version 2025.12.25
  */
+
 public class Item
 {
     private String aName;
@@ -11,10 +13,11 @@ public class Item
     private double aWeight;
 
     /**
-     * Constructeur naturel
-     * @param pDescription Description de l'objet (ex: "une épée rouillée")
-     * @param pWeight Poids de l'objet (ex: 2.5)
-     * @param pName Nom de l'objet (ex: "épée")
+     * Crée un nouvel objet avec un nom, une description et un poids.
+     *
+     * @param pName le nom court de l'objet (ex: "épée")
+     * @param pDescription la description détaillée de l'objet (ex: "une épée rouillée")
+     * @param pWeight le poids de l'objet en kilogrammes
      */
     public Item( final String pName, final String pDescription, final double pWeight )
     {
@@ -24,7 +27,9 @@ public class Item
     }
 
     /**
-     * Accesseur pour la description
+     * Renvoie la description détaillée de l'objet.
+     *
+     * @return la description de l'objet
      */
     public String getDescription()
     {
@@ -32,7 +37,9 @@ public class Item
     }
 
     /**
-     * Accesseur pour le poids
+     * Renvoie le poids de l'objet.
+     *
+     * @return le poids de l'objet en kilogrammes
      */
     public double getWeight()
     {
@@ -40,7 +47,9 @@ public class Item
     }
 
     /**
-     * Accesseur pour le nom
+     * Renvoie le nom court de l'objet.
+     *
+     * @return le nom de l'objet
      */
     public String getName()
     {
@@ -48,7 +57,9 @@ public class Item
     }
     
     /**
-     * Retourne une description complète de l'item
+     * Renvoie une description complète de l'objet incluant le nom, la description et le poids.
+     *
+     * @return une chaîne formatée avec toutes les informations de l'objet
      */
     public String getLongDescription()
     {

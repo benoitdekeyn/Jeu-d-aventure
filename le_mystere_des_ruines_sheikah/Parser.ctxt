@@ -1,13 +1,13 @@
 #BlueJ class context
 comment0.target=Parser
-comment0.text=\r\n\ Ce\ parser\ lit\ la\ saisie\ utilisateur\ et\ tente\ de\ l'interpr\u00E9ter\ comme\ une\r\n\ commande\ du\ jeu.\ Il\ tente\ d'\ extraire\ de\ la\ ligne\ donn\u00E9e\ en\ param\u00E8tre,\ \r\n\ une\ commande\ compos\u00E9e\ de\ deux\ mots\ au\ maximum.\ \r\n\ Il\ renvoie\ la\ commande\ sous\ la\ forme\ d'un\ objet\ de\ la\ classe\ Command.\r\n\r\n\ Le\ parser\ poss\u00E8de\ un\ ensemble\ de\ mots\ de\ commande\ connus.\ Il\ compare\ la\r\n\ saisie\ utilisateur\ avec\ ces\ mots\ et,\ si\ le\ premier\ mot\ n'est\ pas\ connu,\r\n\ retourne\ un\ objet\ Command\ marqu\u00E9\ comme\ commande\ inconnue.\r\n\r\n\ @author\ \ Michael\ Kolling\ and\ David\ J.\ Barnes\ +\ D.Bureau\ +\ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2008.03.30\ +\ 2019.09.25\ +\ 2025.12.15\r\n
+comment0.text=\r\n\ Classe\ Parser\ -\ interpr\u00E8te\ les\ commandes\ saisies\ par\ l'utilisateur\ dans\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Cette\ classe\ analyse\ les\ cha\u00EEnes\ de\ caract\u00E8res\ entr\u00E9es\ et\ les\ convertit\ en\ objets\ Command.\r\n\r\n\ @author\ \ Michael\ Kolling,\ David\ J.\ Barnes,\ D.\ Bureau,\ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2025.12.15\r\n
 comment1.params=
 comment1.target=Parser()
-comment1.text=\r\n\ Constructeur\ par\ d\u00E9faut\r\n
+comment1.text=\r\n\ Cr\u00E9e\ un\ nouveau\ parseur\ de\ commandes.\r\n\ Initialise\ la\ liste\ des\ commandes\ valides.\r\n
 comment2.params=pInputLine
 comment2.target=Command\ getCommand(java.lang.String)
-comment2.text=\r\n\ Lit\ la\ ligne\ suivante\ saisie\ par\ l'utilisateur\ et\ la\ convertit\ en\ objet\ Command.\r\n\r\n\ R\u00E8gles\ \:\r\n\ -\ Si\ le\ premier\ mot\ n'est\ pas\ une\ commande\ connue,\ retourne\ Command(null,\ null).\r\n\ -\ Si\ la\ commande\ accepte\ une\ direction\ et\ qu'un\ second\ mot\ est\ fourni\ \:\r\n\ \ \ \ \ -\ retourne\ Command(mot,\ direction)\ si\ la\ direction\ est\ valide,\r\n\ \ \ \ \ -\ retourne\ Command(mot,\ "invalid")\ si\ la\ direction\ est\ invalide.\r\n\ -\ Si\ aucun\ second\ mot\ n'est\ fourni,\ retourne\ Command(mot,\ null).\r\n\r\n\ @return\ un\ objet\ Command\ repr\u00E9sentant\ la\ commande\ saisie\r\n
+comment2.text=\r\n\ Analyse\ une\ ligne\ de\ commande\ et\ la\ convertit\ en\ objet\ Command.\r\n\r\n\ \ R\u00E8gles\ \:\r\n\ -\ Si\ le\ premier\ mot\ n'est\ pas\ une\ commande\ connue,\ retourne\ Command(null,\ null).\r\n\ -\ Si\ la\ commande\ accepte\ une\ direction\ et\ qu'un\ second\ mot\ est\ fourni\ \:\r\n\ \ \ \ \ -\ retourne\ Command(mot,\ direction)\ si\ la\ direction\ est\ valide,\r\n\ \ \ \ \ -\ retourne\ Command(mot,\ "invalid")\ si\ la\ direction\ est\ invalide.\r\n\ -\ Si\ aucun\ second\ mot\ n'est\ fourni,\ retourne\ Command(mot,\ null).\r\n\r\n\ @param\ pInputLine\ la\ ligne\ de\ commande\ saisie\ par\ l'utilisateur\r\n\ @return\ un\ objet\ Command\ repr\u00E9sentant\ la\ commande\ analys\u00E9e\r\n
 comment3.params=
 comment3.target=java.lang.String\ getCommandsList()
-comment3.text=\r\n\ Affiche\ toutes\ les\ commandes\ valides.\r\n
+comment3.text=\r\n\ Renvoie\ une\ cha\u00EEne\ de\ caract\u00E8res\ contenant\ toutes\ les\ commandes\ valides.\r\n\r\n\ @return\ la\ liste\ des\ commandes\ valides\ sous\ forme\ de\ cha\u00EEne\r\n
 numComments=4
