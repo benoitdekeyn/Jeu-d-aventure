@@ -9,7 +9,8 @@ import java.util.StringTokenizer;
  */
 public class Parser 
 {
-    private CommandWords aValidCommands;  // (voir la classe CommandWords)
+    /** L'ensemble des commandes valides reconnues par le parseur. */
+    private CommandWords aValidCommands;
 
     /**
      * Crée un nouveau parseur de commandes.

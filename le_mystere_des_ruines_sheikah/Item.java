@@ -8,8 +8,13 @@
 
 public class Item
 {
+    /** Le nom court de l'objet. */
     private String aName;
+    
+    /** La description détaillée de l'objet. */
     private String aDescription;
+    
+    /** Le poids de l'objet en kilogrammes. */
     private double aWeight;
 
     /**

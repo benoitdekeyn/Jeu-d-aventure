@@ -8,7 +8,7 @@
 
 public class CommandWords
 {
-    // Liste des mots de commande valides
+    /** Liste des mots de commande valides reconnus par le jeu. */
     private final String[] aValidCommands = {
         "aller", 
         "retour",
@@ -18,7 +18,7 @@ public class CommandWords
         "respirer"
     };
 
-    // Liste des directions valides
+    /** Liste des directions valides reconnues par le jeu. */
     private final String[] aValidDirection = {
         "nord", 
         "est", 

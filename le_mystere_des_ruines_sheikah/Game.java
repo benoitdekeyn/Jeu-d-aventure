@@ -8,7 +8,10 @@
 
 public class Game
 {
+    /** L'interface utilisateur graphique du jeu. */
     private UserInterface aGui;
+    
+    /** Le moteur de jeu qui gère la logique. */
     private GameEngine aEngine;
 
     /**

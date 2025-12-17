@@ -8,7 +8,10 @@
 
 public class Command
 {
+    /** Le mot principal de la commande. */
     private String aCommandWord;
+    
+    /** Le second mot de la commande (peut être null). */
     private String aSecondWord ;
     
     /**

@@ -22,81 +22,82 @@
 <span class="source-line-no">009</span><span id="line-9"> */</span>
 <span class="source-line-no">010</span><span id="line-10">public class Parser </span>
 <span class="source-line-no">011</span><span id="line-11">{</span>
-<span class="source-line-no">012</span><span id="line-12">    private CommandWords aValidCommands;  // (voir la classe CommandWords)</span>
-<span class="source-line-no">013</span><span id="line-13"></span>
-<span class="source-line-no">014</span><span id="line-14">    /**</span>
-<span class="source-line-no">015</span><span id="line-15">     * Crée un nouveau parseur de commandes.</span>
-<span class="source-line-no">016</span><span id="line-16">     * Initialise la liste des commandes valides.</span>
-<span class="source-line-no">017</span><span id="line-17">     */</span>
-<span class="source-line-no">018</span><span id="line-18">    public Parser() </span>
-<span class="source-line-no">019</span><span id="line-19">    {</span>
-<span class="source-line-no">020</span><span id="line-20">        this.aValidCommands = new CommandWords();</span>
-<span class="source-line-no">021</span><span id="line-21">    } // Parser()</span>
-<span class="source-line-no">022</span><span id="line-22"></span>
-<span class="source-line-no">023</span><span id="line-23">    /**</span>
-<span class="source-line-no">024</span><span id="line-24">     * Analyse une ligne de commande et la convertit en objet Command.</span>
-<span class="source-line-no">025</span><span id="line-25">     *</span>
-<span class="source-line-no">026</span><span id="line-26">     *  Règles :</span>
-<span class="source-line-no">027</span><span id="line-27">     * - Si le premier mot n'est pas une commande connue, retourne Command(null, null).</span>
-<span class="source-line-no">028</span><span id="line-28">     * - Si la commande accepte une direction et qu'un second mot est fourni :</span>
-<span class="source-line-no">029</span><span id="line-29">     *     - retourne Command(mot, direction) si la direction est valide,</span>
-<span class="source-line-no">030</span><span id="line-30">     *     - retourne Command(mot, "invalid") si la direction est invalide.</span>
-<span class="source-line-no">031</span><span id="line-31">     * - Si aucun second mot n'est fourni, retourne Command(mot, null).</span>
-<span class="source-line-no">032</span><span id="line-32">     *</span>
-<span class="source-line-no">033</span><span id="line-33">     * @param pInputLine la ligne de commande saisie par l'utilisateur</span>
-<span class="source-line-no">034</span><span id="line-34">     * @return un objet Command représentant la commande analysée</span>
-<span class="source-line-no">035</span><span id="line-35">     */</span>
-<span class="source-line-no">036</span><span id="line-36">    public Command getCommand( final String pInputLine) </span>
-<span class="source-line-no">037</span><span id="line-37">    {</span>
-<span class="source-line-no">038</span><span id="line-38"></span>
-<span class="source-line-no">039</span><span id="line-39">        StringTokenizer vTokenizer = new StringTokenizer( pInputLine );</span>
-<span class="source-line-no">040</span><span id="line-40">        </span>
-<span class="source-line-no">041</span><span id="line-41">        String vWord1;</span>
-<span class="source-line-no">042</span><span id="line-42">        String vWord2;</span>
-<span class="source-line-no">043</span><span id="line-43"></span>
-<span class="source-line-no">044</span><span id="line-44">        if ( vTokenizer.hasMoreTokens() )</span>
-<span class="source-line-no">045</span><span id="line-45">            vWord1 = vTokenizer.nextToken();      // on extrait le premier mot</span>
-<span class="source-line-no">046</span><span id="line-46">        else</span>
-<span class="source-line-no">047</span><span id="line-47">            vWord1 = null;</span>
-<span class="source-line-no">048</span><span id="line-48"></span>
-<span class="source-line-no">049</span><span id="line-49">        if ( vTokenizer.hasMoreTokens() )</span>
-<span class="source-line-no">050</span><span id="line-50">            vWord2 = vTokenizer.nextToken();      // on extrait le deuxième mot</span>
-<span class="source-line-no">051</span><span id="line-51">        else</span>
-<span class="source-line-no">052</span><span id="line-52">            vWord2 = null;</span>
-<span class="source-line-no">053</span><span id="line-53">        // On ignore le reste de la ligne saisie.</span>
-<span class="source-line-no">054</span><span id="line-54"></span>
-<span class="source-line-no">055</span><span id="line-55">        // Verifie si le premier mot est une commande connue.</span>
-<span class="source-line-no">056</span><span id="line-56">        // Si non, cree une commande vide avec "null" (pour dire 'commande inconnue').</span>
-<span class="source-line-no">057</span><span id="line-57">        // Si oui, cree une commande avec le deuxieme mot qui sera soit :</span>
-<span class="source-line-no">058</span><span id="line-58">        // - null si pas de deuxieme mot</span>
-<span class="source-line-no">059</span><span id="line-59">        // - un String contenant la direction si la direction est valide</span>
-<span class="source-line-no">060</span><span id="line-60">        // - un String "invalid" si la direction est invalide</span>
-<span class="source-line-no">061</span><span id="line-61"></span>
-<span class="source-line-no">062</span><span id="line-62">        if ( this.aValidCommands.isCommand( vWord1 ) ) {</span>
-<span class="source-line-no">063</span><span id="line-63">            if ( vWord2 == null ) {</span>
-<span class="source-line-no">064</span><span id="line-64">                return new Command( vWord1, null );</span>
-<span class="source-line-no">065</span><span id="line-65">            }</span>
-<span class="source-line-no">066</span><span id="line-66">            else if ( this.aValidCommands.isDirection( vWord2 ) ) {</span>
-<span class="source-line-no">067</span><span id="line-67">                return new Command( vWord1, vWord2 );</span>
-<span class="source-line-no">068</span><span id="line-68">            }</span>
-<span class="source-line-no">069</span><span id="line-69">            else {</span>
-<span class="source-line-no">070</span><span id="line-70">                return new Command( vWord1, "invalid" );</span>
-<span class="source-line-no">071</span><span id="line-71">            }</span>
-<span class="source-line-no">072</span><span id="line-72">        } </span>
-<span class="source-line-no">073</span><span id="line-73">        else {</span>
-<span class="source-line-no">074</span><span id="line-74">            return new Command( null, null ); </span>
-<span class="source-line-no">075</span><span id="line-75">        }</span>
-<span class="source-line-no">076</span><span id="line-76">    } // getCommand()</span>
-<span class="source-line-no">077</span><span id="line-77"></span>
-<span class="source-line-no">078</span><span id="line-78">    /**</span>
-<span class="source-line-no">079</span><span id="line-79">     * Renvoie une chaîne de caractères contenant toutes les commandes valides.</span>
-<span class="source-line-no">080</span><span id="line-80">     *</span>
-<span class="source-line-no">081</span><span id="line-81">     * @return la liste des commandes valides sous forme de chaîne</span>
-<span class="source-line-no">082</span><span id="line-82">     */</span>
-<span class="source-line-no">083</span><span id="line-83">    public String getCommandsList(){</span>
-<span class="source-line-no">084</span><span id="line-84">        return this.aValidCommands.getValidCommandsString();</span>
-<span class="source-line-no">085</span><span id="line-85">    } // getCommandsList()</span>
-<span class="source-line-no">086</span><span id="line-86">} // Parser</span>
+<span class="source-line-no">012</span><span id="line-12">    /** L'ensemble des commandes valides reconnues par le parseur. */</span>
+<span class="source-line-no">013</span><span id="line-13">    private CommandWords aValidCommands;</span>
+<span class="source-line-no">014</span><span id="line-14"></span>
+<span class="source-line-no">015</span><span id="line-15">    /**</span>
+<span class="source-line-no">016</span><span id="line-16">     * Crée un nouveau parseur de commandes.</span>
+<span class="source-line-no">017</span><span id="line-17">     * Initialise la liste des commandes valides.</span>
+<span class="source-line-no">018</span><span id="line-18">     */</span>
+<span class="source-line-no">019</span><span id="line-19">    public Parser() </span>
+<span class="source-line-no">020</span><span id="line-20">    {</span>
+<span class="source-line-no">021</span><span id="line-21">        this.aValidCommands = new CommandWords();</span>
+<span class="source-line-no">022</span><span id="line-22">    } // Parser()</span>
+<span class="source-line-no">023</span><span id="line-23"></span>
+<span class="source-line-no">024</span><span id="line-24">    /**</span>
+<span class="source-line-no">025</span><span id="line-25">     * Analyse une ligne de commande et la convertit en objet Command.</span>
+<span class="source-line-no">026</span><span id="line-26">     *</span>
+<span class="source-line-no">027</span><span id="line-27">     *  Règles :</span>
+<span class="source-line-no">028</span><span id="line-28">     * - Si le premier mot n'est pas une commande connue, retourne Command(null, null).</span>
+<span class="source-line-no">029</span><span id="line-29">     * - Si la commande accepte une direction et qu'un second mot est fourni :</span>
+<span class="source-line-no">030</span><span id="line-30">     *     - retourne Command(mot, direction) si la direction est valide,</span>
+<span class="source-line-no">031</span><span id="line-31">     *     - retourne Command(mot, "invalid") si la direction est invalide.</span>
+<span class="source-line-no">032</span><span id="line-32">     * - Si aucun second mot n'est fourni, retourne Command(mot, null).</span>
+<span class="source-line-no">033</span><span id="line-33">     *</span>
+<span class="source-line-no">034</span><span id="line-34">     * @param pInputLine la ligne de commande saisie par l'utilisateur</span>
+<span class="source-line-no">035</span><span id="line-35">     * @return un objet Command représentant la commande analysée</span>
+<span class="source-line-no">036</span><span id="line-36">     */</span>
+<span class="source-line-no">037</span><span id="line-37">    public Command getCommand( final String pInputLine) </span>
+<span class="source-line-no">038</span><span id="line-38">    {</span>
+<span class="source-line-no">039</span><span id="line-39"></span>
+<span class="source-line-no">040</span><span id="line-40">        StringTokenizer vTokenizer = new StringTokenizer( pInputLine );</span>
+<span class="source-line-no">041</span><span id="line-41">        </span>
+<span class="source-line-no">042</span><span id="line-42">        String vWord1;</span>
+<span class="source-line-no">043</span><span id="line-43">        String vWord2;</span>
+<span class="source-line-no">044</span><span id="line-44"></span>
+<span class="source-line-no">045</span><span id="line-45">        if ( vTokenizer.hasMoreTokens() )</span>
+<span class="source-line-no">046</span><span id="line-46">            vWord1 = vTokenizer.nextToken();      // on extrait le premier mot</span>
+<span class="source-line-no">047</span><span id="line-47">        else</span>
+<span class="source-line-no">048</span><span id="line-48">            vWord1 = null;</span>
+<span class="source-line-no">049</span><span id="line-49"></span>
+<span class="source-line-no">050</span><span id="line-50">        if ( vTokenizer.hasMoreTokens() )</span>
+<span class="source-line-no">051</span><span id="line-51">            vWord2 = vTokenizer.nextToken();      // on extrait le deuxième mot</span>
+<span class="source-line-no">052</span><span id="line-52">        else</span>
+<span class="source-line-no">053</span><span id="line-53">            vWord2 = null;</span>
+<span class="source-line-no">054</span><span id="line-54">        // On ignore le reste de la ligne saisie.</span>
+<span class="source-line-no">055</span><span id="line-55"></span>
+<span class="source-line-no">056</span><span id="line-56">        // Verifie si le premier mot est une commande connue.</span>
+<span class="source-line-no">057</span><span id="line-57">        // Si non, cree une commande vide avec "null" (pour dire 'commande inconnue').</span>
+<span class="source-line-no">058</span><span id="line-58">        // Si oui, cree une commande avec le deuxieme mot qui sera soit :</span>
+<span class="source-line-no">059</span><span id="line-59">        // - null si pas de deuxieme mot</span>
+<span class="source-line-no">060</span><span id="line-60">        // - un String contenant la direction si la direction est valide</span>
+<span class="source-line-no">061</span><span id="line-61">        // - un String "invalid" si la direction est invalide</span>
+<span class="source-line-no">062</span><span id="line-62"></span>
+<span class="source-line-no">063</span><span id="line-63">        if ( this.aValidCommands.isCommand( vWord1 ) ) {</span>
+<span class="source-line-no">064</span><span id="line-64">            if ( vWord2 == null ) {</span>
+<span class="source-line-no">065</span><span id="line-65">                return new Command( vWord1, null );</span>
+<span class="source-line-no">066</span><span id="line-66">            }</span>
+<span class="source-line-no">067</span><span id="line-67">            else if ( this.aValidCommands.isDirection( vWord2 ) ) {</span>
+<span class="source-line-no">068</span><span id="line-68">                return new Command( vWord1, vWord2 );</span>
+<span class="source-line-no">069</span><span id="line-69">            }</span>
+<span class="source-line-no">070</span><span id="line-70">            else {</span>
+<span class="source-line-no">071</span><span id="line-71">                return new Command( vWord1, "invalid" );</span>
+<span class="source-line-no">072</span><span id="line-72">            }</span>
+<span class="source-line-no">073</span><span id="line-73">        } </span>
+<span class="source-line-no">074</span><span id="line-74">        else {</span>
+<span class="source-line-no">075</span><span id="line-75">            return new Command( null, null ); </span>
+<span class="source-line-no">076</span><span id="line-76">        }</span>
+<span class="source-line-no">077</span><span id="line-77">    } // getCommand()</span>
+<span class="source-line-no">078</span><span id="line-78"></span>
+<span class="source-line-no">079</span><span id="line-79">    /**</span>
+<span class="source-line-no">080</span><span id="line-80">     * Renvoie une chaîne de caractères contenant toutes les commandes valides.</span>
+<span class="source-line-no">081</span><span id="line-81">     *</span>
+<span class="source-line-no">082</span><span id="line-82">     * @return la liste des commandes valides sous forme de chaîne</span>
+<span class="source-line-no">083</span><span id="line-83">     */</span>
+<span class="source-line-no">084</span><span id="line-84">    public String getCommandsList(){</span>
+<span class="source-line-no">085</span><span id="line-85">        return this.aValidCommands.getValidCommandsString();</span>
+<span class="source-line-no">086</span><span id="line-86">    } // getCommandsList()</span>
+<span class="source-line-no">087</span><span id="line-87">} // Parser</span>
 
 
 

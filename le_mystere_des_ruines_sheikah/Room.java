@@ -9,9 +9,16 @@ import java.util.HashMap;
  */
 public class Room
 {
+    /** La description textuelle de la salle. */
     private String aDescription;
+    
+    /** Les sorties de la salle (direction -> salle voisine). */
     private HashMap<String, Room> exits;
+    
+    /** Le nom du fichier image représentant la salle. */
     private String aImageName;
+    
+    /** Les objets présents dans la salle (nom -> objet). */
     private HashMap<String, Item> aItems;
     
     /**

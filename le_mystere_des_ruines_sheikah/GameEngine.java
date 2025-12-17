@@ -10,10 +10,19 @@ import java.util.Stack;
  */
 public class GameEngine
 {
+    /** Le parseur de commandes du jeu. */
     private Parser        aParser;
+    
+    /** La salle dans laquelle se trouve actuellement le joueur. */
     private Room          aCurrentRoom;
+    
+    /** L'historique des salles visitées pour la commande "retour". */
     private Stack<Room>   aPreviousRooms;
+    
+    /** L'interface utilisateur graphique. */
     private UserInterface aGui;
+    
+    /** Le chemin du dossier contenant les images du jeu. */
     private String        aImagesFolder = "Images/";
 
     /**

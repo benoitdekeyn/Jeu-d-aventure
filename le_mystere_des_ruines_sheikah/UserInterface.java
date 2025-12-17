@@ -25,13 +25,28 @@ import javax.swing.JTextField;
  */
 public class UserInterface implements ActionListener
 {
+    /** Le moteur de jeu qui traite les commandes. */
     private GameEngine aEngine;
+    
+    /** La fenêtre principale de l'interface graphique. */
     private JFrame     aMyFrame;
+    
+    /** Le champ de saisie pour entrer les commandes. */
     private JTextField aEntryField;
+    
+    /** La zone de texte qui affiche l'historique du jeu. */
     private JTextArea  aLog;
+    
+    /** L'étiquette qui affiche l'image de la salle courante. */
     private JLabel     aImage;
+    
+    /** Le chemin du dossier contenant les images. */
     private String     aImagesFolder;
+    
+    /** Le bouton pour exécuter la commande "respirer". */
     private JButton    aBreathButton;
+    
+    /** Le bouton pour exécuter la commande "regarder". */
     private JButton    aLookButton;
 
     /**
