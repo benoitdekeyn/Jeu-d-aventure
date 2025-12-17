@@ -59,17 +59,8 @@ public class Parser
         // - null si pas de deuxieme mot
         // - un String contenant la direction si la direction est valide
         // - un String "invalid" si la direction est invalide
-
         if ( this.aValidCommands.isCommand( vWord1 ) ) {
-            if ( vWord2 == null ) {
-                return new Command( vWord1, null );
-            }
-            else if ( this.aValidCommands.isDirection( vWord2 ) ) {
-                return new Command( vWord1, vWord2 );
-            }
-            else {
-                return new Command( vWord1, "invalid" );
-            }
+            return new Command( vWord1, vWord2 );
         } 
         else {
             return new Command( null, null ); 

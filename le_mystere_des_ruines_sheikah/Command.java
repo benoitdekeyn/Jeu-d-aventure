@@ -65,6 +65,18 @@ public class Command
     {
         return this.aCommandWord == null;
     } //isUnknown
+
+    /**
+     * Vérifie si une chaîne de caractères donnée est une direction valide.
+     *
+     * @param pString la chaîne de caractères à tester
+     * @return true si la chaîne de caractères est une direction valide, false sinon
+     */
+    public boolean isDirection( final String pString )
+    {
+        CommandWords vCommandWords = new CommandWords();
+        return vCommandWords.isDirection( pString );
+    } // isDirection(*)
     
     
 } // Command

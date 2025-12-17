@@ -1,4 +1,7 @@
 import java.util.Stack;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Classe GameEngine - le moteur du jeu "le mystère des ruines Sheikah".
@@ -147,6 +150,7 @@ public class GameEngine
             case "aide" -> printHelp();
             case "respirer" -> breathe();
             case "regarder" -> look();
+            case "test" -> executeTest(vCommand);
             default -> System.out.println("Cette commande n'a pas encore d'action associée.");
         }
     } // interpretCommand(*)
@@ -182,7 +186,7 @@ public class GameEngine
 
         String vDirection = pCommand.getSecondWord();
 
-        if (vDirection.equals("invalid")) {
+        if ( ! pCommand.isDirection( vDirection ) ) {
             System.out.println("Cette direction n'existe pas.");
             return;
         }
@@ -268,5 +272,34 @@ public class GameEngine
         if ( this.aCurrentRoom.getImageName() != null )
             this.aGui.showImage( this.aCurrentRoom.getImageName() );
     } // displayLocationImage
+
+    /**
+     * Exécute la commande "test" pour lire et exécuter des commandes depuis un fichier.
+     * Le fichier doit contenir une commande par ligne et se trouver à la racine du projet.
+     *
+     * @param pCommand la commande test avec le nom du fichier (sans extension .txt)
+     */
+    private void executeTest(final Command pCommand)
+    {
+        if (!pCommand.hasSecondWord()) {
+            this.aGui.println("Test quel fichier ? Spécifiez un nom de fichier.");
+            return;
+        }
+        String pNomFichier = pCommand.getSecondWord() + ".txt";
+        Scanner vScanner;
+        try { // pour "essayer" les instructions suivantes :
+            vScanner = new Scanner( new File( pNomFichier ) ); // ouverture du fichier s'il existe
+            this.aGui.println("\n============= Exécution TEST =============\n");
+            while ( vScanner.hasNextLine() ) { // tant qu'il y a encore une ligne à lire dans le fichier
+                String vLigne = vScanner.nextLine(); // lecture de la ligne dans le fichier
+                this.interpretCommand( vLigne );
+            } // while
+            this.aGui.println("\n============= TEST terminé =============\n");
+        } // try
+        catch ( final FileNotFoundException pFNFE ) { // si le fichier n'existe pas
+            this.aGui.println("Le fichier '" + pNomFichier + "' est introuvable.");
+        } // catch
+        
+    } // executeTest(*)
 
 }

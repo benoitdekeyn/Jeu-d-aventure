@@ -15,7 +15,8 @@ public class CommandWords
         "aide", 
         "quitter", 
         "regarder",
-        "respirer"
+        "respirer",
+        "test"
     };
 
     /** Liste des directions valides reconnues par le jeu. */

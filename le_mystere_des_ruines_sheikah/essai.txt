@@ -1,0 +1,7 @@
+regarder
+aller nord
+regarder
+aller est
+aide
+retour
+quitter
