@@ -187,7 +187,7 @@ public class GameEngine
         String vDirection = pCommand.getSecondWord();
 
         if ( ! pCommand.isDirection( vDirection ) ) {
-            System.out.println("Cette direction n'existe pas.");
+            this.aGui.println("Cette direction n'existe pas.");
             return;
         }
         

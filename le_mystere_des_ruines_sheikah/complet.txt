@@ -4,10 +4,14 @@ aller nord
 regarder
 retour
 aller ouest
+regarder
 aller est
 regarder
 respirer
 retour
+aller sud
+regarder
+aller nord
 aller nord
 aller sud
 regarder
@@ -15,8 +19,17 @@ respirer
 respirer
 retour
 aller est
+regarder
+aller nord
+regarder
+retour
+aller sud
+regarder
 aller ouest
+regarder
 aller haut
+regarder
+respirer
 aller haut
 regarder
 respirer
@@ -26,9 +39,11 @@ retour
 retour
 retour
 retour
+retour
+retour
 aide
-aller nullepart
-commandeInconnue
-retour erreur
-quitter erreur
+aller invalide
+commande_inexistante
+retour avec_parametre
+quitter avec_parametre
 quitter

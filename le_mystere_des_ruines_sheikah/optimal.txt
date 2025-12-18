@@ -1,0 +1,12 @@
+aller est
+aller ouest
+aller haut
+aller haut
+regarder
+aller bas
+aller bas
+aller est
+aller sud
+aller nord
+regarder
+quitter
