@@ -72,32 +72,23 @@
 <span class="source-line-no">059</span><span id="line-59">        // - null si pas de deuxieme mot</span>
 <span class="source-line-no">060</span><span id="line-60">        // - un String contenant la direction si la direction est valide</span>
 <span class="source-line-no">061</span><span id="line-61">        // - un String "invalid" si la direction est invalide</span>
-<span class="source-line-no">062</span><span id="line-62"></span>
-<span class="source-line-no">063</span><span id="line-63">        if ( this.aValidCommands.isCommand( vWord1 ) ) {</span>
-<span class="source-line-no">064</span><span id="line-64">            if ( vWord2 == null ) {</span>
-<span class="source-line-no">065</span><span id="line-65">                return new Command( vWord1, null );</span>
-<span class="source-line-no">066</span><span id="line-66">            }</span>
-<span class="source-line-no">067</span><span id="line-67">            else if ( this.aValidCommands.isDirection( vWord2 ) ) {</span>
-<span class="source-line-no">068</span><span id="line-68">                return new Command( vWord1, vWord2 );</span>
-<span class="source-line-no">069</span><span id="line-69">            }</span>
-<span class="source-line-no">070</span><span id="line-70">            else {</span>
-<span class="source-line-no">071</span><span id="line-71">                return new Command( vWord1, "invalid" );</span>
-<span class="source-line-no">072</span><span id="line-72">            }</span>
-<span class="source-line-no">073</span><span id="line-73">        } </span>
-<span class="source-line-no">074</span><span id="line-74">        else {</span>
-<span class="source-line-no">075</span><span id="line-75">            return new Command( null, null ); </span>
-<span class="source-line-no">076</span><span id="line-76">        }</span>
-<span class="source-line-no">077</span><span id="line-77">    } // getCommand()</span>
-<span class="source-line-no">078</span><span id="line-78"></span>
-<span class="source-line-no">079</span><span id="line-79">    /**</span>
-<span class="source-line-no">080</span><span id="line-80">     * Renvoie une chaîne de caractères contenant toutes les commandes valides.</span>
-<span class="source-line-no">081</span><span id="line-81">     *</span>
-<span class="source-line-no">082</span><span id="line-82">     * @return la liste des commandes valides sous forme de chaîne</span>
-<span class="source-line-no">083</span><span id="line-83">     */</span>
-<span class="source-line-no">084</span><span id="line-84">    public String getCommandsList(){</span>
-<span class="source-line-no">085</span><span id="line-85">        return this.aValidCommands.getValidCommandsString();</span>
-<span class="source-line-no">086</span><span id="line-86">    } // getCommandsList()</span>
-<span class="source-line-no">087</span><span id="line-87">} // Parser</span>
+<span class="source-line-no">062</span><span id="line-62">        if ( this.aValidCommands.isCommand( vWord1 ) ) {</span>
+<span class="source-line-no">063</span><span id="line-63">            return new Command( vWord1, vWord2 );</span>
+<span class="source-line-no">064</span><span id="line-64">        } </span>
+<span class="source-line-no">065</span><span id="line-65">        else {</span>
+<span class="source-line-no">066</span><span id="line-66">            return new Command( null, null ); </span>
+<span class="source-line-no">067</span><span id="line-67">        }</span>
+<span class="source-line-no">068</span><span id="line-68">    } // getCommand()</span>
+<span class="source-line-no">069</span><span id="line-69"></span>
+<span class="source-line-no">070</span><span id="line-70">    /**</span>
+<span class="source-line-no">071</span><span id="line-71">     * Renvoie une chaîne de caractères contenant toutes les commandes valides.</span>
+<span class="source-line-no">072</span><span id="line-72">     *</span>
+<span class="source-line-no">073</span><span id="line-73">     * @return la liste des commandes valides sous forme de chaîne</span>
+<span class="source-line-no">074</span><span id="line-74">     */</span>
+<span class="source-line-no">075</span><span id="line-75">    public String getCommandsList(){</span>
+<span class="source-line-no">076</span><span id="line-76">        return this.aValidCommands.getValidCommandsString();</span>
+<span class="source-line-no">077</span><span id="line-77">    } // getCommandsList()</span>
+<span class="source-line-no">078</span><span id="line-78">} // Parser</span>
 
 
 

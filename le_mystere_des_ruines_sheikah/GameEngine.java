@@ -206,7 +206,7 @@ public class GameEngine
 
     /**
      * Exécute la commande "retour" pour revenir à la salle précédente.
-     * Vérifie qu'il existe un historique de salles visitées.
+     * Vérifie qu'aucun second mot n'est présent et qu'il existe un historique de salles visitées.
      *
      * @param pCommand la commande reçue (ne doit pas avoir de second mot)
      */

@@ -78,9 +78,21 @@
 <span class="source-line-no">065</span><span id="line-65">    {</span>
 <span class="source-line-no">066</span><span id="line-66">        return this.aCommandWord == null;</span>
 <span class="source-line-no">067</span><span id="line-67">    } //isUnknown</span>
-<span class="source-line-no">068</span><span id="line-68">    </span>
-<span class="source-line-no">069</span><span id="line-69">    </span>
-<span class="source-line-no">070</span><span id="line-70">} // Command</span>
+<span class="source-line-no">068</span><span id="line-68"></span>
+<span class="source-line-no">069</span><span id="line-69">    /**</span>
+<span class="source-line-no">070</span><span id="line-70">     * Vérifie si une chaîne de caractères donnée est une direction valide.</span>
+<span class="source-line-no">071</span><span id="line-71">     *</span>
+<span class="source-line-no">072</span><span id="line-72">     * @param pString la chaîne de caractères à tester</span>
+<span class="source-line-no">073</span><span id="line-73">     * @return true si la chaîne de caractères est une direction valide, false sinon</span>
+<span class="source-line-no">074</span><span id="line-74">     */</span>
+<span class="source-line-no">075</span><span id="line-75">    public boolean isDirection( final String pString )</span>
+<span class="source-line-no">076</span><span id="line-76">    {</span>
+<span class="source-line-no">077</span><span id="line-77">        CommandWords vCommandWords = new CommandWords();</span>
+<span class="source-line-no">078</span><span id="line-78">        return vCommandWords.isDirection( pString );</span>
+<span class="source-line-no">079</span><span id="line-79">    } // isDirection(*)</span>
+<span class="source-line-no">080</span><span id="line-80">    </span>
+<span class="source-line-no">081</span><span id="line-81">    </span>
+<span class="source-line-no">082</span><span id="line-82">} // Command</span>
 
 
 

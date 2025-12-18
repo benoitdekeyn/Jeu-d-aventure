@@ -1,7 +1,34 @@
 regarder
+respirer
 aller nord
 regarder
-aller est
-aide
 retour
+aller ouest
+aller est
+regarder
+respirer
+retour
+aller nord
+aller sud
+regarder
+respirer
+respirer
+retour
+aller est
+aller ouest
+aller haut
+aller haut
+regarder
+respirer
+retour
+retour
+retour
+retour
+retour
+retour
+aide
+aller nullepart
+commandeInconnue
+retour erreur
+quitter erreur
 quitter
