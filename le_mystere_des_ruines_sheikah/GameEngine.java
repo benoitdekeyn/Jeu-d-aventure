@@ -13,26 +13,39 @@ import java.util.Scanner;
 public class GameEngine
 {
     /** Le parseur de commandes du jeu. */
-    private final Parser        aParser;
+    private final Parser aParser;
     
     /** Le joueur du jeu. */
-    private final Player        aPlayer;
+    private Player aPlayer;
     
     /** L'interface utilisateur graphique. */
     private UserInterface aGui;
     
     /** Le chemin du dossier contenant les images du jeu. */
-    private final String        aImagesFolder = "Images/";
+    private final String aImagesFolder = "Images/";
+    
+    /** La salle de départ du jeu. */
+    private Room aStartRoom;
 
     /**
      * Crée un nouveau moteur de jeu.
-     * Initialise le parseur, crée le joueur et toutes les salles.
+     * Initialise le parseur et crée toutes les salles.
      */
     public GameEngine()
     {
         this.aParser = new Parser();
-        this.aPlayer = new Player("Link");
         this.createRooms();
+    }
+
+    /**
+     * Définit le joueur du jeu et l'initialise dans la salle de départ.
+     *
+     * @param pPlayer le joueur à utiliser dans le jeu
+     */
+    public void setPlayer( final Player pPlayer )
+    {
+        this.aPlayer = pPlayer;
+        this.aPlayer.setCurrentRoom( this.aStartRoom );
     }
 
     /**
@@ -44,7 +57,6 @@ public class GameEngine
     {
         this.aGui = pUserInterface;
         this.aGui.setImagesFolder( this.aImagesFolder );
-        this.aPlayer.setGUI( pUserInterface );
         this.printWelcome();
     }
 
@@ -106,8 +118,8 @@ public class GameEngine
         vArbre.addItem(vBranche);
         vSud.addItem(vBuche);
         
-        // room de départ
-        this.aPlayer.setCurrentRoom( vSud );
+        // room de départ (sera assignée au joueur quand il sera créé)
+        this.aStartRoom = vSud;
     } // createRooms
 
     /**
@@ -116,7 +128,7 @@ public class GameEngine
     private void printWelcome()
     {
         this.aGui.println(
-            "\nBienvenue dans la mystérieuse jungle Korogu ! \n" +
+            "\nBonjour " + this.aPlayer.getName() + ",\nbienvenue dans la mystérieuse jungle Korogu ! \n" +
             "Vous êtes enfin parvenu face aux ruines anciennes du peuple Sheikah. \n" +
             "Vous devez maintenant trouver cet artefact si précieux à l'intérieur des ruines. \n" +
             "\n" +
@@ -164,7 +176,7 @@ public class GameEngine
            this.aGui.println("tapez seulement \"quitter\" si vous voulez quitter le jeu."); 
            return;
         }
-        this.aGui.println("Merci d'avoir joué. Au revoir.");
+        this.aGui.println("Merci d'avoir joué, " + this.aPlayer.getName() + ". Au revoir.");
         this.aGui.enable( false );
     } // quit(*)
 
@@ -195,7 +207,7 @@ public class GameEngine
             return;
         } 
         
-        this.aPlayer.changeRoom( vNextRoom );
+        this.aPlayer.goRoom( vNextRoom );
         printLocationInfo();
         displayLocationImage();
     } // goRoom(*)

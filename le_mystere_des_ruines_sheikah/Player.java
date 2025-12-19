@@ -10,16 +10,13 @@ import java.util.Stack;
 public class Player
 {
     /** Le nom du joueur. */
-    private final String        aName;
+    private final String aName;
     
     /** La salle dans laquelle se trouve actuellement le joueur. */
-    private Room          aCurrentRoom;
+    private Room aCurrentRoom;
     
     /** L'historique des salles visitées pour la commande "retour". */
-    private final Stack<Room>   aPreviousRooms;
-    
-    /** L'interface utilisateur graphique (pour certains affichages si nécessaire). */
-    private UserInterface aGui;
+    private final Stack<Room> aPreviousRooms;
 
     /**
      * Crée un nouveau joueur avec un nom donné.
@@ -28,9 +25,13 @@ public class Player
      */
     public Player( final String pName )
     {
-        this.aName = pName;
+        if ( pName == null || pName.trim().isEmpty() ) {
+            this.aName = "Link";
+        } else {
+            this.aName = pName;
+        }
         this.aPreviousRooms = new Stack<>();
-    }
+    } // Player
 
     /**
      * Renvoie le nom du joueur.
@@ -40,7 +41,7 @@ public class Player
     public String getName()
     {
         return this.aName;
-    }
+    } // getName
 
     /**
      * Renvoie la salle dans laquelle se trouve actuellement le joueur.
@@ -50,7 +51,7 @@ public class Player
     public Room getCurrentRoom()
     {
         return this.aCurrentRoom;
-    }
+    } // getCurrentRoom
 
     /**
      * Définit la salle courante du joueur.
@@ -60,17 +61,7 @@ public class Player
     public void setCurrentRoom( final Room pRoom )
     {
         this.aCurrentRoom = pRoom;
-    }
-
-    /**
-     * Définit l'interface utilisateur graphique pour ce joueur.
-     *
-     * @param pGui l'interface utilisateur à utiliser
-     */
-    public void setGUI( final UserInterface pGui )
-    {
-        this.aGui = pGui;
-    }
+    } // setCurrentRoom
 
     /**
      * Déplace le joueur vers une nouvelle salle.
@@ -78,11 +69,11 @@ public class Player
      *
      * @param pNextRoom la salle vers laquelle se déplacer
      */
-    public void changeRoom( final Room pNextRoom )
+    public void goRoom( final Room pNextRoom )
     {
         this.aPreviousRooms.push( this.aCurrentRoom );
         this.aCurrentRoom = pNextRoom;
-    }
+    } // goRoom
 
     /**
      * Fait revenir le joueur à la salle précédente.
@@ -97,6 +88,6 @@ public class Player
         }
         this.aCurrentRoom = this.aPreviousRooms.pop();
         return true;
-    }
+    } // goBack
 
 } // Player

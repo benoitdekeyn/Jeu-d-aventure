@@ -3,5 +3,5 @@ comment0.target=Game
 comment0.text=\r\n\ Classe\ Game\ -\ repr\u00E9sente\ la\ boucle\ principale\ du\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Cette\ classe\ initialise\ le\ moteur\ du\ jeu\ et\ l'interface\ utilisateur.\r\n\r\n\ @author\ \ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2025.12.25\r\n
 comment1.params=
 comment1.target=Game()
-comment1.text=\r\n\ Cr\u00E9e\ et\ initialise\ le\ jeu.\r\n\ Instancie\ le\ moteur\ de\ jeu\ et\ l'interface\ utilisateur,\ puis\ les\ lie\ ensemble.\r\n
+comment1.text=\r\n\ Cr\u00E9e\ et\ initialise\ le\ jeu.\r\n\ Demande\ le\ nom\ du\ joueur,\ instancie\ le\ joueur,\ le\ moteur\ de\ jeu\ et\ l'interface\ utilisateur,\r\n\ puis\ les\ lie\ ensemble.\r\n
 numComments=2

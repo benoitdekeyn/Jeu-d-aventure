@@ -9,18 +9,25 @@
 public class Game
 {
     /** L'interface utilisateur graphique du jeu. */
-    private UserInterface aGui;
+    private final UserInterface aGui;
     
     /** Le moteur de jeu qui gère la logique. */
-    private GameEngine aEngine;
+    private final GameEngine aEngine;
+    
+    /** Le joueur du jeu. */
+    private final Player aPlayer;
 
     /**
      * Crée et initialise le jeu.
-     * Instancie le moteur de jeu et l'interface utilisateur, puis les lie ensemble.
+     * Demande le nom du joueur, instancie le joueur, le moteur de jeu et l'interface utilisateur,
+     * puis les lie ensemble.
      */
     public Game() 
     {
+        String vPlayerName = javax.swing.JOptionPane.showInputDialog( "Quel est votre prénom ?" );
+        this.aPlayer = new Player( vPlayerName );
         this.aEngine = new GameEngine();
+        this.aEngine.setPlayer( this.aPlayer );
         this.aGui = new UserInterface( this.aEngine );
         this.aEngine.setGUI( this.aGui );
     }
