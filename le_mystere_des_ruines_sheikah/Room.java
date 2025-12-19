@@ -92,6 +92,27 @@ public class Room
     }
 
     /**
+     * Retire un objet de cette salle.
+     *
+     * @param pItemName le nom de l'objet à retirer
+     */
+    public void removeItem( final String pItemName )
+    {
+        this.aItems.remove(pItemName);
+    }
+
+    /**
+     * Renvoie un objet présent dans cette salle.
+     *
+     * @param pItemName le nom de l'objet recherché
+     * @return l'Item correspondant, ou null si non trouvé
+     */
+    public Item getItem( final String pItemName )
+    {
+        return this.aItems.get(pItemName);
+    }
+
+    /**
      * Construit une chaîne de caractères décrivant les objets présents dans la salle.
      *
      * @return une description des objets ou un message indiquant l'absence d'objets

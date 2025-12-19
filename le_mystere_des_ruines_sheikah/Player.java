@@ -17,6 +17,9 @@ public class Player
     
     /** L'historique des salles visitées pour la commande "retour". */
     private final Stack<Room> aPreviousRooms;
+    
+    /** L'objet porté par le joueur (un seul pour l'instant). */
+    private Item aCurrentItem;
 
     /**
      * Crée un nouveau joueur en demandant son nom via une boîte de dialogue.
@@ -89,5 +92,43 @@ public class Player
         this.aCurrentRoom = this.aPreviousRooms.pop();
         return true;
     } // goBack
+
+    /**
+     * Ajoute un objet à l'inventaire du joueur.
+     *
+     * @param pItem l'objet à ajouter
+     */
+    public void addItem( final Item pItem )
+    {
+        this.aCurrentItem = pItem;
+    } // addItem
+
+    /**
+     * Retire l'objet de l'inventaire du joueur.
+     */
+    public void removeItem()
+    {
+        this.aCurrentItem = null;
+    } // removeItem
+
+    /**
+     * Renvoie l'objet porté par le joueur.
+     *
+     * @return l'objet porté, ou null si aucun objet
+     */
+    public Item getItem()
+    {
+        return this.aCurrentItem;
+    } // getItem
+
+    /**
+     * Vérifie si le joueur porte un objet.
+     *
+     * @return true si le joueur porte un objet, false sinon
+     */
+    public boolean hasItem()
+    {
+        return this.aCurrentItem != null;
+    } // hasItem
 
 } // Player

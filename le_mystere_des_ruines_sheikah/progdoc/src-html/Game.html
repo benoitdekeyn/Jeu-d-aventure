@@ -22,22 +22,28 @@
 <span class="source-line-no">009</span><span id="line-9">public class Game</span>
 <span class="source-line-no">010</span><span id="line-10">{</span>
 <span class="source-line-no">011</span><span id="line-11">    /** L'interface utilisateur graphique du jeu. */</span>
-<span class="source-line-no">012</span><span id="line-12">    private UserInterface aGui;</span>
+<span class="source-line-no">012</span><span id="line-12">    private final UserInterface aGui;</span>
 <span class="source-line-no">013</span><span id="line-13">    </span>
 <span class="source-line-no">014</span><span id="line-14">    /** Le moteur de jeu qui gère la logique. */</span>
-<span class="source-line-no">015</span><span id="line-15">    private GameEngine aEngine;</span>
-<span class="source-line-no">016</span><span id="line-16"></span>
-<span class="source-line-no">017</span><span id="line-17">    /**</span>
-<span class="source-line-no">018</span><span id="line-18">     * Crée et initialise le jeu.</span>
-<span class="source-line-no">019</span><span id="line-19">     * Instancie le moteur de jeu et l'interface utilisateur, puis les lie ensemble.</span>
-<span class="source-line-no">020</span><span id="line-20">     */</span>
-<span class="source-line-no">021</span><span id="line-21">    public Game() </span>
-<span class="source-line-no">022</span><span id="line-22">    {</span>
-<span class="source-line-no">023</span><span id="line-23">        this.aEngine = new GameEngine();</span>
-<span class="source-line-no">024</span><span id="line-24">        this.aGui = new UserInterface( this.aEngine );</span>
-<span class="source-line-no">025</span><span id="line-25">        this.aEngine.setGUI( this.aGui );</span>
-<span class="source-line-no">026</span><span id="line-26">    }</span>
-<span class="source-line-no">027</span><span id="line-27">}</span>
+<span class="source-line-no">015</span><span id="line-15">    private final GameEngine aEngine;</span>
+<span class="source-line-no">016</span><span id="line-16">    </span>
+<span class="source-line-no">017</span><span id="line-17">    /** Le joueur du jeu. */</span>
+<span class="source-line-no">018</span><span id="line-18">    private final Player aPlayer;</span>
+<span class="source-line-no">019</span><span id="line-19"></span>
+<span class="source-line-no">020</span><span id="line-20">    /**</span>
+<span class="source-line-no">021</span><span id="line-21">     * Crée et initialise le jeu.</span>
+<span class="source-line-no">022</span><span id="line-22">     * Demande le nom du joueur, instancie le joueur, le moteur de jeu et l'interface utilisateur,</span>
+<span class="source-line-no">023</span><span id="line-23">     * puis les lie ensemble.</span>
+<span class="source-line-no">024</span><span id="line-24">     */</span>
+<span class="source-line-no">025</span><span id="line-25">    public Game() </span>
+<span class="source-line-no">026</span><span id="line-26">    {</span>
+<span class="source-line-no">027</span><span id="line-27">        this.aEngine = new GameEngine();</span>
+<span class="source-line-no">028</span><span id="line-28">        this.aPlayer = new Player();</span>
+<span class="source-line-no">029</span><span id="line-29">        this.aEngine.setPlayer( this.aPlayer );</span>
+<span class="source-line-no">030</span><span id="line-30">        this.aGui = new UserInterface( this.aEngine );</span>
+<span class="source-line-no">031</span><span id="line-31">        this.aEngine.setGUI( this.aGui );</span>
+<span class="source-line-no">032</span><span id="line-32">    }</span>
+<span class="source-line-no">033</span><span id="line-33">}</span>
 
 
 

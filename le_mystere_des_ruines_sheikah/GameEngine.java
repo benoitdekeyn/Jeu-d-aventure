@@ -160,6 +160,8 @@ public class GameEngine
             case "respirer" -> breathe();
             case "regarder" -> look();
             case "test"     -> executeTest(vCommand);
+            case "prendre"  -> take(vCommand);
+            case "poser"    -> drop(vCommand);
             default         -> System.out.println("Cette commande n'a pas encore d'action associée.");
         }
     } // interpretCommand(*)
@@ -279,6 +281,61 @@ public class GameEngine
         if ( this.aPlayer.getCurrentRoom().getImageName() != null )
             this.aGui.showImage( this.aPlayer.getCurrentRoom().getImageName() );
     } // displayLocationImage
+
+    /**
+     * Traite la commande "prendre" pour ramasser un objet.
+     * Vérifie que le joueur ne porte pas déjà un objet et que l'objet existe dans la salle.
+     *
+     * @param pCommand la commande reçue (doit contenir le nom de l'objet)
+     */
+    private void take( final Command pCommand )
+    {
+        if ( ! pCommand.hasSecondWord() ) {
+            this.aGui.println("Prendre quoi ? Spécifiez un objet.");
+            return;
+        }
+
+        if ( this.aPlayer.hasItem() ) {
+            this.aGui.println("Vous portez déjà un objet. Posez-le d'abord.");
+            return;
+        }
+
+        String vItemName = pCommand.getSecondWord();
+        Item vItem = this.aPlayer.getCurrentRoom().getItem( vItemName );
+
+        if ( vItem == null ) {
+            this.aGui.println("Cet objet n'est pas ici.");
+            return;
+        }
+
+        this.aPlayer.addItem( vItem );
+        this.aPlayer.getCurrentRoom().removeItem( vItemName );
+        this.aGui.println("Vous avez pris : " + vItem.getLongDescription());
+    } // take(*)
+
+    /**
+     * Traite la commande "poser" pour déposer un objet.
+     * Vérifie que le joueur porte bien un objet.
+     *
+     * @param pCommand la commande reçue (ne doit pas avoir de second mot)
+     */
+    private void drop( final Command pCommand )
+    {
+        if ( pCommand.hasSecondWord() ) {
+            this.aGui.println("Tapez seulement \"poser\" pour déposer l'objet que vous portez.");
+            return;
+        }
+
+        if ( ! this.aPlayer.hasItem() ) {
+            this.aGui.println("Vous ne portez aucun objet.");
+            return;
+        }
+
+        Item vItem = this.aPlayer.getItem();
+        this.aPlayer.getCurrentRoom().addItem( vItem );
+        this.aPlayer.removeItem();
+        this.aGui.println("Vous avez posé : " + vItem.getLongDescription());
+    } // drop(*)
 
     /**
      * Exécute la commande "test" pour lire et exécuter des commandes depuis un fichier.
