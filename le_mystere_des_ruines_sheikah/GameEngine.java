@@ -1,7 +1,6 @@
-import java.util.Stack;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * Classe GameEngine - le moteur du jeu "le mystère des ruines Sheikah".
@@ -14,29 +13,26 @@ import java.io.FileNotFoundException;
 public class GameEngine
 {
     /** Le parseur de commandes du jeu. */
-    private Parser        aParser;
+    private final Parser        aParser;
     
-    /** La salle dans laquelle se trouve actuellement le joueur. */
-    private Room          aCurrentRoom;
-    
-    /** L'historique des salles visitées pour la commande "retour". */
-    private Stack<Room>   aPreviousRooms;
+    /** Le joueur du jeu. */
+    private final Player        aPlayer;
     
     /** L'interface utilisateur graphique. */
     private UserInterface aGui;
     
     /** Le chemin du dossier contenant les images du jeu. */
-    private String        aImagesFolder = "Images/";
+    private final String        aImagesFolder = "Images/";
 
     /**
      * Crée un nouveau moteur de jeu.
-     * Initialise le parseur, crée toutes les salles et initialise la pile d'historique.
+     * Initialise le parseur, crée le joueur et toutes les salles.
      */
     public GameEngine()
     {
         this.aParser = new Parser();
+        this.aPlayer = new Player("Link");
         this.createRooms();
-        this.aPreviousRooms = new Stack<Room>();
     }
 
     /**
@@ -48,6 +44,7 @@ public class GameEngine
     {
         this.aGui = pUserInterface;
         this.aGui.setImagesFolder( this.aImagesFolder );
+        this.aPlayer.setGUI( pUserInterface );
         this.printWelcome();
     }
 
@@ -110,7 +107,7 @@ public class GameEngine
         vSud.addItem(vBuche);
         
         // room de départ
-        this.aCurrentRoom = vSud;
+        this.aPlayer.setCurrentRoom( vSud );
     } // createRooms
 
     /**
@@ -191,15 +188,14 @@ public class GameEngine
             return;
         }
         
-        Room vNextRoom = this.aCurrentRoom.getExit( vDirection );
+        Room vNextRoom = this.aPlayer.getCurrentRoom().getExit( vDirection );
 
         if ( vNextRoom == null ) {
             this.aGui.println("Vous ne pouvez pas aller dans cette direction !");
             return;
         } 
         
-        this.aPreviousRooms.push(this.aCurrentRoom);
-        this.aCurrentRoom = vNextRoom;
+        this.aPlayer.changeRoom( vNextRoom );
         printLocationInfo();
         displayLocationImage();
     } // goRoom(*)
@@ -216,11 +212,10 @@ public class GameEngine
             this.aGui.println("tapez seulement \"retour\" si vous voulez revenir à la salle précédente.");
             return;
         }
-        if ( this.aPreviousRooms.isEmpty() ) {
+        if ( ! this.aPlayer.goBack() ) {
             this.aGui.println("Vous ne pouvez pas revenir en arrière.");
             return;
         }
-        this.aCurrentRoom = this.aPreviousRooms.pop();
         printLocationInfo();
         displayLocationImage();
     } // goBack
@@ -261,7 +256,7 @@ public class GameEngine
      */
     private void printLocationInfo()
     {
-        this.aGui.println(this.aCurrentRoom.getLongDescription());
+        this.aGui.println(this.aPlayer.getCurrentRoom().getLongDescription());
     } // printLocationInfo
 
     /**
@@ -269,8 +264,8 @@ public class GameEngine
      */
     private void displayLocationImage()
     {
-        if ( this.aCurrentRoom.getImageName() != null )
-            this.aGui.showImage( this.aCurrentRoom.getImageName() );
+        if ( this.aPlayer.getCurrentRoom().getImageName() != null )
+            this.aGui.showImage( this.aPlayer.getCurrentRoom().getImageName() );
     } // displayLocationImage
 
     /**
