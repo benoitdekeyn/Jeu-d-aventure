@@ -36,11 +36,6 @@ respirer
 retour
 retour
 retour
-retour
-retour
-retour
-retour
-retour
 aide
 aller invalide
 commande_inexistante

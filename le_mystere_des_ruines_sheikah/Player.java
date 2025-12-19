@@ -19,16 +19,16 @@ public class Player
     private final Stack<Room> aPreviousRooms;
 
     /**
-     * Crée un nouveau joueur avec un nom donné.
-     *
-     * @param pName le nom du joueur
+     * Crée un nouveau joueur en demandant son nom via une boîte de dialogue.
+     * Si aucun nom n'est fourni, le nom par défaut est utilisé.
      */
-    public Player( final String pName )
+    public Player()
     {
-        if ( pName == null || pName.trim().isEmpty() ) {
+        String vPlayerName = javax.swing.JOptionPane.showInputDialog( "Quel est votre prénom ?" );
+        if ( vPlayerName == null || vPlayerName.trim().isEmpty() ) {
             this.aName = "Link";
         } else {
-            this.aName = pName;
+            this.aName = vPlayerName;
         }
         this.aPreviousRooms = new Stack<>();
     } // Player

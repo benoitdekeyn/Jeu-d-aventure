@@ -24,9 +24,8 @@ public class Game
      */
     public Game() 
     {
-        String vPlayerName = javax.swing.JOptionPane.showInputDialog( "Quel est votre prénom ?" );
-        this.aPlayer = new Player( vPlayerName );
         this.aEngine = new GameEngine();
+        this.aPlayer = new Player();
         this.aEngine.setPlayer( this.aPlayer );
         this.aGui = new UserInterface( this.aEngine );
         this.aEngine.setGUI( this.aGui );

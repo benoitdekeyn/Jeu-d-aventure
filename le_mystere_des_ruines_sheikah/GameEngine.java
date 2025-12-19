@@ -153,14 +153,14 @@ public class GameEngine
         }
 
         switch (vCommand.getCommandWord()) {
-            case "quitter" -> quit(vCommand);
-            case "aller" -> goRoom(vCommand);
-            case "retour" -> goBack(vCommand);
-            case "aide" -> printHelp();
+            case "quitter"  -> quit(vCommand);
+            case "aller"    -> goRoom(vCommand);
+            case "retour"   -> goBack(vCommand);
+            case "aide"     -> printHelp();
             case "respirer" -> breathe();
             case "regarder" -> look();
-            case "test" -> executeTest(vCommand);
-            default -> System.out.println("Cette commande n'a pas encore d'action associée.");
+            case "test"     -> executeTest(vCommand);
+            default         -> System.out.println("Cette commande n'a pas encore d'action associée.");
         }
     } // interpretCommand(*)
 
