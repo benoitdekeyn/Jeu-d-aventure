@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Stack;
 
 /**
@@ -18,8 +19,8 @@ public class Player
     /** L'historique des salles visitées pour la commande "retour". */
     private final Stack<Room> aPreviousRooms;
     
-    /** L'objet porté par le joueur (un seul pour l'instant). */
-    private Item aCurrentItem;
+    /** Les objets portés par le joueur. */
+    private HashMap<String, Item> aItems;
 
     /**
      * Crée un nouveau joueur en demandant son nom via une boîte de dialogue.
@@ -34,6 +35,7 @@ public class Player
             this.aName = vPlayerName;
         }
         this.aPreviousRooms = new Stack<>();
+        this.aItems = new HashMap<>();
     } // Player
 
     /**
@@ -100,35 +102,39 @@ public class Player
      */
     public void addItem( final Item pItem )
     {
-        this.aCurrentItem = pItem;
+        this.aItems.put( pItem.getName(), pItem );
     } // addItem
 
     /**
-     * Retire l'objet de l'inventaire du joueur.
+     * Retire un objet de l'inventaire du joueur.
+     *
+     * @param pItemName le nom de l'objet à retirer
      */
-    public void removeItem()
+    public void removeItem( final String pItemName )
     {
-        this.aCurrentItem = null;
+        this.aItems.remove( pItemName );
     } // removeItem
 
     /**
-     * Renvoie l'objet porté par le joueur.
+     * Renvoie un objet porté par le joueur.
      *
-     * @return l'objet porté, ou null si aucun objet
+     * @param pItemName le nom de l'objet recherché
+     * @return l'objet correspondant, ou null si non trouvé
      */
-    public Item getItem()
+    public Item getItem( final String pItemName )
     {
-        return this.aCurrentItem;
+        return this.aItems.get( pItemName );
     } // getItem
 
     /**
-     * Vérifie si le joueur porte un objet.
+     * Vérifie si le joueur porte un objet spécifique.
      *
-     * @return true si le joueur porte un objet, false sinon
+     * @param pItemName le nom de l'objet recherché
+     * @return true si le joueur porte cet objet, false sinon
      */
-    public boolean hasItem()
+    public boolean hasItem( final String pItemName )
     {
-        return this.aCurrentItem != null;
+        return this.aItems.containsKey( pItemName );
     } // hasItem
 
 } // Player

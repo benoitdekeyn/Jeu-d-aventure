@@ -153,16 +153,16 @@ public class GameEngine
         }
 
         switch (vCommand.getCommandWord()) {
-            case "quitter"  -> quit(vCommand);
-            case "aller"    -> goRoom(vCommand);
-            case "retour"   -> goBack(vCommand);
-            case "aide"     -> printHelp();
-            case "respirer" -> breathe();
-            case "regarder" -> look();
-            case "test"     -> executeTest(vCommand);
-            case "prendre"  -> take(vCommand);
-            case "poser"    -> drop(vCommand);
-            default         -> System.out.println("Cette commande n'a pas encore d'action associée.");
+            case "quitter"     -> quit(vCommand);
+            case "aller"       -> goRoom(vCommand);
+            case "retour"      -> goBack(vCommand);
+            case "aide"        -> printHelp();
+            case "respirer"    -> breathe();
+            case "regarder"    -> look();
+            case "test"        -> executeTest(vCommand);
+            case "prendre"     -> take(vCommand);
+            case "poser"       -> drop(vCommand);
+            default            -> System.out.println("Cette commande n'a pas encore d'action associée.");
         }
     } // interpretCommand(*)
 
@@ -284,7 +284,7 @@ public class GameEngine
 
     /**
      * Traite la commande "prendre" pour ramasser un objet.
-     * Vérifie que le joueur ne porte pas déjà un objet et que l'objet existe dans la salle.
+     * Vérifie que l'objet existe dans la salle.
      *
      * @param pCommand la commande reçue (doit contenir le nom de l'objet)
      */
@@ -292,11 +292,6 @@ public class GameEngine
     {
         if ( ! pCommand.hasSecondWord() ) {
             this.aGui.println("Prendre quoi ? Spécifiez un objet.");
-            return;
-        }
-
-        if ( this.aPlayer.hasItem() ) {
-            this.aGui.println("Vous portez déjà un objet. Posez-le d'abord.");
             return;
         }
 
@@ -315,25 +310,27 @@ public class GameEngine
 
     /**
      * Traite la commande "poser" pour déposer un objet.
-     * Vérifie que le joueur porte bien un objet.
+     * Vérifie que le joueur porte bien l'objet spécifié.
      *
-     * @param pCommand la commande reçue (ne doit pas avoir de second mot)
+     * @param pCommand la commande reçue (doit contenir le nom de l'objet)
      */
     private void drop( final Command pCommand )
     {
-        if ( pCommand.hasSecondWord() ) {
-            this.aGui.println("Tapez seulement \"poser\" pour déposer l'objet que vous portez.");
+        if ( ! pCommand.hasSecondWord() ) {
+            this.aGui.println("Poser quoi ? Spécifiez un objet.");
             return;
         }
 
-        if ( ! this.aPlayer.hasItem() ) {
-            this.aGui.println("Vous ne portez aucun objet.");
+        String vItemName = pCommand.getSecondWord();
+        
+        if ( ! this.aPlayer.hasItem( vItemName ) ) {
+            this.aGui.println("Vous ne portez pas cet objet.");
             return;
         }
 
-        Item vItem = this.aPlayer.getItem();
+        Item vItem = this.aPlayer.getItem( vItemName );
         this.aPlayer.getCurrentRoom().addItem( vItem );
-        this.aPlayer.removeItem();
+        this.aPlayer.removeItem( vItemName );
         this.aGui.println("Vous avez posé : " + vItem.getLongDescription());
     } // drop(*)
 
