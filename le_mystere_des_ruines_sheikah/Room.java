@@ -19,7 +19,7 @@ public class Room
     private String aImageName;
     
     /** Les objets présents dans la salle (nom -> objet). */
-    private HashMap<String, Item> aItems;
+    private ItemList aItems;
     
     /**
      * Crée une nouvelle salle avec une description et une image associée.
@@ -32,7 +32,7 @@ public class Room
         this.aDescription = pDescription;
         this.exits = new HashMap<String, Room>();
         this.aImageName = pImage;
-        this.aItems = new HashMap<String, Item>();
+        this.aItems = new ItemList();
     } // constructeur
 
     /**
@@ -88,7 +88,7 @@ public class Room
      */
     public void addItem( final Item pItem )
     {
-        this.aItems.put(pItem.getName(), pItem);
+        this.aItems.add(pItem);
     }
 
     /**
@@ -99,7 +99,7 @@ public class Room
     public void removeItem( final String pItemName )
     {
         this.aItems.remove(pItemName);
-    }
+    } // removeItem
 
     /**
      * Renvoie un objet présent dans cette salle.
@@ -110,26 +110,16 @@ public class Room
     public Item getItem( final String pItemName )
     {
         return this.aItems.get(pItemName);
-    }
+    } // getItem
 
     /**
-     * Construit une chaîne de caractères décrivant les objets présents dans la salle.
+     * Renvoie une chaîne de caractères listant les objets présents dans cette salle.
      *
-     * @return une description des objets ou un message indiquant l'absence d'objets
+     * @return une description des objets dans la salle
      */
-    private String getItemString()
-    {
-        if ( !this.aItems.isEmpty() ) {
-            StringBuilder vItemString = new StringBuilder("Objets présents :");
-            for ( Item vItem : this.aItems.values() ) {
-                vItemString.append("\n - ").append(vItem.getLongDescription());
-            }
-            return vItemString.toString();
-        }
-        else {
-            return "Aucun objet ici.";
-        }
-    }
+    public String getItemString() {
+        return this.aItems.getItemString();
+    } // getItemString
 
     /**
      * Renvoie une description complète de la salle.
@@ -140,7 +130,7 @@ public class Room
     public String getLongDescription()
     {
         // On ajoute getItemString() à la description affichée
-        return "Vous êtes " + this.aDescription + ".\n" + this.getItemString() + "\n" + this.getExitString();
+        return "Vous êtes " + this.aDescription + ".\n" + "La pièce contient : " + this.getItemString() + "\n" + this.getExitString();
     } // getLongDescription
 
     /**

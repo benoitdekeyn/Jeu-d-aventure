@@ -1,9 +1,8 @@
-import java.util.HashMap;
 import java.util.Stack;
 
 /**
  * Classe Player - représente un joueur dans le jeu "le mystère des ruines Sheikah".
- * Un joueur possède un nom, une salle courante et un historique de ses déplacements.
+ * Un joueur possède un nom, une salle courante, un historique de ses déplacements et un inventaire.
  *
  * @author  Benoît de Keyn
  * @version 2025.12.25
@@ -11,16 +10,16 @@ import java.util.Stack;
 public class Player
 {
     /** Le nom du joueur. */
-    private final String aName;
+    private String aName;
     
     /** La salle dans laquelle se trouve actuellement le joueur. */
     private Room aCurrentRoom;
     
     /** L'historique des salles visitées pour la commande "retour". */
-    private final Stack<Room> aPreviousRooms;
-    
-    /** Les objets portés par le joueur. */
-    private HashMap<String, Item> aItems;
+    private Stack<Room> aPreviousRooms;
+
+    /** L'inventaire du joueur contenant les objets portés. */
+    private ItemList aInventaire;
 
     /**
      * Crée un nouveau joueur en demandant son nom via une boîte de dialogue.
@@ -35,7 +34,7 @@ public class Player
             this.aName = vPlayerName;
         }
         this.aPreviousRooms = new Stack<>();
-        this.aItems = new HashMap<>();
+        this.aInventaire = new ItemList();
     } // Player
 
     /**
@@ -102,7 +101,7 @@ public class Player
      */
     public void addItem( final Item pItem )
     {
-        this.aItems.put( pItem.getName(), pItem );
+        this.aInventaire.add(pItem);
     } // addItem
 
     /**
@@ -112,7 +111,7 @@ public class Player
      */
     public void removeItem( final String pItemName )
     {
-        this.aItems.remove( pItemName );
+        this.aInventaire.remove( pItemName );
     } // removeItem
 
     /**
@@ -123,7 +122,7 @@ public class Player
      */
     public Item getItem( final String pItemName )
     {
-        return this.aItems.get( pItemName );
+        return this.aInventaire.get( pItemName );
     } // getItem
 
     /**
@@ -134,7 +133,17 @@ public class Player
      */
     public boolean hasItem( final String pItemName )
     {
-        return this.aItems.containsKey( pItemName );
+        return this.aInventaire.has( pItemName );
     } // hasItem
+
+    /**
+     * Renvoie une chaîne de caractères listant les objets portés par le joueur.
+     *
+     * @return une description des objets portés
+     */
+    public String getItemsString()
+    {
+        return this.aInventaire.getItemString();
+    } // getItemsString
 
 } // Player

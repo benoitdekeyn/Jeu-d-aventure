@@ -33,5 +33,5 @@ comment8.target=Item\ getItem(java.lang.String)
 comment8.text=\r\n\ Renvoie\ un\ objet\ pr\u00E9sent\ dans\ cette\ salle.\r\n\r\n\ @param\ pItemName\ le\ nom\ de\ l'objet\ recherch\u00E9\r\n\ @return\ l'Item\ correspondant,\ ou\ null\ si\ non\ trouv\u00E9\r\n
 comment9.params=
 comment9.target=java.lang.String\ getItemString()
-comment9.text=\r\n\ Construit\ une\ cha\u00EEne\ de\ caract\u00E8res\ d\u00E9crivant\ les\ objets\ pr\u00E9sents\ dans\ la\ salle.\r\n\r\n\ @return\ une\ description\ des\ objets\ ou\ un\ message\ indiquant\ l'absence\ d'objets\r\n
+comment9.text=\r\n\ Renvoie\ une\ cha\u00EEne\ de\ caract\u00E8res\ listant\ les\ objets\ pr\u00E9sents\ dans\ cette\ salle.\r\n\r\n\ @return\ une\ description\ des\ objets\ dans\ la\ salle\r\n
 numComments=12
