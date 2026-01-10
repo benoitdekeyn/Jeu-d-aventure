@@ -84,6 +84,7 @@ public class GameEngine
         Item vBranche   = new Item("branche", "une branche solide", 1.2);
         Item vEpee      = new Item("épée", "une épée rouillée", 2.0);
         Item vBuche     = new Item("bûche", "une bûche lourde", 5.0);
+        Item vRocher    = new Item("rocher", "un gros rocher bien lourd", 12.0);
 
         // zones extérieures
         vNord.setExit("est", vEst);
@@ -117,6 +118,7 @@ public class GameEngine
         vArbre.addItem(vClef);
         vArbre.addItem(vBranche);
         vSud.addItem(vBuche);
+        vSud.addItem(vRocher);
         
         // room de départ (sera assignée au joueur quand il sera créé)
         this.aStartRoom = vSud;
@@ -283,15 +285,17 @@ public class GameEngine
     } // displayLocationImage
 
     /**
-     * Traite la commande "prendre" pour ramasser un objet.
-     * Vérifie que l'objet existe dans la salle.
+     * Traite la commande "prendre" pour ramasser un objet dans la salle courante.
+     * Vérifie que l'objet existe dans la salle et que le joueur peut le porter
+     * (capacité de poids suffisante). Si l'objet est ramassé, il est retiré de la
+     * salle et ajouté à l'inventaire du joueur.
      *
-     * @param pCommand la commande reçue (doit contenir le nom de l'objet)
+     * @param pCommand la commande reçue (doit contenir le nom de l'objet à prendre)
      */
     private void take( final Command pCommand )
     {
         if ( ! pCommand.hasSecondWord() ) {
-            this.aGui.println("Prendre quoi ? Spécifiez un objet.");
+            this.aGui.println("Veuillez préciser un objet à prendre.");
             return;
         }
 
@@ -299,20 +303,30 @@ public class GameEngine
         Item vItem = this.aPlayer.getCurrentRoom().getItem( vItemName );
 
         if ( vItem == null ) {
-            this.aGui.println("Cet objet n'est pas ici.");
+            this.aGui.println("Il n'y a pas de tel objet ici.");
             return;
         }
-
-        this.aPlayer.addItem( vItem );
-        this.aPlayer.getCurrentRoom().removeItem( vItemName );
-        this.aGui.println("Vous avez pris : " + vItem.getLongDescription());
+    
+        if ( this.aPlayer.getInventoryWeight() + vItem.getWeight() > this.aPlayer.getInventoryCapacity() ) {
+            this.aGui.println(
+                "Vous ne pouvez porter que " + this.aPlayer.getInventoryCapacity() + " kg au maximum.\n" +
+                "Et vous portez déjà " + this.aPlayer.getInventoryWeight() + " kg.\n" +
+                "Or cet objet pèse " + vItem.getWeight() + " kg.");
+        } else {
+            this.aPlayer.addItem( vItem );
+            this.aPlayer.getCurrentRoom().removeItem( vItemName );
+            this.aGui.println("Vous avez ajouté \"" + vItem.getName() + "\" à votre inventaire.");
+        }
+        
     } // take(*)
 
     /**
-     * Traite la commande "poser" pour déposer un objet.
-     * Vérifie que le joueur porte bien l'objet spécifié.
+     * Traite la commande "poser" pour déposer un objet dans la salle courante.
+     * Vérifie que le joueur possède bien l'objet spécifié dans son inventaire.
+     * Si l'objet est déposé, il est retiré de l'inventaire du joueur et ajouté
+     * à la liste des objets de la salle courante.
      *
-     * @param pCommand la commande reçue (doit contenir le nom de l'objet)
+     * @param pCommand la commande reçue (doit contenir le nom de l'objet à poser)
      */
     private void drop( final Command pCommand )
     {

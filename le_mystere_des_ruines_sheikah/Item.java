@@ -53,6 +53,7 @@ public class Item
 
     /**
      * Renvoie le nom court de l'objet.
+     * Ce nom est utilisé pour identifier l'objet dans les listes d'items.
      *
      * @return le nom de l'objet
      */
@@ -63,6 +64,7 @@ public class Item
     
     /**
      * Renvoie une description complète de l'objet incluant le nom, la description et le poids.
+     * Format: "nom : description (poids kg)"
      *
      * @return une chaîne formatée avec toutes les informations de l'objet
      */

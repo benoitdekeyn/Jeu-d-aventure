@@ -19,7 +19,13 @@ public class Player
     private Stack<Room> aPreviousRooms;
 
     /** L'inventaire du joueur contenant les objets portés. */
-    private ItemList aInventaire;
+    private ItemList aInventory;
+
+    /** Le poids maximum que le joueur peut porter en kilogrammes. */
+    private double aInventoryCapacity;
+
+    /** Le poids total actuel des objets portés par le joueur en kilogrammes. */
+    private double aInventoryWeight;
 
     /**
      * Crée un nouveau joueur en demandant son nom via une boîte de dialogue.
@@ -34,7 +40,9 @@ public class Player
             this.aName = vPlayerName;
         }
         this.aPreviousRooms = new Stack<>();
-        this.aInventaire = new ItemList();
+        this.aInventory = new ItemList();
+        this.aInventoryCapacity = 10.0;
+        this.aInventoryWeight = 0.0;
     } // Player
 
     /**
@@ -96,54 +104,77 @@ public class Player
 
     /**
      * Ajoute un objet à l'inventaire du joueur.
+     * Le poids de l'objet est automatiquement ajouté au poids total porté.
      *
-     * @param pItem l'objet à ajouter
+     * @param pItem l'objet à ajouter à l'inventaire
      */
     public void addItem( final Item pItem )
     {
-        this.aInventaire.add(pItem);
+        this.aInventory.add( pItem );
+        this.aInventoryWeight += pItem.getWeight();
     } // addItem
 
     /**
      * Retire un objet de l'inventaire du joueur.
+     * Si l'objet n'existe pas dans l'inventaire, aucune action n'est effectuée.
      *
-     * @param pItemName le nom de l'objet à retirer
+     * @param pItemName le nom de l'objet à retirer de l'inventaire
      */
     public void removeItem( final String pItemName )
     {
-        this.aInventaire.remove( pItemName );
+        this.aInventory.remove( pItemName );
+        this.aInventoryWeight -= this.aInventory.get( pItemName ).getWeight();
     } // removeItem
 
     /**
-     * Renvoie un objet porté par le joueur.
+     * Renvoie un objet de l'inventaire du joueur.
      *
-     * @param pItemName le nom de l'objet recherché
-     * @return l'objet correspondant, ou null si non trouvé
+     * @param pItemName le nom de l'objet recherché dans l'inventaire
+     * @return l'objet correspondant, ou null si l'objet n'est pas dans l'inventaire
      */
     public Item getItem( final String pItemName )
     {
-        return this.aInventaire.get( pItemName );
+        return this.aInventory.get( pItemName );
     } // getItem
 
     /**
-     * Vérifie si le joueur porte un objet spécifique.
+     * Vérifie si le joueur possède un objet spécifique dans son inventaire.
      *
-     * @param pItemName le nom de l'objet recherché
-     * @return true si le joueur porte cet objet, false sinon
+     * @param pItemName le nom de l'objet recherché dans l'inventaire
+     * @return true si l'objet est présent dans l'inventaire, false sinon
      */
     public boolean hasItem( final String pItemName )
     {
-        return this.aInventaire.has( pItemName );
+        return this.aInventory.has( pItemName );
     } // hasItem
 
     /**
-     * Renvoie une chaîne de caractères listant les objets portés par le joueur.
+     * Renvoie une chaîne de caractères listant tous les objets de l'inventaire du joueur.
      *
-     * @return une description des objets portés
+     * @return une description textuelle des objets présents dans l'inventaire
      */
     public String getItemsString()
     {
-        return this.aInventaire.getItemString();
+        return this.aInventory.getItemString();
     } // getItemsString
+
+    /**
+     * Renvoie le poids total des objets portés par le joueur.
+     *
+     * @return le poids total en kilogrammes
+     */    public double getInventoryWeight()
+    {
+        return this.aInventoryWeight;
+    } // getInventoryWeight
+
+    /**
+     * Renvoie la capacité maximale de l'inventaire du joueur.
+     *
+     * @return la capacité maximale en kilogrammes
+     */
+    public double getInventoryCapacity()
+    {
+        return this.aInventoryCapacity;
+    } // getInventoryCapacity
 
 } // Player

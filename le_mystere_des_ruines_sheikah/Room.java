@@ -82,9 +82,9 @@ public class Room
     } // getExitString
 
     /**
-     * Ajoute un objet dans cette salle.
+     * Ajoute un objet dans la liste des objets présents dans cette salle.
      *
-     * @param pItem l'objet à placer dans la salle
+     * @param pItem l'objet à ajouter dans la salle
      */
     public void addItem( final Item pItem )
     {
@@ -92,9 +92,10 @@ public class Room
     }
 
     /**
-     * Retire un objet de cette salle.
+     * Retire un objet de la liste des objets présents dans cette salle.
+     * Si l'objet n'existe pas dans la salle, aucune action n'est effectuée.
      *
-     * @param pItemName le nom de l'objet à retirer
+     * @param pItemName le nom de l'objet à retirer de la salle
      */
     public void removeItem( final String pItemName )
     {
@@ -102,10 +103,10 @@ public class Room
     } // removeItem
 
     /**
-     * Renvoie un objet présent dans cette salle.
+     * Renvoie un objet de la liste des objets présents dans cette salle.
      *
-     * @param pItemName le nom de l'objet recherché
-     * @return l'Item correspondant, ou null si non trouvé
+     * @param pItemName le nom de l'objet recherché dans la salle
+     * @return l'objet correspondant, ou null si l'objet n'est pas présent dans la salle
      */
     public Item getItem( final String pItemName )
     {
@@ -113,9 +114,9 @@ public class Room
     } // getItem
 
     /**
-     * Renvoie une chaîne de caractères listant les objets présents dans cette salle.
+     * Renvoie une chaîne de caractères listant tous les objets présents dans cette salle.
      *
-     * @return une description des objets dans la salle
+     * @return une description textuelle des objets présents dans la salle
      */
     public String getItemString() {
         return this.aItems.getItemString();
