@@ -5,7 +5,7 @@ import java.util.HashMap;
  * Permet d'ajouter, retirer, rechercher et lister des objets.
  *
  * @author  Benoît de Keyn
- * @version 2025.12.25
+ * @version 2026.01.10
  */
 public class ItemList
 {

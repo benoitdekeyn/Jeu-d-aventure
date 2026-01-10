@@ -5,7 +5,7 @@ import java.util.Stack;
  * Un joueur possède un nom, une salle courante, un historique de ses déplacements et un inventaire.
  *
  * @author  Benoît de Keyn
- * @version 2025.12.25
+ * @version 2026.01.10
  */
 public class Player
 {

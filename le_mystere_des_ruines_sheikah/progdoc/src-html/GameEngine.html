@@ -21,7 +21,7 @@
 <span class="source-line-no">008</span><span id="line-8"> * le traitement des commandes et l'affichage des informations dans l'interface utilisateur.</span>
 <span class="source-line-no">009</span><span id="line-9"> *</span>
 <span class="source-line-no">010</span><span id="line-10"> * @author  Michael Kolling, David J. Barnes, Benoît de Keyn</span>
-<span class="source-line-no">011</span><span id="line-11"> * @version 2025.12.25</span>
+<span class="source-line-no">011</span><span id="line-11"> * @version 2026.01.10</span>
 <span class="source-line-no">012</span><span id="line-12"> */</span>
 <span class="source-line-no">013</span><span id="line-13">public class GameEngine</span>
 <span class="source-line-no">014</span><span id="line-14">{</span>
@@ -97,289 +97,353 @@
 <span class="source-line-no">084</span><span id="line-84">        Item vBranche   = new Item("branche", "une branche solide", 1.2);</span>
 <span class="source-line-no">085</span><span id="line-85">        Item vEpee      = new Item("épée", "une épée rouillée", 2.0);</span>
 <span class="source-line-no">086</span><span id="line-86">        Item vBuche     = new Item("bûche", "une bûche lourde", 5.0);</span>
-<span class="source-line-no">087</span><span id="line-87"></span>
-<span class="source-line-no">088</span><span id="line-88">        // zones extérieures</span>
-<span class="source-line-no">089</span><span id="line-89">        vNord.setExit("est", vEst);</span>
-<span class="source-line-no">090</span><span id="line-90">        vNord.setExit("sud", vMurNord);</span>
-<span class="source-line-no">091</span><span id="line-91">        vNord.setExit("ouest", vOuest);</span>
-<span class="source-line-no">092</span><span id="line-92">        vEst.setExit("nord", vNord);</span>
-<span class="source-line-no">093</span><span id="line-93">        vEst.setExit("sud", vSud);</span>
-<span class="source-line-no">094</span><span id="line-94">        vEst.setExit("ouest", vEscaliers);  </span>
-<span class="source-line-no">095</span><span id="line-95">        vSud.setExit("nord", vPorte);</span>
-<span class="source-line-no">096</span><span id="line-96">        vSud.setExit("est", vEst);</span>
-<span class="source-line-no">097</span><span id="line-97">        vSud.setExit("ouest", vOuest);     </span>
-<span class="source-line-no">098</span><span id="line-98">        vOuest.setExit("nord", vNord);</span>
-<span class="source-line-no">099</span><span id="line-99">        vOuest.setExit("est", vMurOuest);</span>
-<span class="source-line-no">100</span><span id="line-100">        vOuest.setExit("sud", vSud);</span>
-<span class="source-line-no">101</span><span id="line-101"></span>
-<span class="source-line-no">102</span><span id="line-102">        // murs</span>
-<span class="source-line-no">103</span><span id="line-103">        vMurNord.setExit("nord", vNord);</span>
-<span class="source-line-no">104</span><span id="line-104">        vEscaliers.setExit("est", vEst);</span>
-<span class="source-line-no">105</span><span id="line-105">        vEscaliers.setExit("haut", vToitRuines);</span>
-<span class="source-line-no">106</span><span id="line-106">        vPorte.setExit("sud", vSud);</span>
-<span class="source-line-no">107</span><span id="line-107">        vMurOuest.setExit("ouest", vOuest);</span>
-<span class="source-line-no">108</span><span id="line-108"></span>
-<span class="source-line-no">109</span><span id="line-109">        // dessus / arbre</span>
-<span class="source-line-no">110</span><span id="line-110">        vToitRuines.setExit("bas", vEscaliers);</span>
-<span class="source-line-no">111</span><span id="line-111">        vToitRuines.setExit("haut", vArbre);</span>
-<span class="source-line-no">112</span><span id="line-112">        vArbre.setExit("bas", vToitRuines);</span>
-<span class="source-line-no">113</span><span id="line-113"></span>
-<span class="source-line-no">114</span><span id="line-114">        // Placement des Items dans les rooms</span>
-<span class="source-line-no">115</span><span id="line-115">        vMurNord.addItem(vCarte);</span>
-<span class="source-line-no">116</span><span id="line-116">        vMurOuest.addItem(vEpee);</span>
-<span class="source-line-no">117</span><span id="line-117">        vArbre.addItem(vClef);</span>
-<span class="source-line-no">118</span><span id="line-118">        vArbre.addItem(vBranche);</span>
-<span class="source-line-no">119</span><span id="line-119">        vSud.addItem(vBuche);</span>
-<span class="source-line-no">120</span><span id="line-120">        </span>
-<span class="source-line-no">121</span><span id="line-121">        // room de départ (sera assignée au joueur quand il sera créé)</span>
-<span class="source-line-no">122</span><span id="line-122">        this.aStartRoom = vSud;</span>
-<span class="source-line-no">123</span><span id="line-123">    } // createRooms</span>
-<span class="source-line-no">124</span><span id="line-124"></span>
-<span class="source-line-no">125</span><span id="line-125">    /**</span>
-<span class="source-line-no">126</span><span id="line-126">     * Affiche le message de bienvenue et les informations de localisation initiales.</span>
-<span class="source-line-no">127</span><span id="line-127">     */</span>
-<span class="source-line-no">128</span><span id="line-128">    private void printWelcome()</span>
-<span class="source-line-no">129</span><span id="line-129">    {</span>
-<span class="source-line-no">130</span><span id="line-130">        this.aGui.println(</span>
-<span class="source-line-no">131</span><span id="line-131">            "\nBonjour " + this.aPlayer.getName() + ",\nbienvenue dans la mystérieuse jungle Korogu ! \n" +</span>
-<span class="source-line-no">132</span><span id="line-132">            "Vous êtes enfin parvenu face aux ruines anciennes du peuple Sheikah. \n" +</span>
-<span class="source-line-no">133</span><span id="line-133">            "Vous devez maintenant trouver cet artefact si précieux à l'intérieur des ruines. \n" +</span>
-<span class="source-line-no">134</span><span id="line-134">            "\n" +</span>
-<span class="source-line-no">135</span><span id="line-135">            "Tapez 'aide' si vous avez besoin d'aide. \n");</span>
-<span class="source-line-no">136</span><span id="line-136">        printLocationInfo();</span>
-<span class="source-line-no">137</span><span id="line-137">        displayLocationImage();</span>
-<span class="source-line-no">138</span><span id="line-138">    } // printWelcome</span>
-<span class="source-line-no">139</span><span id="line-139"></span>
-<span class="source-line-no">140</span><span id="line-140">    /**</span>
-<span class="source-line-no">141</span><span id="line-141">     * Interprète et exécute une commande donnée sous forme de chaîne de caractères.</span>
-<span class="source-line-no">142</span><span id="line-142">     *</span>
-<span class="source-line-no">143</span><span id="line-143">     * @param pCommandLine la ligne de commande saisie par l'utilisateur</span>
-<span class="source-line-no">144</span><span id="line-144">     */</span>
-<span class="source-line-no">145</span><span id="line-145">    public void interpretCommand( final String pCommandLine ) </span>
-<span class="source-line-no">146</span><span id="line-146">    {</span>
-<span class="source-line-no">147</span><span id="line-147">        this.aGui.println( "\n&gt; " + pCommandLine );</span>
-<span class="source-line-no">148</span><span id="line-148">        Command vCommand = this.aParser.getCommand( pCommandLine );</span>
-<span class="source-line-no">149</span><span id="line-149"></span>
-<span class="source-line-no">150</span><span id="line-150">        if ( vCommand.isUnknown() ) {</span>
-<span class="source-line-no">151</span><span id="line-151">            this.aGui.println("Cette commande n'existe pas.");</span>
-<span class="source-line-no">152</span><span id="line-152">            return;</span>
-<span class="source-line-no">153</span><span id="line-153">        }</span>
-<span class="source-line-no">154</span><span id="line-154"></span>
-<span class="source-line-no">155</span><span id="line-155">        switch (vCommand.getCommandWord()) {</span>
-<span class="source-line-no">156</span><span id="line-156">            case "quitter"  -&gt; quit(vCommand);</span>
-<span class="source-line-no">157</span><span id="line-157">            case "aller"    -&gt; goRoom(vCommand);</span>
-<span class="source-line-no">158</span><span id="line-158">            case "retour"   -&gt; goBack(vCommand);</span>
-<span class="source-line-no">159</span><span id="line-159">            case "aide"     -&gt; printHelp();</span>
-<span class="source-line-no">160</span><span id="line-160">            case "respirer" -&gt; breathe();</span>
-<span class="source-line-no">161</span><span id="line-161">            case "regarder" -&gt; look();</span>
-<span class="source-line-no">162</span><span id="line-162">            case "test"     -&gt; executeTest(vCommand);</span>
-<span class="source-line-no">163</span><span id="line-163">            case "prendre"  -&gt; take(vCommand);</span>
-<span class="source-line-no">164</span><span id="line-164">            case "poser"    -&gt; drop(vCommand);</span>
-<span class="source-line-no">165</span><span id="line-165">            default         -&gt; System.out.println("Cette commande n'a pas encore d'action associée.");</span>
-<span class="source-line-no">166</span><span id="line-166">        }</span>
-<span class="source-line-no">167</span><span id="line-167">    } // interpretCommand(*)</span>
-<span class="source-line-no">168</span><span id="line-168"></span>
-<span class="source-line-no">169</span><span id="line-169">    /**</span>
-<span class="source-line-no">170</span><span id="line-170">     * Traite la commande "quitter".</span>
-<span class="source-line-no">171</span><span id="line-171">     * Vérifie qu'aucun second mot n'est présent et termine le jeu.</span>
-<span class="source-line-no">172</span><span id="line-172">     *</span>
-<span class="source-line-no">173</span><span id="line-173">     * @param pCommand la commande reçue (ne doit pas avoir de second mot)</span>
-<span class="source-line-no">174</span><span id="line-174">     */</span>
-<span class="source-line-no">175</span><span id="line-175">    private void quit(final Command pCommand)</span>
-<span class="source-line-no">176</span><span id="line-176">    {</span>
-<span class="source-line-no">177</span><span id="line-177">        if (pCommand.hasSecondWord()) {</span>
-<span class="source-line-no">178</span><span id="line-178">           this.aGui.println("tapez seulement \"quitter\" si vous voulez quitter le jeu."); </span>
-<span class="source-line-no">179</span><span id="line-179">           return;</span>
-<span class="source-line-no">180</span><span id="line-180">        }</span>
-<span class="source-line-no">181</span><span id="line-181">        this.aGui.println("Merci d'avoir joué, " + this.aPlayer.getName() + ". Au revoir.");</span>
-<span class="source-line-no">182</span><span id="line-182">        this.aGui.enable( false );</span>
-<span class="source-line-no">183</span><span id="line-183">    } // quit(*)</span>
-<span class="source-line-no">184</span><span id="line-184"></span>
-<span class="source-line-no">185</span><span id="line-185">    /**</span>
-<span class="source-line-no">186</span><span id="line-186">     * Exécute la commande "aller" pour se déplacer dans une direction.</span>
-<span class="source-line-no">187</span><span id="line-187">     * Vérifie que la direction est valide et que la sortie existe.</span>
-<span class="source-line-no">188</span><span id="line-188">     *</span>
-<span class="source-line-no">189</span><span id="line-189">     * @param pCommand la commande à traiter (doit contenir un second mot indiquant la direction)</span>
-<span class="source-line-no">190</span><span id="line-190">     */</span>
-<span class="source-line-no">191</span><span id="line-191">    private void goRoom( final Command pCommand ) </span>
-<span class="source-line-no">192</span><span id="line-192">    {</span>
-<span class="source-line-no">193</span><span id="line-193">        if ( ! pCommand.hasSecondWord() ) {</span>
-<span class="source-line-no">194</span><span id="line-194">            this.aGui.println("Veuillez préciser une direction à la suite de la commande \"aller\". (ex: \"aller nord\")");</span>
-<span class="source-line-no">195</span><span id="line-195">            return;</span>
-<span class="source-line-no">196</span><span id="line-196">        }</span>
-<span class="source-line-no">197</span><span id="line-197"></span>
-<span class="source-line-no">198</span><span id="line-198">        String vDirection = pCommand.getSecondWord();</span>
-<span class="source-line-no">199</span><span id="line-199"></span>
-<span class="source-line-no">200</span><span id="line-200">        if ( ! pCommand.isDirection( vDirection ) ) {</span>
-<span class="source-line-no">201</span><span id="line-201">            this.aGui.println("Cette direction n'existe pas.");</span>
-<span class="source-line-no">202</span><span id="line-202">            return;</span>
-<span class="source-line-no">203</span><span id="line-203">        }</span>
-<span class="source-line-no">204</span><span id="line-204">        </span>
-<span class="source-line-no">205</span><span id="line-205">        Room vNextRoom = this.aPlayer.getCurrentRoom().getExit( vDirection );</span>
-<span class="source-line-no">206</span><span id="line-206"></span>
-<span class="source-line-no">207</span><span id="line-207">        if ( vNextRoom == null ) {</span>
-<span class="source-line-no">208</span><span id="line-208">            this.aGui.println("Vous ne pouvez pas aller dans cette direction !");</span>
-<span class="source-line-no">209</span><span id="line-209">            return;</span>
-<span class="source-line-no">210</span><span id="line-210">        } </span>
-<span class="source-line-no">211</span><span id="line-211">        </span>
-<span class="source-line-no">212</span><span id="line-212">        this.aPlayer.goRoom( vNextRoom );</span>
-<span class="source-line-no">213</span><span id="line-213">        printLocationInfo();</span>
-<span class="source-line-no">214</span><span id="line-214">        displayLocationImage();</span>
-<span class="source-line-no">215</span><span id="line-215">    } // goRoom(*)</span>
-<span class="source-line-no">216</span><span id="line-216"></span>
-<span class="source-line-no">217</span><span id="line-217">    /**</span>
-<span class="source-line-no">218</span><span id="line-218">     * Exécute la commande "retour" pour revenir à la salle précédente.</span>
-<span class="source-line-no">219</span><span id="line-219">     * Vérifie qu'aucun second mot n'est présent et qu'il existe un historique de salles visitées.</span>
-<span class="source-line-no">220</span><span id="line-220">     *</span>
-<span class="source-line-no">221</span><span id="line-221">     * @param pCommand la commande reçue (ne doit pas avoir de second mot)</span>
-<span class="source-line-no">222</span><span id="line-222">     */</span>
-<span class="source-line-no">223</span><span id="line-223">    private void goBack(final Command pCommand)</span>
-<span class="source-line-no">224</span><span id="line-224">    {</span>
-<span class="source-line-no">225</span><span id="line-225">        if (pCommand.hasSecondWord()) {</span>
-<span class="source-line-no">226</span><span id="line-226">            this.aGui.println("tapez seulement \"retour\" si vous voulez revenir à la salle précédente.");</span>
-<span class="source-line-no">227</span><span id="line-227">            return;</span>
-<span class="source-line-no">228</span><span id="line-228">        }</span>
-<span class="source-line-no">229</span><span id="line-229">        if ( ! this.aPlayer.goBack() ) {</span>
-<span class="source-line-no">230</span><span id="line-230">            this.aGui.println("Vous ne pouvez pas revenir en arrière.");</span>
-<span class="source-line-no">231</span><span id="line-231">            return;</span>
-<span class="source-line-no">232</span><span id="line-232">        }</span>
-<span class="source-line-no">233</span><span id="line-233">        printLocationInfo();</span>
-<span class="source-line-no">234</span><span id="line-234">        displayLocationImage();</span>
-<span class="source-line-no">235</span><span id="line-235">    } // goBack</span>
-<span class="source-line-no">236</span><span id="line-236"></span>
-<span class="source-line-no">237</span><span id="line-237">    /**</span>
-<span class="source-line-no">238</span><span id="line-238">     * Affiche l'aide et la liste des commandes disponibles.</span>
-<span class="source-line-no">239</span><span id="line-239">     */</span>
-<span class="source-line-no">240</span><span id="line-240">    private void printHelp()</span>
-<span class="source-line-no">241</span><span id="line-241">    {</span>
-<span class="source-line-no">242</span><span id="line-242">        this.aGui.println(</span>
-<span class="source-line-no">243</span><span id="line-243">            "Vous êtes au milieu de la jungle Korogu, \n" +</span>
-<span class="source-line-no">244</span><span id="line-244">            "parmi les ruines anciennes du peuple Sheikah. \n" +</span>
-<span class="source-line-no">245</span><span id="line-245">            "Trouvez l'artefact technologique caché à l'intérieur des ruines !"</span>
-<span class="source-line-no">246</span><span id="line-246">        );</span>
-<span class="source-line-no">247</span><span id="line-247">        this.aGui.print("\nVos commandes sont :");</span>
-<span class="source-line-no">248</span><span id="line-248">        this.aGui.println(this.aParser.getCommandsList());</span>
-<span class="source-line-no">249</span><span id="line-249">    } // printHelp</span>
-<span class="source-line-no">250</span><span id="line-250">    /**</span>
-<span class="source-line-no">251</span><span id="line-251">     * Traite la commande "respirer".</span>
-<span class="source-line-no">252</span><span id="line-252">     * Affiche un message indiquant que le joueur consomme de l'oxygène.</span>
-<span class="source-line-no">253</span><span id="line-253">     */</span>
-<span class="source-line-no">254</span><span id="line-254">    private void breathe()</span>
-<span class="source-line-no">255</span><span id="line-255">    {</span>
-<span class="source-line-no">256</span><span id="line-256">        this.aGui.println("Vous venez de consommer une bouffée d'oxygène de votre réserve.");</span>
-<span class="source-line-no">257</span><span id="line-257">    }</span>
-<span class="source-line-no">258</span><span id="line-258"></span>
-<span class="source-line-no">259</span><span id="line-259">    /**</span>
-<span class="source-line-no">260</span><span id="line-260">     * Traite la commande "regarder".</span>
-<span class="source-line-no">261</span><span id="line-261">     * Affiche la description de la salle courante, les objets présents et les sorties disponibles.</span>
-<span class="source-line-no">262</span><span id="line-262">     */</span>
-<span class="source-line-no">263</span><span id="line-263">    private void look()</span>
-<span class="source-line-no">264</span><span id="line-264">    {</span>
-<span class="source-line-no">265</span><span id="line-265">        printLocationInfo();</span>
-<span class="source-line-no">266</span><span id="line-266">    } // look</span>
-<span class="source-line-no">267</span><span id="line-267"></span>
-<span class="source-line-no">268</span><span id="line-268">    /**</span>
-<span class="source-line-no">269</span><span id="line-269">     * Affiche la description de la salle courante et les sorties disponibles.</span>
-<span class="source-line-no">270</span><span id="line-270">     */</span>
-<span class="source-line-no">271</span><span id="line-271">    private void printLocationInfo()</span>
-<span class="source-line-no">272</span><span id="line-272">    {</span>
-<span class="source-line-no">273</span><span id="line-273">        this.aGui.println(this.aPlayer.getCurrentRoom().getLongDescription());</span>
-<span class="source-line-no">274</span><span id="line-274">    } // printLocationInfo</span>
-<span class="source-line-no">275</span><span id="line-275"></span>
-<span class="source-line-no">276</span><span id="line-276">    /**</span>
-<span class="source-line-no">277</span><span id="line-277">     * Affiche l'image de la salle courante dans l'interface graphique.</span>
-<span class="source-line-no">278</span><span id="line-278">     */</span>
-<span class="source-line-no">279</span><span id="line-279">    private void displayLocationImage()</span>
-<span class="source-line-no">280</span><span id="line-280">    {</span>
-<span class="source-line-no">281</span><span id="line-281">        if ( this.aPlayer.getCurrentRoom().getImageName() != null )</span>
-<span class="source-line-no">282</span><span id="line-282">            this.aGui.showImage( this.aPlayer.getCurrentRoom().getImageName() );</span>
-<span class="source-line-no">283</span><span id="line-283">    } // displayLocationImage</span>
-<span class="source-line-no">284</span><span id="line-284"></span>
-<span class="source-line-no">285</span><span id="line-285">    /**</span>
-<span class="source-line-no">286</span><span id="line-286">     * Traite la commande "prendre" pour ramasser un objet.</span>
-<span class="source-line-no">287</span><span id="line-287">     * Vérifie que le joueur ne porte pas déjà un objet et que l'objet existe dans la salle.</span>
-<span class="source-line-no">288</span><span id="line-288">     *</span>
-<span class="source-line-no">289</span><span id="line-289">     * @param pCommand la commande reçue (doit contenir le nom de l'objet)</span>
-<span class="source-line-no">290</span><span id="line-290">     */</span>
-<span class="source-line-no">291</span><span id="line-291">    private void take( final Command pCommand )</span>
-<span class="source-line-no">292</span><span id="line-292">    {</span>
-<span class="source-line-no">293</span><span id="line-293">        if ( ! pCommand.hasSecondWord() ) {</span>
-<span class="source-line-no">294</span><span id="line-294">            this.aGui.println("Prendre quoi ? Spécifiez un objet.");</span>
-<span class="source-line-no">295</span><span id="line-295">            return;</span>
-<span class="source-line-no">296</span><span id="line-296">        }</span>
-<span class="source-line-no">297</span><span id="line-297"></span>
-<span class="source-line-no">298</span><span id="line-298">        if ( this.aPlayer.hasItem() ) {</span>
-<span class="source-line-no">299</span><span id="line-299">            this.aGui.println("Vous portez déjà un objet. Posez-le d'abord.");</span>
-<span class="source-line-no">300</span><span id="line-300">            return;</span>
-<span class="source-line-no">301</span><span id="line-301">        }</span>
-<span class="source-line-no">302</span><span id="line-302"></span>
-<span class="source-line-no">303</span><span id="line-303">        String vItemName = pCommand.getSecondWord();</span>
-<span class="source-line-no">304</span><span id="line-304">        Item vItem = this.aPlayer.getCurrentRoom().getItem( vItemName );</span>
+<span class="source-line-no">087</span><span id="line-87">        Item vRocher    = new Item("rocher", "un gros rocher bien lourd", 12.0);</span>
+<span class="source-line-no">088</span><span id="line-88">        Item vFiole      = new Item("fiole", "une fiole d'eau oxygénée", 0.2);</span>
+<span class="source-line-no">089</span><span id="line-89"></span>
+<span class="source-line-no">090</span><span id="line-90">        // zones extérieures</span>
+<span class="source-line-no">091</span><span id="line-91">        vNord.setExit("est", vEst);</span>
+<span class="source-line-no">092</span><span id="line-92">        vNord.setExit("sud", vMurNord);</span>
+<span class="source-line-no">093</span><span id="line-93">        vNord.setExit("ouest", vOuest);</span>
+<span class="source-line-no">094</span><span id="line-94">        vEst.setExit("nord", vNord);</span>
+<span class="source-line-no">095</span><span id="line-95">        vEst.setExit("sud", vSud);</span>
+<span class="source-line-no">096</span><span id="line-96">        vEst.setExit("ouest", vEscaliers);  </span>
+<span class="source-line-no">097</span><span id="line-97">        vSud.setExit("nord", vPorte);</span>
+<span class="source-line-no">098</span><span id="line-98">        vSud.setExit("est", vEst);</span>
+<span class="source-line-no">099</span><span id="line-99">        vSud.setExit("ouest", vOuest);     </span>
+<span class="source-line-no">100</span><span id="line-100">        vOuest.setExit("nord", vNord);</span>
+<span class="source-line-no">101</span><span id="line-101">        vOuest.setExit("est", vMurOuest);</span>
+<span class="source-line-no">102</span><span id="line-102">        vOuest.setExit("sud", vSud);</span>
+<span class="source-line-no">103</span><span id="line-103"></span>
+<span class="source-line-no">104</span><span id="line-104">        // murs</span>
+<span class="source-line-no">105</span><span id="line-105">        vMurNord.setExit("nord", vNord);</span>
+<span class="source-line-no">106</span><span id="line-106">        vEscaliers.setExit("est", vEst);</span>
+<span class="source-line-no">107</span><span id="line-107">        vEscaliers.setExit("haut", vToitRuines);</span>
+<span class="source-line-no">108</span><span id="line-108">        vPorte.setExit("sud", vSud);</span>
+<span class="source-line-no">109</span><span id="line-109">        vMurOuest.setExit("ouest", vOuest);</span>
+<span class="source-line-no">110</span><span id="line-110"></span>
+<span class="source-line-no">111</span><span id="line-111">        // dessus / arbre</span>
+<span class="source-line-no">112</span><span id="line-112">        vToitRuines.setExit("bas", vEscaliers);</span>
+<span class="source-line-no">113</span><span id="line-113">        vToitRuines.setExit("haut", vArbre);</span>
+<span class="source-line-no">114</span><span id="line-114">        vArbre.setExit("bas", vToitRuines);</span>
+<span class="source-line-no">115</span><span id="line-115"></span>
+<span class="source-line-no">116</span><span id="line-116">        // Placement des Items dans les rooms</span>
+<span class="source-line-no">117</span><span id="line-117">        vMurNord.addItem(vCarte);</span>
+<span class="source-line-no">118</span><span id="line-118">        vMurOuest.addItem(vEpee);</span>
+<span class="source-line-no">119</span><span id="line-119">        vArbre.addItem(vClef);</span>
+<span class="source-line-no">120</span><span id="line-120">        vArbre.addItem(vBranche);</span>
+<span class="source-line-no">121</span><span id="line-121">        vSud.addItem(vBuche);</span>
+<span class="source-line-no">122</span><span id="line-122">        vSud.addItem(vRocher);</span>
+<span class="source-line-no">123</span><span id="line-123">        vSud.addItem(vFiole);</span>
+<span class="source-line-no">124</span><span id="line-124">        </span>
+<span class="source-line-no">125</span><span id="line-125">        // room de départ (sera assignée au joueur quand il sera créé)</span>
+<span class="source-line-no">126</span><span id="line-126">        this.aStartRoom = vSud;</span>
+<span class="source-line-no">127</span><span id="line-127">    } // createRooms</span>
+<span class="source-line-no">128</span><span id="line-128"></span>
+<span class="source-line-no">129</span><span id="line-129">    /**</span>
+<span class="source-line-no">130</span><span id="line-130">     * Affiche le message de bienvenue et les informations de localisation initiales.</span>
+<span class="source-line-no">131</span><span id="line-131">     */</span>
+<span class="source-line-no">132</span><span id="line-132">    private void printWelcome()</span>
+<span class="source-line-no">133</span><span id="line-133">    {</span>
+<span class="source-line-no">134</span><span id="line-134">        this.aGui.println(</span>
+<span class="source-line-no">135</span><span id="line-135">            "\nBonjour " + this.aPlayer.getName() + ",\nbienvenue dans la mystérieuse jungle Korogu ! \n" +</span>
+<span class="source-line-no">136</span><span id="line-136">            "Vous êtes enfin parvenu face aux ruines anciennes du peuple Sheikah. \n" +</span>
+<span class="source-line-no">137</span><span id="line-137">            "Vous devez maintenant trouver cet artefact si précieux à l'intérieur des ruines. \n" +</span>
+<span class="source-line-no">138</span><span id="line-138">            "\n" +</span>
+<span class="source-line-no">139</span><span id="line-139">            "Tapez 'aide' si vous avez besoin d'aide. \n");</span>
+<span class="source-line-no">140</span><span id="line-140">        printLocationInfo();</span>
+<span class="source-line-no">141</span><span id="line-141">        displayLocationImage();</span>
+<span class="source-line-no">142</span><span id="line-142">    } // printWelcome</span>
+<span class="source-line-no">143</span><span id="line-143"></span>
+<span class="source-line-no">144</span><span id="line-144">    /**</span>
+<span class="source-line-no">145</span><span id="line-145">     * Interprète et exécute une commande donnée sous forme de chaîne de caractères.</span>
+<span class="source-line-no">146</span><span id="line-146">     *</span>
+<span class="source-line-no">147</span><span id="line-147">     * @param pCommandLine la ligne de commande saisie par l'utilisateur</span>
+<span class="source-line-no">148</span><span id="line-148">     */</span>
+<span class="source-line-no">149</span><span id="line-149">    public void interpretCommand( final String pCommandLine ) </span>
+<span class="source-line-no">150</span><span id="line-150">    {</span>
+<span class="source-line-no">151</span><span id="line-151">        this.aGui.println( "\n&gt; " + pCommandLine );</span>
+<span class="source-line-no">152</span><span id="line-152">        Command vCommand = this.aParser.getCommand( pCommandLine );</span>
+<span class="source-line-no">153</span><span id="line-153"></span>
+<span class="source-line-no">154</span><span id="line-154">        if ( vCommand.isUnknown() ) {</span>
+<span class="source-line-no">155</span><span id="line-155">            this.aGui.println("Cette commande n'existe pas.");</span>
+<span class="source-line-no">156</span><span id="line-156">            return;</span>
+<span class="source-line-no">157</span><span id="line-157">        }</span>
+<span class="source-line-no">158</span><span id="line-158"></span>
+<span class="source-line-no">159</span><span id="line-159">        switch (vCommand.getCommandWord()) {</span>
+<span class="source-line-no">160</span><span id="line-160">            case "quitter"     -&gt; quit(vCommand);</span>
+<span class="source-line-no">161</span><span id="line-161">            case "aller"       -&gt; goRoom(vCommand);</span>
+<span class="source-line-no">162</span><span id="line-162">            case "retour"      -&gt; goBack(vCommand);</span>
+<span class="source-line-no">163</span><span id="line-163">            case "aide"        -&gt; printHelp();</span>
+<span class="source-line-no">164</span><span id="line-164">            case "respirer"    -&gt; breathe();</span>
+<span class="source-line-no">165</span><span id="line-165">            case "regarder"    -&gt; look();</span>
+<span class="source-line-no">166</span><span id="line-166">            case "test"        -&gt; executeTest(vCommand);</span>
+<span class="source-line-no">167</span><span id="line-167">            case "prendre"     -&gt; take(vCommand);</span>
+<span class="source-line-no">168</span><span id="line-168">            case "poser"       -&gt; drop(vCommand);</span>
+<span class="source-line-no">169</span><span id="line-169">            case "inventaire"  -&gt; showInventory();</span>
+<span class="source-line-no">170</span><span id="line-170">            case "ingérer"     -&gt; ingest(vCommand);</span>
+<span class="source-line-no">171</span><span id="line-171">            default            -&gt; System.out.println("Cette commande n'a pas encore d'action associée.");</span>
+<span class="source-line-no">172</span><span id="line-172">        }</span>
+<span class="source-line-no">173</span><span id="line-173">    } // interpretCommand(*)</span>
+<span class="source-line-no">174</span><span id="line-174"></span>
+<span class="source-line-no">175</span><span id="line-175">    /**</span>
+<span class="source-line-no">176</span><span id="line-176">     * Traite la commande "quitter".</span>
+<span class="source-line-no">177</span><span id="line-177">     * Vérifie qu'aucun second mot n'est présent et termine le jeu.</span>
+<span class="source-line-no">178</span><span id="line-178">     *</span>
+<span class="source-line-no">179</span><span id="line-179">     * @param pCommand la commande reçue (ne doit pas avoir de second mot)</span>
+<span class="source-line-no">180</span><span id="line-180">     */</span>
+<span class="source-line-no">181</span><span id="line-181">    private void quit(final Command pCommand)</span>
+<span class="source-line-no">182</span><span id="line-182">    {</span>
+<span class="source-line-no">183</span><span id="line-183">        if (pCommand.hasSecondWord()) {</span>
+<span class="source-line-no">184</span><span id="line-184">           this.aGui.println("tapez seulement \"quitter\" si vous voulez quitter le jeu."); </span>
+<span class="source-line-no">185</span><span id="line-185">           return;</span>
+<span class="source-line-no">186</span><span id="line-186">        }</span>
+<span class="source-line-no">187</span><span id="line-187">        this.aGui.println("Merci d'avoir joué, " + this.aPlayer.getName() + ". Au revoir.");</span>
+<span class="source-line-no">188</span><span id="line-188">        this.aGui.enable( false );</span>
+<span class="source-line-no">189</span><span id="line-189">    } // quit(*)</span>
+<span class="source-line-no">190</span><span id="line-190"></span>
+<span class="source-line-no">191</span><span id="line-191">    /**</span>
+<span class="source-line-no">192</span><span id="line-192">     * Exécute la commande "aller" pour se déplacer dans une direction.</span>
+<span class="source-line-no">193</span><span id="line-193">     * Vérifie que la direction est valide et que la sortie existe.</span>
+<span class="source-line-no">194</span><span id="line-194">     *</span>
+<span class="source-line-no">195</span><span id="line-195">     * @param pCommand la commande à traiter (doit contenir un second mot indiquant la direction)</span>
+<span class="source-line-no">196</span><span id="line-196">     */</span>
+<span class="source-line-no">197</span><span id="line-197">    private void goRoom( final Command pCommand ) </span>
+<span class="source-line-no">198</span><span id="line-198">    {</span>
+<span class="source-line-no">199</span><span id="line-199">        if ( ! pCommand.hasSecondWord() ) {</span>
+<span class="source-line-no">200</span><span id="line-200">            this.aGui.println("Veuillez préciser une direction à la suite de la commande \"aller\". (ex: \"aller nord\")");</span>
+<span class="source-line-no">201</span><span id="line-201">            return;</span>
+<span class="source-line-no">202</span><span id="line-202">        }</span>
+<span class="source-line-no">203</span><span id="line-203"></span>
+<span class="source-line-no">204</span><span id="line-204">        String vDirection = pCommand.getSecondWord();</span>
+<span class="source-line-no">205</span><span id="line-205"></span>
+<span class="source-line-no">206</span><span id="line-206">        if ( ! pCommand.isDirection( vDirection ) ) {</span>
+<span class="source-line-no">207</span><span id="line-207">            this.aGui.println("Cette direction n'existe pas.");</span>
+<span class="source-line-no">208</span><span id="line-208">            return;</span>
+<span class="source-line-no">209</span><span id="line-209">        }</span>
+<span class="source-line-no">210</span><span id="line-210">        </span>
+<span class="source-line-no">211</span><span id="line-211">        Room vNextRoom = this.aPlayer.getCurrentRoom().getExit( vDirection );</span>
+<span class="source-line-no">212</span><span id="line-212"></span>
+<span class="source-line-no">213</span><span id="line-213">        if ( vNextRoom == null ) {</span>
+<span class="source-line-no">214</span><span id="line-214">            this.aGui.println("Vous ne pouvez pas aller dans cette direction !");</span>
+<span class="source-line-no">215</span><span id="line-215">            return;</span>
+<span class="source-line-no">216</span><span id="line-216">        } </span>
+<span class="source-line-no">217</span><span id="line-217">        </span>
+<span class="source-line-no">218</span><span id="line-218">        this.aPlayer.goRoom( vNextRoom );</span>
+<span class="source-line-no">219</span><span id="line-219">        printLocationInfo();</span>
+<span class="source-line-no">220</span><span id="line-220">        displayLocationImage();</span>
+<span class="source-line-no">221</span><span id="line-221">    } // goRoom(*)</span>
+<span class="source-line-no">222</span><span id="line-222"></span>
+<span class="source-line-no">223</span><span id="line-223">    /**</span>
+<span class="source-line-no">224</span><span id="line-224">     * Exécute la commande "retour" pour revenir à la salle précédente.</span>
+<span class="source-line-no">225</span><span id="line-225">     * Vérifie qu'aucun second mot n'est présent et qu'il existe un historique de salles visitées.</span>
+<span class="source-line-no">226</span><span id="line-226">     *</span>
+<span class="source-line-no">227</span><span id="line-227">     * @param pCommand la commande reçue (ne doit pas avoir de second mot)</span>
+<span class="source-line-no">228</span><span id="line-228">     */</span>
+<span class="source-line-no">229</span><span id="line-229">    private void goBack(final Command pCommand)</span>
+<span class="source-line-no">230</span><span id="line-230">    {</span>
+<span class="source-line-no">231</span><span id="line-231">        if (pCommand.hasSecondWord()) {</span>
+<span class="source-line-no">232</span><span id="line-232">            this.aGui.println("tapez seulement \"retour\" si vous voulez revenir à la salle précédente.");</span>
+<span class="source-line-no">233</span><span id="line-233">            return;</span>
+<span class="source-line-no">234</span><span id="line-234">        }</span>
+<span class="source-line-no">235</span><span id="line-235">        if ( ! this.aPlayer.goBack() ) {</span>
+<span class="source-line-no">236</span><span id="line-236">            this.aGui.println("Vous ne pouvez pas revenir en arrière.");</span>
+<span class="source-line-no">237</span><span id="line-237">            return;</span>
+<span class="source-line-no">238</span><span id="line-238">        }</span>
+<span class="source-line-no">239</span><span id="line-239">        printLocationInfo();</span>
+<span class="source-line-no">240</span><span id="line-240">        displayLocationImage();</span>
+<span class="source-line-no">241</span><span id="line-241">    } // goBack</span>
+<span class="source-line-no">242</span><span id="line-242"></span>
+<span class="source-line-no">243</span><span id="line-243">    /**</span>
+<span class="source-line-no">244</span><span id="line-244">     * Affiche l'aide et la liste des commandes disponibles.</span>
+<span class="source-line-no">245</span><span id="line-245">     */</span>
+<span class="source-line-no">246</span><span id="line-246">    private void printHelp()</span>
+<span class="source-line-no">247</span><span id="line-247">    {</span>
+<span class="source-line-no">248</span><span id="line-248">        this.aGui.println(</span>
+<span class="source-line-no">249</span><span id="line-249">            "Vous êtes au milieu de la jungle Korogu, \n" +</span>
+<span class="source-line-no">250</span><span id="line-250">            "parmi les ruines anciennes du peuple Sheikah. \n" +</span>
+<span class="source-line-no">251</span><span id="line-251">            "Trouvez l'artefact technologique caché à l'intérieur des ruines !"</span>
+<span class="source-line-no">252</span><span id="line-252">        );</span>
+<span class="source-line-no">253</span><span id="line-253">        this.aGui.print("\nVos commandes sont :");</span>
+<span class="source-line-no">254</span><span id="line-254">        this.aGui.println(this.aParser.getCommandsList());</span>
+<span class="source-line-no">255</span><span id="line-255">    } // printHelp</span>
+<span class="source-line-no">256</span><span id="line-256">    /**</span>
+<span class="source-line-no">257</span><span id="line-257">     * Traite la commande "respirer".</span>
+<span class="source-line-no">258</span><span id="line-258">     * Affiche un message indiquant que le joueur consomme de l'oxygène.</span>
+<span class="source-line-no">259</span><span id="line-259">     */</span>
+<span class="source-line-no">260</span><span id="line-260">    private void breathe()</span>
+<span class="source-line-no">261</span><span id="line-261">    {</span>
+<span class="source-line-no">262</span><span id="line-262">        this.aGui.println("Vous venez de consommer une bouffée d'oxygène de votre réserve.");</span>
+<span class="source-line-no">263</span><span id="line-263">    }</span>
+<span class="source-line-no">264</span><span id="line-264"></span>
+<span class="source-line-no">265</span><span id="line-265">    /**</span>
+<span class="source-line-no">266</span><span id="line-266">     * Traite la commande "regarder".</span>
+<span class="source-line-no">267</span><span id="line-267">     * Affiche la description de la salle courante, les objets présents et les sorties disponibles.</span>
+<span class="source-line-no">268</span><span id="line-268">     */</span>
+<span class="source-line-no">269</span><span id="line-269">    private void look()</span>
+<span class="source-line-no">270</span><span id="line-270">    {</span>
+<span class="source-line-no">271</span><span id="line-271">        printLocationInfo();</span>
+<span class="source-line-no">272</span><span id="line-272">    } // look</span>
+<span class="source-line-no">273</span><span id="line-273"></span>
+<span class="source-line-no">274</span><span id="line-274">    /**</span>
+<span class="source-line-no">275</span><span id="line-275">     * Affiche la description de la salle courante et les sorties disponibles.</span>
+<span class="source-line-no">276</span><span id="line-276">     */</span>
+<span class="source-line-no">277</span><span id="line-277">    private void printLocationInfo()</span>
+<span class="source-line-no">278</span><span id="line-278">    {</span>
+<span class="source-line-no">279</span><span id="line-279">        this.aGui.println(this.aPlayer.getCurrentRoom().getLongDescription());</span>
+<span class="source-line-no">280</span><span id="line-280">    } // printLocationInfo</span>
+<span class="source-line-no">281</span><span id="line-281"></span>
+<span class="source-line-no">282</span><span id="line-282">    /**</span>
+<span class="source-line-no">283</span><span id="line-283">     * Affiche l'image de la salle courante dans l'interface graphique.</span>
+<span class="source-line-no">284</span><span id="line-284">     */</span>
+<span class="source-line-no">285</span><span id="line-285">    private void displayLocationImage()</span>
+<span class="source-line-no">286</span><span id="line-286">    {</span>
+<span class="source-line-no">287</span><span id="line-287">        if ( this.aPlayer.getCurrentRoom().getImageName() != null )</span>
+<span class="source-line-no">288</span><span id="line-288">            this.aGui.showImage( this.aPlayer.getCurrentRoom().getImageName() );</span>
+<span class="source-line-no">289</span><span id="line-289">    } // displayLocationImage</span>
+<span class="source-line-no">290</span><span id="line-290"></span>
+<span class="source-line-no">291</span><span id="line-291">    /**</span>
+<span class="source-line-no">292</span><span id="line-292">     * Traite la commande "prendre" pour ramasser un objet dans la salle courante.</span>
+<span class="source-line-no">293</span><span id="line-293">     * Vérifie que l'objet existe dans la salle et que le joueur peut le porter</span>
+<span class="source-line-no">294</span><span id="line-294">     * (capacité de poids suffisante). Si l'objet est ramassé, il est retiré de la</span>
+<span class="source-line-no">295</span><span id="line-295">     * salle et ajouté à l'inventaire du joueur.</span>
+<span class="source-line-no">296</span><span id="line-296">     *</span>
+<span class="source-line-no">297</span><span id="line-297">     * @param pCommand la commande reçue (doit contenir le nom de l'objet à prendre)</span>
+<span class="source-line-no">298</span><span id="line-298">     */</span>
+<span class="source-line-no">299</span><span id="line-299">    private void take( final Command pCommand )</span>
+<span class="source-line-no">300</span><span id="line-300">    {</span>
+<span class="source-line-no">301</span><span id="line-301">        if ( ! pCommand.hasSecondWord() ) {</span>
+<span class="source-line-no">302</span><span id="line-302">            this.aGui.println("Veuillez préciser un objet à prendre.");</span>
+<span class="source-line-no">303</span><span id="line-303">            return;</span>
+<span class="source-line-no">304</span><span id="line-304">        }</span>
 <span class="source-line-no">305</span><span id="line-305"></span>
-<span class="source-line-no">306</span><span id="line-306">        if ( vItem == null ) {</span>
-<span class="source-line-no">307</span><span id="line-307">            this.aGui.println("Cet objet n'est pas ici.");</span>
-<span class="source-line-no">308</span><span id="line-308">            return;</span>
-<span class="source-line-no">309</span><span id="line-309">        }</span>
-<span class="source-line-no">310</span><span id="line-310"></span>
-<span class="source-line-no">311</span><span id="line-311">        this.aPlayer.addItem( vItem );</span>
-<span class="source-line-no">312</span><span id="line-312">        this.aPlayer.getCurrentRoom().removeItem( vItemName );</span>
-<span class="source-line-no">313</span><span id="line-313">        this.aGui.println("Vous avez pris : " + vItem.getLongDescription());</span>
-<span class="source-line-no">314</span><span id="line-314">    } // take(*)</span>
-<span class="source-line-no">315</span><span id="line-315"></span>
-<span class="source-line-no">316</span><span id="line-316">    /**</span>
-<span class="source-line-no">317</span><span id="line-317">     * Traite la commande "poser" pour déposer un objet.</span>
-<span class="source-line-no">318</span><span id="line-318">     * Vérifie que le joueur porte bien un objet.</span>
-<span class="source-line-no">319</span><span id="line-319">     *</span>
-<span class="source-line-no">320</span><span id="line-320">     * @param pCommand la commande reçue (ne doit pas avoir de second mot)</span>
-<span class="source-line-no">321</span><span id="line-321">     */</span>
-<span class="source-line-no">322</span><span id="line-322">    private void drop( final Command pCommand )</span>
-<span class="source-line-no">323</span><span id="line-323">    {</span>
-<span class="source-line-no">324</span><span id="line-324">        if ( pCommand.hasSecondWord() ) {</span>
-<span class="source-line-no">325</span><span id="line-325">            this.aGui.println("Tapez seulement \"poser\" pour déposer l'objet que vous portez.");</span>
-<span class="source-line-no">326</span><span id="line-326">            return;</span>
-<span class="source-line-no">327</span><span id="line-327">        }</span>
-<span class="source-line-no">328</span><span id="line-328"></span>
-<span class="source-line-no">329</span><span id="line-329">        if ( ! this.aPlayer.hasItem() ) {</span>
-<span class="source-line-no">330</span><span id="line-330">            this.aGui.println("Vous ne portez aucun objet.");</span>
-<span class="source-line-no">331</span><span id="line-331">            return;</span>
-<span class="source-line-no">332</span><span id="line-332">        }</span>
-<span class="source-line-no">333</span><span id="line-333"></span>
-<span class="source-line-no">334</span><span id="line-334">        Item vItem = this.aPlayer.getItem();</span>
-<span class="source-line-no">335</span><span id="line-335">        this.aPlayer.getCurrentRoom().addItem( vItem );</span>
-<span class="source-line-no">336</span><span id="line-336">        this.aPlayer.removeItem();</span>
-<span class="source-line-no">337</span><span id="line-337">        this.aGui.println("Vous avez posé : " + vItem.getLongDescription());</span>
-<span class="source-line-no">338</span><span id="line-338">    } // drop(*)</span>
-<span class="source-line-no">339</span><span id="line-339"></span>
-<span class="source-line-no">340</span><span id="line-340">    /**</span>
-<span class="source-line-no">341</span><span id="line-341">     * Exécute la commande "test" pour lire et exécuter des commandes depuis un fichier.</span>
-<span class="source-line-no">342</span><span id="line-342">     * Le fichier doit contenir une commande par ligne et se trouver à la racine du projet.</span>
-<span class="source-line-no">343</span><span id="line-343">     *</span>
-<span class="source-line-no">344</span><span id="line-344">     * @param pCommand la commande test avec le nom du fichier (sans extension .txt)</span>
-<span class="source-line-no">345</span><span id="line-345">     */</span>
-<span class="source-line-no">346</span><span id="line-346">    private void executeTest(final Command pCommand)</span>
-<span class="source-line-no">347</span><span id="line-347">    {</span>
-<span class="source-line-no">348</span><span id="line-348">        if (!pCommand.hasSecondWord()) {</span>
-<span class="source-line-no">349</span><span id="line-349">            this.aGui.println("Test quel fichier ? Spécifiez un nom de fichier.");</span>
-<span class="source-line-no">350</span><span id="line-350">            return;</span>
-<span class="source-line-no">351</span><span id="line-351">        }</span>
-<span class="source-line-no">352</span><span id="line-352">        String pNomFichier = pCommand.getSecondWord() + ".txt";</span>
-<span class="source-line-no">353</span><span id="line-353">        Scanner vScanner;</span>
-<span class="source-line-no">354</span><span id="line-354">        try { // pour "essayer" les instructions suivantes :</span>
-<span class="source-line-no">355</span><span id="line-355">            vScanner = new Scanner( new File( pNomFichier ) ); // ouverture du fichier s'il existe</span>
-<span class="source-line-no">356</span><span id="line-356">            this.aGui.println("\n============= Exécution TEST =============\n");</span>
-<span class="source-line-no">357</span><span id="line-357">            while ( vScanner.hasNextLine() ) { // tant qu'il y a encore une ligne à lire dans le fichier</span>
-<span class="source-line-no">358</span><span id="line-358">                String vLigne = vScanner.nextLine(); // lecture de la ligne dans le fichier</span>
-<span class="source-line-no">359</span><span id="line-359">                this.interpretCommand( vLigne );</span>
-<span class="source-line-no">360</span><span id="line-360">            } // while</span>
-<span class="source-line-no">361</span><span id="line-361">            this.aGui.println("\n============= TEST terminé =============\n");</span>
-<span class="source-line-no">362</span><span id="line-362">        } // try</span>
-<span class="source-line-no">363</span><span id="line-363">        catch ( final FileNotFoundException pFNFE ) { // si le fichier n'existe pas</span>
-<span class="source-line-no">364</span><span id="line-364">            this.aGui.println("Le fichier '" + pNomFichier + "' est introuvable.");</span>
-<span class="source-line-no">365</span><span id="line-365">        } // catch</span>
-<span class="source-line-no">366</span><span id="line-366">        </span>
-<span class="source-line-no">367</span><span id="line-367">    } // executeTest(*)</span>
-<span class="source-line-no">368</span><span id="line-368"></span>
-<span class="source-line-no">369</span><span id="line-369">}</span>
+<span class="source-line-no">306</span><span id="line-306">        String vItemName = pCommand.getSecondWord();</span>
+<span class="source-line-no">307</span><span id="line-307">        Item vItem = this.aPlayer.getCurrentRoom().getItem( vItemName );</span>
+<span class="source-line-no">308</span><span id="line-308"></span>
+<span class="source-line-no">309</span><span id="line-309">        if ( vItem == null ) {</span>
+<span class="source-line-no">310</span><span id="line-310">            this.aGui.println("Il n'y a pas de tel objet ici.");</span>
+<span class="source-line-no">311</span><span id="line-311">            return;</span>
+<span class="source-line-no">312</span><span id="line-312">        }</span>
+<span class="source-line-no">313</span><span id="line-313">    </span>
+<span class="source-line-no">314</span><span id="line-314">        if ( this.aPlayer.getInventoryWeight() + vItem.getWeight() &gt; this.aPlayer.getInventoryCapacity() ) {</span>
+<span class="source-line-no">315</span><span id="line-315">            this.aGui.println(</span>
+<span class="source-line-no">316</span><span id="line-316">                "Vous ne pouvez porter que " + this.aPlayer.getInventoryCapacity() + " kg au maximum.\n" +</span>
+<span class="source-line-no">317</span><span id="line-317">                "Et vous portez déjà " + this.aPlayer.getInventoryWeight() + " kg.\n" +</span>
+<span class="source-line-no">318</span><span id="line-318">                "Or cet objet pèse " + vItem.getWeight() + " kg.");</span>
+<span class="source-line-no">319</span><span id="line-319">        } else {</span>
+<span class="source-line-no">320</span><span id="line-320">            this.aPlayer.addItem( vItem );</span>
+<span class="source-line-no">321</span><span id="line-321">            this.aPlayer.getCurrentRoom().removeItem( vItemName );</span>
+<span class="source-line-no">322</span><span id="line-322">            this.aGui.println("Vous avez ajouté \"" + vItem.getName() + "\" à votre inventaire.");</span>
+<span class="source-line-no">323</span><span id="line-323">        }</span>
+<span class="source-line-no">324</span><span id="line-324">        </span>
+<span class="source-line-no">325</span><span id="line-325">    } // take(*)</span>
+<span class="source-line-no">326</span><span id="line-326"></span>
+<span class="source-line-no">327</span><span id="line-327">    /**</span>
+<span class="source-line-no">328</span><span id="line-328">     * Traite la commande "poser" pour déposer un objet dans la salle courante.</span>
+<span class="source-line-no">329</span><span id="line-329">     * Vérifie que le joueur possède bien l'objet spécifié dans son inventaire.</span>
+<span class="source-line-no">330</span><span id="line-330">     * Si l'objet est déposé, il est retiré de l'inventaire du joueur et ajouté</span>
+<span class="source-line-no">331</span><span id="line-331">     * à la liste des objets de la salle courante.</span>
+<span class="source-line-no">332</span><span id="line-332">     *</span>
+<span class="source-line-no">333</span><span id="line-333">     * @param pCommand la commande reçue (doit contenir le nom de l'objet à poser)</span>
+<span class="source-line-no">334</span><span id="line-334">     */</span>
+<span class="source-line-no">335</span><span id="line-335">    private void drop( final Command pCommand )</span>
+<span class="source-line-no">336</span><span id="line-336">    {</span>
+<span class="source-line-no">337</span><span id="line-337">        if ( ! pCommand.hasSecondWord() ) {</span>
+<span class="source-line-no">338</span><span id="line-338">            this.aGui.println("Poser quoi ? Spécifiez un objet.");</span>
+<span class="source-line-no">339</span><span id="line-339">            return;</span>
+<span class="source-line-no">340</span><span id="line-340">        }</span>
+<span class="source-line-no">341</span><span id="line-341"></span>
+<span class="source-line-no">342</span><span id="line-342">        String vItemName = pCommand.getSecondWord();</span>
+<span class="source-line-no">343</span><span id="line-343">        </span>
+<span class="source-line-no">344</span><span id="line-344">        if ( ! this.aPlayer.hasItem( vItemName ) ) {</span>
+<span class="source-line-no">345</span><span id="line-345">            this.aGui.println("Vous ne portez pas cet objet.");</span>
+<span class="source-line-no">346</span><span id="line-346">            return;</span>
+<span class="source-line-no">347</span><span id="line-347">        }</span>
+<span class="source-line-no">348</span><span id="line-348"></span>
+<span class="source-line-no">349</span><span id="line-349">        Item vItem = this.aPlayer.getItem( vItemName );</span>
+<span class="source-line-no">350</span><span id="line-350">        this.aPlayer.getCurrentRoom().addItem( vItem );</span>
+<span class="source-line-no">351</span><span id="line-351">        this.aPlayer.removeItem( vItemName );</span>
+<span class="source-line-no">352</span><span id="line-352">        this.aGui.println("Vous avez bien posé : " + vItem.getName());</span>
+<span class="source-line-no">353</span><span id="line-353">    } // drop(*)</span>
+<span class="source-line-no">354</span><span id="line-354"></span>
+<span class="source-line-no">355</span><span id="line-355">    /**</span>
+<span class="source-line-no">356</span><span id="line-356">     * Traite la commande "inventaire" pour afficher le contenu de l'inventaire du joueur.</span>
+<span class="source-line-no">357</span><span id="line-357">     * Affiche la liste de tous les objets que le joueur porte actuellement.</span>
+<span class="source-line-no">358</span><span id="line-358">     */</span>
+<span class="source-line-no">359</span><span id="line-359">    private void showInventory()</span>
+<span class="source-line-no">360</span><span id="line-360">    {</span>
+<span class="source-line-no">361</span><span id="line-361">        this.aGui.println("Vous portez : " + this.aPlayer.getInventoryContents());</span>
+<span class="source-line-no">362</span><span id="line-362">    } // showInventory</span>
+<span class="source-line-no">363</span><span id="line-363"></span>
+<span class="source-line-no">364</span><span id="line-364">    /**</span>
+<span class="source-line-no">365</span><span id="line-365">     * Exécute la commande "ingérer" pour consommer un objet de l'inventaire.</span>
+<span class="source-line-no">366</span><span id="line-366">     * Vérifie que l'objet existe dans l'inventaire du joueur. Si l'objet est ingéré,</span>
+<span class="source-line-no">367</span><span id="line-367">     * il est retiré de l'inventaire du joueur et son effet est appliqué.</span>
+<span class="source-line-no">368</span><span id="line-368">     *</span>
+<span class="source-line-no">369</span><span id="line-369">     * @param pCommand la commande reçue (qui contient potentiellement le nom de l'objet à ingérer)</span>
+<span class="source-line-no">370</span><span id="line-370">     */</span>
+<span class="source-line-no">371</span><span id="line-371">    private void ingest( final Command pCommand )</span>
+<span class="source-line-no">372</span><span id="line-372">    {</span>
+<span class="source-line-no">373</span><span id="line-373">        if ( ! pCommand.hasSecondWord() ) {</span>
+<span class="source-line-no">374</span><span id="line-374">            this.aGui.println("Qu'est-ce que tu veux te mettre sous la dent ? Réessaye pour voir.");</span>
+<span class="source-line-no">375</span><span id="line-375">            return;</span>
+<span class="source-line-no">376</span><span id="line-376">        }</span>
+<span class="source-line-no">377</span><span id="line-377">        String vItemName = pCommand.getSecondWord();</span>
+<span class="source-line-no">378</span><span id="line-378">        if ( ! this.aPlayer.hasItem( vItemName ) ) {</span>
+<span class="source-line-no">379</span><span id="line-379">            this.aGui.println("Va falloir mieux chercher avec tes petits yeux ! T'as pas ça sur toi.");</span>
+<span class="source-line-no">380</span><span id="line-380">            return;</span>
+<span class="source-line-no">381</span><span id="line-381">        }</span>
+<span class="source-line-no">382</span><span id="line-382">        Item vItem = this.aPlayer.getItem( vItemName );</span>
+<span class="source-line-no">383</span><span id="line-383">        switch ( vItem.getName() ) {</span>
+<span class="source-line-no">384</span><span id="line-384">            case "fiole" -&gt; this.drinkH202();</span>
+<span class="source-line-no">385</span><span id="line-385">            default -&gt; { this.aGui.println("Mais ti'es complètment fadaaaa !!!"); return;}</span>
+<span class="source-line-no">386</span><span id="line-386">        }</span>
+<span class="source-line-no">387</span><span id="line-387">        this.aPlayer.removeItem( vItemName );</span>
+<span class="source-line-no">388</span><span id="line-388">    } // ingest(*)</span>
+<span class="source-line-no">389</span><span id="line-389"></span>
+<span class="source-line-no">390</span><span id="line-390">    /**</span>
+<span class="source-line-no">391</span><span id="line-391">     * Applique l'effet de boire de l'eau oxygénée (H2O2).</span>
+<span class="source-line-no">392</span><span id="line-392">     * Double la capacité maximale de poids de l'inventaire du joueur.</span>
+<span class="source-line-no">393</span><span id="line-393">     */</span>
+<span class="source-line-no">394</span><span id="line-394">    private void drinkH202()</span>
+<span class="source-line-no">395</span><span id="line-395">    {</span>
+<span class="source-line-no">396</span><span id="line-396">        this.aPlayer.doubleInventoryCapacity();</span>
+<span class="source-line-no">397</span><span id="line-397">        this.aGui.println(</span>
+<span class="source-line-no">398</span><span id="line-398">            "Vous avez consommé votre fiole d'eau oxygénée.\n"+</span>
+<span class="source-line-no">399</span><span id="line-399">            "Mais comme on est dans un jeu,\n" + </span>
+<span class="source-line-no">400</span><span id="line-400">            "votre taux d'oxygène a doublé, et avec cela votre force 💪.\n" +</span>
+<span class="source-line-no">401</span><span id="line-401">            "Vous pouvez maintenant porter jusqu'à " + this.aPlayer.getInventoryCapacity() + " kg.");</span>
+<span class="source-line-no">402</span><span id="line-402">    } // drinkH202</span>
+<span class="source-line-no">403</span><span id="line-403"></span>
+<span class="source-line-no">404</span><span id="line-404">    /**</span>
+<span class="source-line-no">405</span><span id="line-405">     * Exécute la commande "test" pour lire et exécuter des commandes depuis un fichier.</span>
+<span class="source-line-no">406</span><span id="line-406">     * Le fichier doit contenir une commande par ligne et se trouver à la racine du projet.</span>
+<span class="source-line-no">407</span><span id="line-407">     *</span>
+<span class="source-line-no">408</span><span id="line-408">     * @param pCommand la commande test avec le nom du fichier (sans extension .txt)</span>
+<span class="source-line-no">409</span><span id="line-409">     */</span>
+<span class="source-line-no">410</span><span id="line-410">    private void executeTest(final Command pCommand)</span>
+<span class="source-line-no">411</span><span id="line-411">    {</span>
+<span class="source-line-no">412</span><span id="line-412">        if (!pCommand.hasSecondWord()) {</span>
+<span class="source-line-no">413</span><span id="line-413">            this.aGui.println("Test quel fichier ? Spécifiez un nom de fichier.");</span>
+<span class="source-line-no">414</span><span id="line-414">            return;</span>
+<span class="source-line-no">415</span><span id="line-415">        }</span>
+<span class="source-line-no">416</span><span id="line-416">        String pNomFichier = pCommand.getSecondWord() + ".txt";</span>
+<span class="source-line-no">417</span><span id="line-417">        Scanner vScanner;</span>
+<span class="source-line-no">418</span><span id="line-418">        try { // pour "essayer" les instructions suivantes :</span>
+<span class="source-line-no">419</span><span id="line-419">            vScanner = new Scanner( new File( pNomFichier ) ); // ouverture du fichier s'il existe</span>
+<span class="source-line-no">420</span><span id="line-420">            this.aGui.println("\n============= Exécution TEST =============\n");</span>
+<span class="source-line-no">421</span><span id="line-421">            while ( vScanner.hasNextLine() ) { // tant qu'il y a encore une ligne à lire dans le fichier</span>
+<span class="source-line-no">422</span><span id="line-422">                String vLigne = vScanner.nextLine(); // lecture de la ligne dans le fichier</span>
+<span class="source-line-no">423</span><span id="line-423">                this.interpretCommand( vLigne );</span>
+<span class="source-line-no">424</span><span id="line-424">            } // while</span>
+<span class="source-line-no">425</span><span id="line-425">            this.aGui.println("\n============= TEST terminé =============\n");</span>
+<span class="source-line-no">426</span><span id="line-426">        } // try</span>
+<span class="source-line-no">427</span><span id="line-427">        catch ( final FileNotFoundException pFNFE ) { // si le fichier n'existe pas</span>
+<span class="source-line-no">428</span><span id="line-428">            this.aGui.println("Le fichier '" + pNomFichier + "' est introuvable.");</span>
+<span class="source-line-no">429</span><span id="line-429">        } // catch</span>
+<span class="source-line-no">430</span><span id="line-430">        </span>
+<span class="source-line-no">431</span><span id="line-431">    } // executeTest(*)</span>
+<span class="source-line-no">432</span><span id="line-432"></span>
+<span class="source-line-no">433</span><span id="line-433">}</span>
 
 
 

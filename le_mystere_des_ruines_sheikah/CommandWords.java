@@ -3,7 +3,7 @@
  * Cette classe permet de vérifier si une commande ou une direction est valide.
  *
  * @author  Michael Kolling, David J. Barnes, D. Bureau, Benoît de Keyn
- * @version 2025.10.25
+ * @version 2026.01.10
  */
 
 public class CommandWords

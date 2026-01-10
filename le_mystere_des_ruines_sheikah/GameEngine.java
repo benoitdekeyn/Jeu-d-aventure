@@ -8,7 +8,7 @@ import java.util.Scanner;
  * le traitement des commandes et l'affichage des informations dans l'interface utilisateur.
  *
  * @author  Michael Kolling, David J. Barnes, Benoît de Keyn
- * @version 2025.12.25
+ * @version 2026.01.10
  */
 public class GameEngine
 {
@@ -353,7 +353,8 @@ public class GameEngine
     } // drop(*)
 
     /**
-     * Affiche le contenu de l'inventaire du joueur.
+     * Traite la commande "inventaire" pour afficher le contenu de l'inventaire du joueur.
+     * Affiche la liste de tous les objets que le joueur porte actuellement.
      */
     private void showInventory()
     {
@@ -364,6 +365,8 @@ public class GameEngine
      * Exécute la commande "ingérer" pour consommer un objet de l'inventaire.
      * Vérifie que l'objet existe dans l'inventaire du joueur. Si l'objet est ingéré,
      * il est retiré de l'inventaire du joueur et son effet est appliqué.
+     *
+     * @param pCommand la commande reçue (qui contient potentiellement le nom de l'objet à ingérer)
      */
     private void ingest( final Command pCommand )
     {
@@ -385,9 +388,10 @@ public class GameEngine
     } // ingest(*)
 
     /**
-     * Applique l'effet de boire de l'eau oxygénée.
-     * Double la capacité (kg) de l'inventaire du joueur.
-     */    private void drinkH202()
+     * Applique l'effet de boire de l'eau oxygénée (H2O2).
+     * Double la capacité maximale de poids de l'inventaire du joueur.
+     */
+    private void drinkH202()
     {
         this.aPlayer.doubleInventoryCapacity();
         this.aGui.println(

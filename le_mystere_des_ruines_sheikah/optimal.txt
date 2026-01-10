@@ -2,11 +2,11 @@ aller est
 aller ouest
 aller haut
 aller haut
-regarder
+prendre clé
 aller bas
 aller bas
 aller est
 aller sud
 aller nord
-regarder
+inventaire
 quitter

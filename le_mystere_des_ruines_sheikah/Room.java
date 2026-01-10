@@ -5,7 +5,7 @@ import java.util.HashMap;
  * Une salle peut contenir des objets et avoir des sorties vers d'autres salles.
  *
  * @author  Benoît de Keyn
- * @version 2025.10.25
+ * @version 2026.01.10
  */
 public class Room
 {

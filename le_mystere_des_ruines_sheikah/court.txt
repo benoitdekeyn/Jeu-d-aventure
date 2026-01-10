@@ -1,4 +1,5 @@
 regarder
-aller nord
+prendre bûche
+aller est
 aide
 quitter
