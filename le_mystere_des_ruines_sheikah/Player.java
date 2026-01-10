@@ -110,8 +110,8 @@ public class Player
      */
     public void addItem( final Item pItem )
     {
-        this.aInventory.add( pItem );
         this.aInventoryWeight += pItem.getWeight();
+        this.aInventory.add( pItem );
     } // addItem
 
     /**
@@ -122,8 +122,8 @@ public class Player
      */
     public void removeItem( final String pItemName )
     {
-        this.aInventory.remove( pItemName );
         this.aInventoryWeight -= this.aInventory.get( pItemName ).getWeight();
+        this.aInventory.remove( pItemName );
     } // removeItem
 
     /**
@@ -153,10 +153,10 @@ public class Player
      *
      * @return une description textuelle des objets présents dans l'inventaire
      */
-    public String getItemsString()
+    public String getInventoryContents()
     {
-        return this.aInventory.getItemString();
-    } // getItemsString
+        return this.aInventory.getItemsString();
+    } // getInventoryContents
 
     /**
      * Renvoie le poids total des objets portés par le joueur.

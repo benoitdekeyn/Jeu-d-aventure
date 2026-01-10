@@ -76,7 +76,7 @@ public class ItemList
      *
      * @return une description des objets ou un message indiquant l'absence d'objets
      */
-    public String getItemString()
+    public String getItemsString()
     {
         if ( !this.aItems.isEmpty() ) {
             StringBuilder vItemString = new StringBuilder("");
@@ -86,7 +86,7 @@ public class ItemList
             return vItemString.toString();
         }
         else {
-            return "Aucun objet.";
+            return "aucun objet.";
         }
-    } // getItemString
+    } // getItemsString
 } // ItemList

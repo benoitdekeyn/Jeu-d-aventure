@@ -18,7 +18,8 @@ public class CommandWords
         "respirer",
         "test",
         "prendre",
-        "poser"
+        "poser",
+        "inventaire"
     };
 
     /** Liste des directions valides reconnues par le jeu. */

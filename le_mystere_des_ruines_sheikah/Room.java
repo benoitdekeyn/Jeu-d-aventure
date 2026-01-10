@@ -118,9 +118,9 @@ public class Room
      *
      * @return une description textuelle des objets présents dans la salle
      */
-    public String getItemString() {
-        return this.aItems.getItemString();
-    } // getItemString
+    public String getItemsString() {
+        return this.aItems.getItemsString();
+    } // getItemsString
 
     /**
      * Renvoie une description complète de la salle.
@@ -130,8 +130,8 @@ public class Room
      */
     public String getLongDescription()
     {
-        // On ajoute getItemString() à la description affichée
-        return "Vous êtes " + this.aDescription + ".\n" + "La pièce contient : " + this.getItemString() + "\n" + this.getExitString();
+        // On ajoute getItemsString() à la description affichée
+        return "Vous êtes " + this.aDescription + ".\n" + "La pièce contient : " + this.getItemsString() + "\n" + this.getExitString();
     } // getLongDescription
 
     /**

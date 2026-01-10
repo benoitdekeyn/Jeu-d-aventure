@@ -164,6 +164,7 @@ public class GameEngine
             case "test"        -> executeTest(vCommand);
             case "prendre"     -> take(vCommand);
             case "poser"       -> drop(vCommand);
+            case "inventaire"  -> showInventory();
             default            -> System.out.println("Cette commande n'a pas encore d'action associée.");
         }
     } // interpretCommand(*)
@@ -345,8 +346,16 @@ public class GameEngine
         Item vItem = this.aPlayer.getItem( vItemName );
         this.aPlayer.getCurrentRoom().addItem( vItem );
         this.aPlayer.removeItem( vItemName );
-        this.aGui.println("Vous avez posé : " + vItem.getLongDescription());
+        this.aGui.println("Vous avez bien posé : " + vItem.getName());
     } // drop(*)
+
+    /**
+     * Affiche le contenu de l'inventaire du joueur.
+     */
+    private void showInventory()
+    {
+        this.aGui.println("Vous portez : " + this.aPlayer.getInventoryContents());
+    } // showInventory
 
     /**
      * Exécute la commande "test" pour lire et exécuter des commandes depuis un fichier.
