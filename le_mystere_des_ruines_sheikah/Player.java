@@ -162,7 +162,7 @@ public class Player
      * Renvoie le poids total des objets portés par le joueur.
      *
      * @return le poids total en kilogrammes
-     */    public double getInventoryWeight()
+     */    public double getInventoryWeight() 
     {
         return this.aInventoryWeight;
     } // getInventoryWeight
@@ -172,9 +172,17 @@ public class Player
      *
      * @return la capacité maximale en kilogrammes
      */
-    public double getInventoryCapacity()
+    public double getInventoryCapacity() 
     {
         return this.aInventoryCapacity;
     } // getInventoryCapacity
+
+    /**
+     * Double la capacité maximale de l'inventaire du joueur.
+     */
+    public void doubleInventoryCapacity() 
+    {
+        this.aInventoryCapacity *= 2;
+    } // doubleInventoryCapacity
 
 } // Player

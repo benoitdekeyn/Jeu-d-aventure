@@ -19,7 +19,8 @@ public class CommandWords
         "test",
         "prendre",
         "poser",
-        "inventaire"
+        "inventaire",
+        "ingérer"
     };
 
     /** Liste des directions valides reconnues par le jeu. */

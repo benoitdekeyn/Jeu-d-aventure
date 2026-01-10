@@ -85,6 +85,7 @@ public class GameEngine
         Item vEpee      = new Item("épée", "une épée rouillée", 2.0);
         Item vBuche     = new Item("bûche", "une bûche lourde", 5.0);
         Item vRocher    = new Item("rocher", "un gros rocher bien lourd", 12.0);
+        Item vFiole      = new Item("fiole", "une fiole d'eau oxygénée", 0.2);
 
         // zones extérieures
         vNord.setExit("est", vEst);
@@ -119,6 +120,7 @@ public class GameEngine
         vArbre.addItem(vBranche);
         vSud.addItem(vBuche);
         vSud.addItem(vRocher);
+        vSud.addItem(vFiole);
         
         // room de départ (sera assignée au joueur quand il sera créé)
         this.aStartRoom = vSud;
@@ -165,6 +167,7 @@ public class GameEngine
             case "prendre"     -> take(vCommand);
             case "poser"       -> drop(vCommand);
             case "inventaire"  -> showInventory();
+            case "ingérer"     -> ingest(vCommand);
             default            -> System.out.println("Cette commande n'a pas encore d'action associée.");
         }
     } // interpretCommand(*)
@@ -356,6 +359,43 @@ public class GameEngine
     {
         this.aGui.println("Vous portez : " + this.aPlayer.getInventoryContents());
     } // showInventory
+
+    /**
+     * Exécute la commande "ingérer" pour consommer un objet de l'inventaire.
+     * Vérifie que l'objet existe dans l'inventaire du joueur. Si l'objet est ingéré,
+     * il est retiré de l'inventaire du joueur et son effet est appliqué.
+     */
+    private void ingest( final Command pCommand )
+    {
+        if ( ! pCommand.hasSecondWord() ) {
+            this.aGui.println("Qu'est-ce que tu veux te mettre sous la dent ? Réessaye pour voir.");
+            return;
+        }
+        String vItemName = pCommand.getSecondWord();
+        if ( ! this.aPlayer.hasItem( vItemName ) ) {
+            this.aGui.println("Va falloir mieux chercher avec tes petits yeux ! T'as pas ça sur toi.");
+            return;
+        }
+        Item vItem = this.aPlayer.getItem( vItemName );
+        switch ( vItem.getName() ) {
+            case "fiole" -> this.drinkH202();
+            default -> { this.aGui.println("Mais ti'es complètment fadaaaa !!!"); return;}
+        }
+        this.aPlayer.removeItem( vItemName );
+    } // ingest(*)
+
+    /**
+     * Applique l'effet de boire de l'eau oxygénée.
+     * Double la capacité (kg) de l'inventaire du joueur.
+     */    private void drinkH202()
+    {
+        this.aPlayer.doubleInventoryCapacity();
+        this.aGui.println(
+            "Vous avez consommé votre fiole d'eau oxygénée.\n"+
+            "Mais comme on est dans un jeu,\n" + 
+            "votre taux d'oxygène a doublé, et avec cela votre force 💪.\n" +
+            "Vous pouvez maintenant porter jusqu'à " + this.aPlayer.getInventoryCapacity() + " kg.");
+    } // drinkH202
 
     /**
      * Exécute la commande "test" pour lire et exécuter des commandes depuis un fichier.
