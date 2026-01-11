@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Player
-comment0.text=\r\n\ Classe\ Player\ -\ repr\u00E9sente\ un\ joueur\ dans\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Un\ joueur\ poss\u00E8de\ un\ nom,\ une\ salle\ courante,\ un\ historique\ de\ ses\ d\u00E9placements\ et\ un\ inventaire.\r\n\r\n\ @author\ \ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2025.12.25\r\n
+comment0.text=\r\n\ Classe\ Player\ -\ repr\u00E9sente\ un\ joueur\ dans\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Un\ joueur\ poss\u00E8de\ un\ nom,\ une\ salle\ courante,\ un\ historique\ de\ ses\ d\u00E9placements\ et\ un\ inventaire.\r\n\r\n\ @author\ \ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2026.01.10\r\n
 comment1.params=
 comment1.target=Player()
 comment1.text=\r\n\ Cr\u00E9e\ un\ nouveau\ joueur\ en\ demandant\ son\ nom\ via\ une\ bo\u00EEte\ de\ dialogue.\r\n\ Si\ aucun\ nom\ n'est\ fourni,\ le\ nom\ par\ d\u00E9faut\ est\ utilis\u00E9.\r\n
@@ -19,6 +19,9 @@ comment13.text=\r\n\ Renvoie\ la\ capacit\u00E9\ maximale\ de\ l'inventaire\ du\
 comment14.params=
 comment14.target=void\ doubleInventoryCapacity()
 comment14.text=\r\n\ Double\ la\ capacit\u00E9\ maximale\ de\ l'inventaire\ du\ joueur.\r\n
+comment15.params=
+comment15.target=void\ clearHistory()
+comment15.text=\r\n\ Vide\ l'historique\ des\ salles\ visit\u00E9es.\r\n\ Cette\ m\u00E9thode\ est\ appel\u00E9e\ lorsqu'un\ d\u00E9placement\ irr\u00E9versible\ est\ effectu\u00E9\ (Trap\ Door).\r\n
 comment2.params=
 comment2.target=java.lang.String\ getName()
 comment2.text=\r\n\ Renvoie\ le\ nom\ du\ joueur.\r\n\r\n\ @return\ le\ nom\ du\ joueur\r\n
@@ -43,4 +46,4 @@ comment8.text=\r\n\ Retire\ un\ objet\ de\ l'inventaire\ du\ joueur.\r\n\ Si\ l'
 comment9.params=pItemName
 comment9.target=Item\ getItem(java.lang.String)
 comment9.text=\r\n\ Renvoie\ un\ objet\ de\ l'inventaire\ du\ joueur.\r\n\r\n\ @param\ pItemName\ le\ nom\ de\ l'objet\ recherch\u00E9\ dans\ l'inventaire\r\n\ @return\ l'objet\ correspondant,\ ou\ null\ si\ l'objet\ n'est\ pas\ dans\ l'inventaire\r\n
-numComments=15
+numComments=16

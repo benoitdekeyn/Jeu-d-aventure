@@ -82,6 +82,22 @@ public class Room
     } // getExitString
 
     /**
+     * Renvoie la direction opposée à une direction donnée.
+     */
+    public static String opppositeOf( final String pDirection )
+    {
+        return switch ( pDirection ) {
+            case "nord"  -> "sud";
+            case "sud"   -> "nord";
+            case "est"   -> "ouest";
+            case "ouest" -> "est";
+            case "haut"  -> "bas";
+            case "bas"   -> "haut";
+            default      -> "";
+        };
+    }
+
+    /**
      * Ajoute un objet dans la liste des objets présents dans cette salle.
      *
      * @param pItem l'objet à ajouter dans la salle

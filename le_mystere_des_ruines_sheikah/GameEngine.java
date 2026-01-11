@@ -27,6 +27,12 @@ public class GameEngine
     /** La salle de départ du jeu. */
     private Room aStartRoom;
 
+    /** Compteur d'actions */
+    private int aActionCount;
+
+    /** Nombre total d'actions autorisées avant le Game Over */
+    private final int aMaxActions = 2;
+
     /**
      * Crée un nouveau moteur de jeu.
      * Initialise le parseur et crée toutes les salles.
@@ -34,6 +40,7 @@ public class GameEngine
     public GameEngine()
     {
         this.aParser = new Parser();
+        this.aActionCount = 0;
         this.createRooms();
     }
 
@@ -88,10 +95,10 @@ public class GameEngine
         Item vFiole      = new Item("fiole", "une fiole d'eau oxygénée", 0.2);
 
         // zones extérieures
-        vNord.setExit("est", vEst);
+        //vNord.setExit("est", vEst); -> trap door, on peut ne peut pas revenir à la zone Est par cet accès
         vNord.setExit("sud", vMurNord);
         vNord.setExit("ouest", vOuest);
-        vEst.setExit("nord", vNord);
+        vEst.setExit("nord", vNord); // -> trap door, on peut entrer dans la zone Nord mais pas revenir
         vEst.setExit("sud", vSud);
         vEst.setExit("ouest", vEscaliers);  
         vSud.setExit("nord", vPorte);
@@ -170,7 +177,23 @@ public class GameEngine
             case "ingérer"     -> ingest(vCommand);
             default            -> System.out.println("Cette commande n'a pas encore d'action associée.");
         }
+
     } // interpretCommand(*)
+
+    /**
+     * Incrémente le compteur d'actions et vérifie si le joueur a atteint la limite.
+     * Si la limite est atteinte, affiche un message de Game Over et désactive l'interface.
+     */
+    private void countActions() 
+    {
+        this.aActionCount++;
+        if (this.aActionCount == this.aMaxActions) {
+            this.aGui.println(
+                "\nVous avez atteint la limite de " + this.aActionCount + " actions.\n" +
+                "\n=============== GAME OVER ==============\n");
+            this.aGui.enable( false );
+        }
+    }
 
     /**
      * Traite la commande "quitter".
@@ -209,13 +232,19 @@ public class GameEngine
         }
         
         Room vNextRoom = this.aPlayer.getCurrentRoom().getExit( vDirection );
+        Room vCurrentRoom = this.aPlayer.getCurrentRoom();
 
         if ( vNextRoom == null ) {
             this.aGui.println("Vous ne pouvez pas aller dans cette direction !");
             return;
-        } 
-        
+        }
+
         this.aPlayer.goRoom( vNextRoom );
+
+        if (vNextRoom.getExit(Room.opppositeOf(vDirection)) != vCurrentRoom) {
+            this.aPlayer.clearHistory();
+        }
+        
         printLocationInfo();
         displayLocationImage();
     } // goRoom(*)

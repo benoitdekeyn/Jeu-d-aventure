@@ -85,6 +85,7 @@ public class Player
     {
         this.aPreviousRooms.push( this.aCurrentRoom );
         this.aCurrentRoom = pNextRoom;
+
     } // goRoom
 
     /**
@@ -184,5 +185,14 @@ public class Player
     {
         this.aInventoryCapacity *= 2;
     } // doubleInventoryCapacity
+
+    /**
+     * Vide l'historique des salles visitées.
+     * Cette méthode est appelée lorsqu'un déplacement irréversible est effectué (Trap Door).
+     */
+    public void clearHistory()
+    {
+        this.aPreviousRooms.clear();
+    } // clearHistory
 
 } // Player
