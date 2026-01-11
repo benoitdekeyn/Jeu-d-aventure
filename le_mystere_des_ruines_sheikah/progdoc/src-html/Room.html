@@ -95,68 +95,87 @@
 <span class="source-line-no">082</span><span id="line-82">    } // getExitString</span>
 <span class="source-line-no">083</span><span id="line-83"></span>
 <span class="source-line-no">084</span><span id="line-84">    /**</span>
-<span class="source-line-no">085</span><span id="line-85">     * Ajoute un objet dans la liste des objets présents dans cette salle.</span>
-<span class="source-line-no">086</span><span id="line-86">     *</span>
-<span class="source-line-no">087</span><span id="line-87">     * @param pItem l'objet à ajouter dans la salle</span>
-<span class="source-line-no">088</span><span id="line-88">     */</span>
-<span class="source-line-no">089</span><span id="line-89">    public void addItem( final Item pItem )</span>
-<span class="source-line-no">090</span><span id="line-90">    {</span>
-<span class="source-line-no">091</span><span id="line-91">        this.aItems.add(pItem);</span>
-<span class="source-line-no">092</span><span id="line-92">    }</span>
-<span class="source-line-no">093</span><span id="line-93"></span>
-<span class="source-line-no">094</span><span id="line-94">    /**</span>
-<span class="source-line-no">095</span><span id="line-95">     * Retire un objet de la liste des objets présents dans cette salle.</span>
-<span class="source-line-no">096</span><span id="line-96">     * Si l'objet n'existe pas dans la salle, aucune action n'est effectuée.</span>
-<span class="source-line-no">097</span><span id="line-97">     *</span>
-<span class="source-line-no">098</span><span id="line-98">     * @param pItemName le nom de l'objet à retirer de la salle</span>
-<span class="source-line-no">099</span><span id="line-99">     */</span>
-<span class="source-line-no">100</span><span id="line-100">    public void removeItem( final String pItemName )</span>
-<span class="source-line-no">101</span><span id="line-101">    {</span>
-<span class="source-line-no">102</span><span id="line-102">        this.aItems.remove(pItemName);</span>
-<span class="source-line-no">103</span><span id="line-103">    } // removeItem</span>
-<span class="source-line-no">104</span><span id="line-104"></span>
-<span class="source-line-no">105</span><span id="line-105">    /**</span>
-<span class="source-line-no">106</span><span id="line-106">     * Renvoie un objet de la liste des objets présents dans cette salle.</span>
-<span class="source-line-no">107</span><span id="line-107">     *</span>
-<span class="source-line-no">108</span><span id="line-108">     * @param pItemName le nom de l'objet recherché dans la salle</span>
-<span class="source-line-no">109</span><span id="line-109">     * @return l'objet correspondant, ou null si l'objet n'est pas présent dans la salle</span>
-<span class="source-line-no">110</span><span id="line-110">     */</span>
-<span class="source-line-no">111</span><span id="line-111">    public Item getItem( final String pItemName )</span>
-<span class="source-line-no">112</span><span id="line-112">    {</span>
-<span class="source-line-no">113</span><span id="line-113">        return this.aItems.get(pItemName);</span>
-<span class="source-line-no">114</span><span id="line-114">    } // getItem</span>
-<span class="source-line-no">115</span><span id="line-115"></span>
-<span class="source-line-no">116</span><span id="line-116">    /**</span>
-<span class="source-line-no">117</span><span id="line-117">     * Renvoie une chaîne de caractères listant tous les objets présents dans cette salle.</span>
-<span class="source-line-no">118</span><span id="line-118">     *</span>
-<span class="source-line-no">119</span><span id="line-119">     * @return une description textuelle des objets présents dans la salle</span>
-<span class="source-line-no">120</span><span id="line-120">     */</span>
-<span class="source-line-no">121</span><span id="line-121">    public String getItemsString() {</span>
-<span class="source-line-no">122</span><span id="line-122">        return this.aItems.getItemsString();</span>
-<span class="source-line-no">123</span><span id="line-123">    } // getItemsString</span>
-<span class="source-line-no">124</span><span id="line-124"></span>
-<span class="source-line-no">125</span><span id="line-125">    /**</span>
-<span class="source-line-no">126</span><span id="line-126">     * Renvoie une description complète de la salle.</span>
-<span class="source-line-no">127</span><span id="line-127">     * Inclut la description de la salle, les objets présents et les sorties disponibles.</span>
-<span class="source-line-no">128</span><span id="line-128">     *</span>
-<span class="source-line-no">129</span><span id="line-129">     * @return une description détaillée de la salle</span>
-<span class="source-line-no">130</span><span id="line-130">     */</span>
-<span class="source-line-no">131</span><span id="line-131">    public String getLongDescription()</span>
-<span class="source-line-no">132</span><span id="line-132">    {</span>
-<span class="source-line-no">133</span><span id="line-133">        // On ajoute getItemsString() à la description affichée</span>
-<span class="source-line-no">134</span><span id="line-134">        return "Vous êtes " + this.aDescription + ".\n" + "La pièce contient : " + this.getItemsString() + "\n" + this.getExitString();</span>
-<span class="source-line-no">135</span><span id="line-135">    } // getLongDescription</span>
-<span class="source-line-no">136</span><span id="line-136"></span>
-<span class="source-line-no">137</span><span id="line-137">    /**</span>
-<span class="source-line-no">138</span><span id="line-138">     * Renvoie le nom du fichier image associé à la salle.</span>
-<span class="source-line-no">139</span><span id="line-139">     *</span>
-<span class="source-line-no">140</span><span id="line-140">     * @return le nom du fichier image</span>
-<span class="source-line-no">141</span><span id="line-141">     */</span>
-<span class="source-line-no">142</span><span id="line-142">    public String getImageName()</span>
-<span class="source-line-no">143</span><span id="line-143">    {</span>
-<span class="source-line-no">144</span><span id="line-144">        return this.aImageName;</span>
-<span class="source-line-no">145</span><span id="line-145">    }</span>
-<span class="source-line-no">146</span><span id="line-146">} // Room</span>
+<span class="source-line-no">085</span><span id="line-85">     * Renvoie la direction opposée à une direction donnée.</span>
+<span class="source-line-no">086</span><span id="line-86">     * </span>
+<span class="source-line-no">087</span><span id="line-87">     * @param pDirection la direction dont on veut l'opposée.</span>
+<span class="source-line-no">088</span><span id="line-88">     * @return la direction opposée, ou une chaîne vide si la direction n'est pas reconnue.</span>
+<span class="source-line-no">089</span><span id="line-89">     */</span>
+<span class="source-line-no">090</span><span id="line-90">    public static String opppositeOf( final String pDirection )</span>
+<span class="source-line-no">091</span><span id="line-91">    {</span>
+<span class="source-line-no">092</span><span id="line-92">        return switch ( pDirection ) {</span>
+<span class="source-line-no">093</span><span id="line-93">            case "nord"  -&gt; "sud";</span>
+<span class="source-line-no">094</span><span id="line-94">            case "sud"   -&gt; "nord";</span>
+<span class="source-line-no">095</span><span id="line-95">            case "est"   -&gt; "ouest";</span>
+<span class="source-line-no">096</span><span id="line-96">            case "ouest" -&gt; "est";</span>
+<span class="source-line-no">097</span><span id="line-97">            case "haut"  -&gt; "bas";</span>
+<span class="source-line-no">098</span><span id="line-98">            case "bas"   -&gt; "haut";</span>
+<span class="source-line-no">099</span><span id="line-99">            default      -&gt; "";</span>
+<span class="source-line-no">100</span><span id="line-100">        };</span>
+<span class="source-line-no">101</span><span id="line-101">    } // opppositeOf</span>
+<span class="source-line-no">102</span><span id="line-102"></span>
+<span class="source-line-no">103</span><span id="line-103">    /**</span>
+<span class="source-line-no">104</span><span id="line-104">     * Ajoute un objet dans la liste des objets présents dans cette salle.</span>
+<span class="source-line-no">105</span><span id="line-105">     *</span>
+<span class="source-line-no">106</span><span id="line-106">     * @param pItem l'objet à ajouter dans la salle</span>
+<span class="source-line-no">107</span><span id="line-107">     */</span>
+<span class="source-line-no">108</span><span id="line-108">    public void addItem( final Item pItem )</span>
+<span class="source-line-no">109</span><span id="line-109">    {</span>
+<span class="source-line-no">110</span><span id="line-110">        this.aItems.add(pItem);</span>
+<span class="source-line-no">111</span><span id="line-111">    }</span>
+<span class="source-line-no">112</span><span id="line-112"></span>
+<span class="source-line-no">113</span><span id="line-113">    /**</span>
+<span class="source-line-no">114</span><span id="line-114">     * Retire un objet de la liste des objets présents dans cette salle.</span>
+<span class="source-line-no">115</span><span id="line-115">     * Si l'objet n'existe pas dans la salle, aucune action n'est effectuée.</span>
+<span class="source-line-no">116</span><span id="line-116">     *</span>
+<span class="source-line-no">117</span><span id="line-117">     * @param pItemName le nom de l'objet à retirer de la salle</span>
+<span class="source-line-no">118</span><span id="line-118">     */</span>
+<span class="source-line-no">119</span><span id="line-119">    public void removeItem( final String pItemName )</span>
+<span class="source-line-no">120</span><span id="line-120">    {</span>
+<span class="source-line-no">121</span><span id="line-121">        this.aItems.remove(pItemName);</span>
+<span class="source-line-no">122</span><span id="line-122">    } // removeItem</span>
+<span class="source-line-no">123</span><span id="line-123"></span>
+<span class="source-line-no">124</span><span id="line-124">    /**</span>
+<span class="source-line-no">125</span><span id="line-125">     * Renvoie un objet de la liste des objets présents dans cette salle.</span>
+<span class="source-line-no">126</span><span id="line-126">     *</span>
+<span class="source-line-no">127</span><span id="line-127">     * @param pItemName le nom de l'objet recherché dans la salle</span>
+<span class="source-line-no">128</span><span id="line-128">     * @return l'objet correspondant, ou null si l'objet n'est pas présent dans la salle</span>
+<span class="source-line-no">129</span><span id="line-129">     */</span>
+<span class="source-line-no">130</span><span id="line-130">    public Item getItem( final String pItemName )</span>
+<span class="source-line-no">131</span><span id="line-131">    {</span>
+<span class="source-line-no">132</span><span id="line-132">        return this.aItems.get(pItemName);</span>
+<span class="source-line-no">133</span><span id="line-133">    } // getItem</span>
+<span class="source-line-no">134</span><span id="line-134"></span>
+<span class="source-line-no">135</span><span id="line-135">    /**</span>
+<span class="source-line-no">136</span><span id="line-136">     * Renvoie une chaîne de caractères listant tous les objets présents dans cette salle.</span>
+<span class="source-line-no">137</span><span id="line-137">     *</span>
+<span class="source-line-no">138</span><span id="line-138">     * @return une description textuelle des objets présents dans la salle</span>
+<span class="source-line-no">139</span><span id="line-139">     */</span>
+<span class="source-line-no">140</span><span id="line-140">    public String getItemsString() {</span>
+<span class="source-line-no">141</span><span id="line-141">        return this.aItems.getItemsString();</span>
+<span class="source-line-no">142</span><span id="line-142">    } // getItemsString</span>
+<span class="source-line-no">143</span><span id="line-143"></span>
+<span class="source-line-no">144</span><span id="line-144">    /**</span>
+<span class="source-line-no">145</span><span id="line-145">     * Renvoie une description complète de la salle.</span>
+<span class="source-line-no">146</span><span id="line-146">     * Inclut la description de la salle, les objets présents et les sorties disponibles.</span>
+<span class="source-line-no">147</span><span id="line-147">     *</span>
+<span class="source-line-no">148</span><span id="line-148">     * @return une description détaillée de la salle</span>
+<span class="source-line-no">149</span><span id="line-149">     */</span>
+<span class="source-line-no">150</span><span id="line-150">    public String getLongDescription()</span>
+<span class="source-line-no">151</span><span id="line-151">    {</span>
+<span class="source-line-no">152</span><span id="line-152">        // On ajoute getItemsString() à la description affichée</span>
+<span class="source-line-no">153</span><span id="line-153">        return "Vous êtes " + this.aDescription + ".\n" + "La pièce contient : " + this.getItemsString() + "\n" + this.getExitString();</span>
+<span class="source-line-no">154</span><span id="line-154">    } // getLongDescription</span>
+<span class="source-line-no">155</span><span id="line-155"></span>
+<span class="source-line-no">156</span><span id="line-156">    /**</span>
+<span class="source-line-no">157</span><span id="line-157">     * Renvoie le nom du fichier image associé à la salle.</span>
+<span class="source-line-no">158</span><span id="line-158">     *</span>
+<span class="source-line-no">159</span><span id="line-159">     * @return le nom du fichier image</span>
+<span class="source-line-no">160</span><span id="line-160">     */</span>
+<span class="source-line-no">161</span><span id="line-161">    public String getImageName()</span>
+<span class="source-line-no">162</span><span id="line-162">    {</span>
+<span class="source-line-no">163</span><span id="line-163">        return this.aImageName;</span>
+<span class="source-line-no">164</span><span id="line-164">    }</span>
+<span class="source-line-no">165</span><span id="line-165">} // Room</span>
 
 
 

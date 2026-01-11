@@ -83,6 +83,9 @@ public class Room
 
     /**
      * Renvoie la direction opposée à une direction donnée.
+     * 
+     * @param pDirection la direction dont on veut l'opposée.
+     * @return la direction opposée, ou une chaîne vide si la direction n'est pas reconnue.
      */
     public static String opppositeOf( final String pDirection )
     {
@@ -95,7 +98,7 @@ public class Room
             case "bas"   -> "haut";
             default      -> "";
         };
-    }
+    } // opppositeOf
 
     /**
      * Ajoute un objet dans la liste des objets présents dans cette salle.
