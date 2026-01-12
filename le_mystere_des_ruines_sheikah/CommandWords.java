@@ -20,7 +20,9 @@ public class CommandWords
         "prendre",
         "poser",
         "inventaire",
-        "ingérer"
+        "ingérer",
+        "charger",
+        "déclencher"
     };
 
     /** Liste des directions valides reconnues par le jeu. */

@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=CommandWords
-comment0.text=\r\n\ Classe\ CommandWords\ -\ contient\ la\ liste\ des\ mots\ de\ commande\ valides\ pour\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Cette\ classe\ permet\ de\ v\u00E9rifier\ si\ une\ commande\ ou\ une\ direction\ est\ valide.\r\n\r\n\ @author\ \ Michael\ Kolling,\ David\ J.\ Barnes,\ D.\ Bureau,\ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2025.10.25\r\n
+comment0.text=\r\n\ Classe\ CommandWords\ -\ contient\ la\ liste\ des\ mots\ de\ commande\ valides\ pour\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Cette\ classe\ permet\ de\ v\u00E9rifier\ si\ une\ commande\ ou\ une\ direction\ est\ valide.\r\n\r\n\ @author\ \ Michael\ Kolling,\ David\ J.\ Barnes,\ D.\ Bureau,\ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2026.01.10\r\n
 comment1.params=
 comment1.target=CommandWords()
 comment1.text=\r\n\ Cr\u00E9e\ un\ nouvel\ objet\ CommandWords.\r\n\ Les\ tableaux\ de\ commandes\ et\ de\ directions\ valides\ sont\ initialis\u00E9s\ directement.\r\n

@@ -86,13 +86,14 @@ public class GameEngine
         Room vArbre       = new Room("en hauteur, dans l'arbre au-dessus des ruines", "arbre.png");
 
         // Création des Items
-        Item vCarte     = new Item("carte", "une carte ancienne", 0.1);
-        Item vClef      = new Item("clé", "une clé ancienne", 0.5);
-        Item vBranche   = new Item("branche", "une branche solide", 1.2);
-        Item vEpee      = new Item("épée", "une épée rouillée", 2.0);
-        Item vBuche     = new Item("bûche", "une bûche lourde", 5.0);
-        Item vRocher    = new Item("rocher", "un gros rocher bien lourd", 12.0);
-        Item vFiole      = new Item("fiole", "une fiole d'eau oxygénée", 0.2);
+        Item vTeleporteur = new Beamer();
+        Item vCarte       = new Item("carte", "une carte ancienne", 0.1);
+        Item vClef        = new Item("clé", "une clé ancienne", 0.5);
+        Item vBranche     = new Item("branche", "une branche solide", 1.2);
+        Item vEpee        = new Item("épée", "une épée rouillée", 2.0);
+        Item vBuche       = new Item("bûche", "une bûche lourde", 5.0);
+        Item vRocher      = new Item("rocher", "un gros rocher bien lourd", 12.0);
+        Item vFiole       = new Item("fiole", "une fiole d'eau oxygénée", 0.2);
 
         // zones extérieures
         //vNord.setExit("est", vEst); -> trap door, on peut ne peut pas revenir à la zone Est par cet accès
@@ -121,13 +122,14 @@ public class GameEngine
         vArbre.setExit("bas", vToitRuines);
 
         // Placement des Items dans les rooms
+        vSud.addItem(vTeleporteur);
+        vSud.addItem(vBuche);
+        vSud.addItem(vRocher);
+        vSud.addItem(vFiole);
         vMurNord.addItem(vCarte);
         vMurOuest.addItem(vEpee);
         vArbre.addItem(vClef);
         vArbre.addItem(vBranche);
-        vSud.addItem(vBuche);
-        vSud.addItem(vRocher);
-        vSud.addItem(vFiole);
         
         // room de départ (sera assignée au joueur quand il sera créé)
         this.aStartRoom = vSud;
@@ -175,6 +177,8 @@ public class GameEngine
             case "poser"       -> drop(vCommand);
             case "inventaire"  -> showInventory();
             case "ingérer"     -> ingest(vCommand);
+            case "charger"     -> chargeBeamer();
+            case "déclencher"  -> triggerBeamer();
             default            -> System.out.println("Cette commande n'a pas encore d'action associée.");
         }
 
@@ -429,6 +433,40 @@ public class GameEngine
             "votre taux d'oxygène a doublé, et avec cela votre force 💪.\n" +
             "Vous pouvez maintenant porter jusqu'à " + this.aPlayer.getInventoryCapacity() + " kg.");
     } // drinkH202
+
+    /**
+     * Exécute la commande "charger" pour charger le Beamer dans la salle courante.
+     */
+    private void chargeBeamer()
+    {
+        if ( ! this.aPlayer.hasItem( "téléporteur" ) ) {
+            this.aGui.println("Vous ne possédez pas de Téléporteur.");
+            return;
+        }
+        ((Beamer)this.aPlayer.getItem("téléporteur")).charge(this.aPlayer.getCurrentRoom());
+        this.aGui.println("Vous avez chargé le Téléporteur dans cette salle.");
+    } // chargeBeamer
+
+    /**
+     * Exécute la commande "déclencher" pour téléporter le joueur à la salle chargée dans le Beamer.
+     */
+    private void triggerBeamer()
+    {
+        if ( ! this.aPlayer.hasItem( "téléporteur" ) ) {
+            this.aGui.println("Vous ne possédez pas de Téléporteur.");
+            return;
+        }
+        Room vTargetRoom = ((Beamer)this.aPlayer.getItem("téléporteur")).trigger();
+        if ( vTargetRoom == null ) {
+            this.aGui.println("Le Téléporteur n'est pas chargé.");
+            return;
+        }
+        this.aGui.println("Vous avez utilisé le Téléporteur pour vous téléporter !");
+        this.aPlayer.goRoom(vTargetRoom);
+        this.aPlayer.clearHistory();
+        printLocationInfo();
+        displayLocationImage();
+    } // triggerBeamer
 
     /**
      * Exécute la commande "test" pour lire et exécuter des commandes depuis un fichier.

@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Beamer
+comment0.text=\r\n\ Classe\ h\u00E9rit\u00E9e\ d'Item\ repr\u00E9sentant\ un\ T\u00E9l\u00E9porteur\ dans\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Un\ Beamer\ permet\ au\ joueur\ de\ le\ charger\ dans\ une\ pi\u00E8ce\ A,\r\n\ puis\ de\ le\ d\u00E9clencher\ depuis\ une\ pi\u00E8ce\ B\ pour\ s'y\ t\u00E9l\u00E9porter\ imm\u00E9diatement.\r\n\r\n
+comment1.params=
+comment1.target=Beamer()
+comment1.text=\r\n\ Cr\u00E9e\ un\ nouveau\ Beamer\ avec\ un\ nom,\ une\ description\ et\ un\ poids\ fixe.\r\n\r\n
+comment2.params=pCurrentRoom
+comment2.target=void\ charge(Room)
+comment2.text=\r\n\ Charge\ le\ Beamer\ avec\ la\ salle\ courante\ du\ joueur.\r\n\r\n\ @param\ pCurrentRoom\ la\ salle\ courante\ du\ joueur\r\n
+comment3.params=
+comment3.target=Room\ trigger()
+comment3.text=\r\n\ D\u00E9clenche\ le\ Beamer\ pour\ t\u00E9l\u00E9porter\ le\ joueur\ \u00E0\ la\ salle\ charg\u00E9e.\r\n\r\n\ @return\ la\ salle\ charg\u00E9e\ si\ le\ Beamer\ est\ charg\u00E9,\ sinon\ null\r\n
+numComments=4
