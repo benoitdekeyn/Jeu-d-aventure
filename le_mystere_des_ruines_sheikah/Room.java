@@ -82,23 +82,16 @@ public class Room
     } // getExitString
 
     /**
-     * Renvoie la direction opposée à une direction donnée.
+     * Vérifie s'il existe une sortie de cette salle vers une salle donnée.
      * 
-     * @param pDirection la direction dont on veut l'opposée.
-     * @return la direction opposée, ou une chaîne vide si la direction n'est pas reconnue.
+     * @param pRoom la salle cible à vérifier
+     * @return true si une sortie vers pRoom existe, false sinon
      */
-    public static String opppositeOf( final String pDirection )
+    public boolean hasExitTo( final Room pRoom )
     {
-        return switch ( pDirection ) {
-            case "nord"  -> "sud";
-            case "sud"   -> "nord";
-            case "est"   -> "ouest";
-            case "ouest" -> "est";
-            case "haut"  -> "bas";
-            case "bas"   -> "haut";
-            default      -> "";
-        };
-    } // opppositeOf
+        return this.exits.containsValue( pRoom );
+    } // hasExitTo(*)
+
 
     /**
      * Ajoute un objet dans la liste des objets présents dans cette salle.

@@ -31,7 +31,7 @@ public class GameEngine
     private int aMovesCount;
 
     /** Nombre total de déplacements autorisés avant le Game Over */
-    private final int aMaxMoves = 100;
+    private final int aMaxMoves = 2;
 
     /**
      * Crée un nouveau moteur de jeu.
@@ -245,7 +245,7 @@ public class GameEngine
 
         this.aPlayer.goRoom( vNextRoom );
 
-        if (! vCurrentRoom.hasExitTo( vNextRoom )) {
+        if (! vNextRoom.hasExitTo( vCurrentRoom )) {
             this.aPlayer.clearHistory();
         }
         
