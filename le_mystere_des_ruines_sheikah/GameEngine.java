@@ -31,7 +31,7 @@ public class GameEngine
     private int aMovesCount;
 
     /** Nombre total de déplacements autorisés avant le Game Over */
-    private final int aMaxMoves = 2;
+    private final int aMaxMoves = 100;
 
     /**
      * Crée un nouveau moteur de jeu.
@@ -84,6 +84,7 @@ public class GameEngine
         Room vEscaliers   = new Room("aux escaliers du mur EST des ruines",           "escaliers.png");
         Room vToitRuines  = new Room("sur le dessus des ruines",                      "toit ruines.png");
         Room vArbre       = new Room("en hauteur, dans l'arbre au-dessus des ruines", "arbre.png");
+        Room vInterieur   = new Room("à l'intérieur des ruines Sheikah",              "interieur.png");
 
         // Création des Items
         Item vTeleporteur = new Beamer();
@@ -95,31 +96,18 @@ public class GameEngine
         Item vRocher      = new Item("rocher", "un gros rocher bien lourd", 12.0);
         Item vFiole       = new Item("fiole", "une fiole d'eau oxygénée", 0.2);
 
-        // zones extérieures
-        //vNord.setExit("est", vEst); -> trap door, on peut ne peut pas revenir à la zone Est par cet accès
-        vNord.setExit("sud", vMurNord);
-        vNord.setExit("ouest", vOuest);
-        vEst.setExit("nord", vNord); // -> trap door, on peut entrer dans la zone Nord mais pas revenir
-        vEst.setExit("sud", vSud);
-        vEst.setExit("ouest", vEscaliers);  
-        vSud.setExit("nord", vPorte);
-        vSud.setExit("est", vEst);
-        vSud.setExit("ouest", vOuest);     
-        vOuest.setExit("nord", vNord);
-        vOuest.setExit("est", vMurOuest);
-        vOuest.setExit("sud", vSud);
-
-        // murs
-        vMurNord.setExit("nord", vNord);
-        vEscaliers.setExit("est", vEst);
-        vEscaliers.setExit("haut", vToitRuines);
-        vPorte.setExit("sud", vSud);
-        vMurOuest.setExit("ouest", vOuest);
-
-        // dessus / arbre
-        vToitRuines.setExit("bas", vEscaliers);
-        vToitRuines.setExit("haut", vArbre);
-        vArbre.setExit("bas", vToitRuines);
+        // Création des passages entre les salles
+        Room.connectRooms(vEst, "nord", vNord);
+        Room.connectRooms(vNord, "sud", vMurNord, "nord");
+        Room.connectRooms(vNord, "ouest", vOuest, "nord");
+        Room.connectRooms(vEst, "sud", vSud, "est");
+        Room.connectRooms(vEst, "ouest", vEscaliers, "est");
+        Room.connectRooms(vSud, "nord", vPorte, "sud");
+        Room.connectRooms(vSud, "ouest", vOuest, "sud");
+        Room.connectRooms(vOuest, "est", vMurOuest, "ouest");
+        Room.connectRooms(vEscaliers, "haut", vToitRuines, "bas");
+        Room.connectRooms(vToitRuines, "haut", vArbre, "bas");
+        Room.connectRooms(vPorte, "nord", vInterieur, "sud", vClef);
 
         // Placement des Items dans les rooms
         vSud.addItem(vTeleporteur);
@@ -141,7 +129,7 @@ public class GameEngine
     private void printWelcome()
     {
         this.aGui.println(
-            "\nBonjour " + this.aPlayer.getName() + ",\nbienvenue dans la mystérieuse jungle Korogu ! \n" +
+            "\nBonjour " + this.aPlayer.getName() + ",\nbienvenue dans la mystérieuse jungle Korugu ! \n" +
             "Vous êtes enfin parvenu face aux ruines anciennes du peuple Sheikah. \n" +
             "Vous devez maintenant trouver cet artefact si précieux à l'intérieur des ruines. \n" +
             "\n" +
@@ -166,20 +154,22 @@ public class GameEngine
         }
 
         switch (vCommand.getCommandWord()) {
-            case "quitter"     -> quit(vCommand);
-            case "aller"       -> goRoom(vCommand);
-            case "retour"      -> goBack(vCommand);
-            case "aide"        -> printHelp();
-            case "respirer"    -> breathe();
-            case "regarder"    -> look();
-            case "test"        -> executeTest(vCommand);
-            case "prendre"     -> take(vCommand);
-            case "poser"       -> drop(vCommand);
-            case "inventaire"  -> showInventory();
-            case "ingérer"     -> ingest(vCommand);
-            case "charger"     -> chargeBeamer();
-            case "déclencher"  -> triggerBeamer();
-            default            -> System.out.println("Cette commande n'a pas encore d'effet associé.");
+            case "quitter"       -> quit(vCommand);
+            case "aller"         -> goRoom(vCommand);
+            case "retour"        -> goBack(vCommand);
+            case "aide"          -> printHelp();
+            case "respirer"      -> breathe();
+            case "regarder"      -> look();
+            case "test"          -> executeTest(vCommand);
+            case "prendre"       -> take(vCommand);
+            case "poser"         -> drop(vCommand);
+            case "inventaire"    -> showInventory();
+            case "ingérer"       -> ingest(vCommand);
+            case "charger"       -> chargeBeamer();
+            case "déclencher"    -> triggerBeamer();
+            case "déverrouiller" -> unlockDoor(vCommand);
+            case "verrouiller"   -> lockDoor(vCommand);
+            default              -> System.out.println("Cette commande n'a pas encore d'effet associé.");
         }
 
     } // interpretCommand(*)
@@ -235,11 +225,18 @@ public class GameEngine
             return;
         }
         
-        Room vNextRoom = this.aPlayer.getCurrentRoom().getExit( vDirection );
         Room vCurrentRoom = this.aPlayer.getCurrentRoom();
+        Room vNextRoom = vCurrentRoom.getExit( vDirection );
 
         if ( vNextRoom == null ) {
             this.aGui.println("Vous ne pouvez pas aller dans cette direction !");
+            return;
+        }
+        
+        // Vérification de la porte
+        Door vDoor = vCurrentRoom.getDoor( vDirection );
+        if ( vDoor != null && vDoor.isLocked() ) {
+            this.aGui.println("Cette porte est fermée à clé. Vous devez la déverrouiller d'abord.");
             return;
         }
 
@@ -281,7 +278,7 @@ public class GameEngine
     private void printHelp()
     {
         this.aGui.println(
-            "Vous êtes au milieu de la jungle Korogu, \n" +
+            "Vous êtes au milieu de la jungle Korugu, \n" +
             "parmi les ruines anciennes du peuple Sheikah. \n" +
             "Trouvez l'artefact technologique caché à l'intérieur des ruines !"
         );
@@ -469,6 +466,80 @@ public class GameEngine
         displayLocationImage();
         countMoves();
     } // triggerBeamer
+
+    /**
+     * Exécute la commande "déverrouiller" pour déverrouiller une porte dans une direction donnée.
+     *
+     * @param pCommand la commande reçue (doit contenir la direction de la porte à déverrouiller)
+     */
+    private void unlockDoor(final Command pCommand)
+    {
+        if ( ! pCommand.hasSecondWord() ) {
+            this.aGui.println("Déverrouiller quelle porte ? Spécifiez une direction.");
+            return;
+        }
+        String vDirection = pCommand.getSecondWord();
+        
+        if ( ! pCommand.isDirection( vDirection ) ) {
+            this.aGui.println("Cette direction n'existe pas.");
+            return;
+        }
+        
+        Door vDoor = this.aPlayer.getCurrentRoom().getDoor( vDirection );
+        
+        if ( vDoor == null ) {
+            this.aGui.println("Il n'y a pas de porte dans cette direction.");
+            return;
+        }
+        
+        if ( ! vDoor.isLocked() ) {
+            this.aGui.println("Cette porte est déjà ouverte.");
+            return;
+        }
+        
+        if ( this.aPlayer.tryUnlockDoor( vDoor ) ) {
+            this.aGui.println("Vous avez déverrouillé la porte " + vDirection + ".");
+        } else {
+            this.aGui.println("Vous n'avez pas la clé pour déverrouiller cette porte.");
+        }
+    } // unlockDoor(*)
+
+    /**
+     * Exécute la commande "verrouiller" pour verrouiller une porte dans une direction donnée.
+     *
+     * @param pCommand la commande reçue (doit contenir la direction de la porte à verrouiller)
+     */
+    private void lockDoor(final Command pCommand)
+    {
+        if ( ! pCommand.hasSecondWord() ) {
+            this.aGui.println("Verrouiller quelle porte ? Spécifiez une direction.");
+            return;
+        }
+        String vDirection = pCommand.getSecondWord();
+        
+        if ( ! pCommand.isDirection( vDirection ) ) {
+            this.aGui.println("Cette direction n'existe pas.");
+            return;
+        }
+        
+        Door vDoor = this.aPlayer.getCurrentRoom().getDoor( vDirection );
+        
+        if ( vDoor == null ) {
+            this.aGui.println("Il n'y a pas de porte dans cette direction.");
+            return;
+        }
+        
+        if ( vDoor.isLocked() ) {
+            this.aGui.println("Cette porte est déjà fermée.");
+            return;
+        }
+        
+        if ( this.aPlayer.tryLockDoor( vDoor ) ) {
+            this.aGui.println("Vous avez verrouillé la porte " + vDirection + ".");
+        } else {
+            this.aGui.println("Vous n'avez pas la clé pour verrouiller cette porte.");
+        }
+    } // lockDoor(*)    
 
     /**
      * Exécute la commande "test" pour lire et exécuter des commandes depuis un fichier.

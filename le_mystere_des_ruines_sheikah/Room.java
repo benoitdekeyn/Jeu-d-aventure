@@ -13,7 +13,10 @@ public class Room
     private String aDescription;
     
     /** Les sorties de la salle (direction -> salle voisine). */
-    private HashMap<String, Room> exits;
+    private HashMap<String, Room> aExits;
+    
+    /** Les portes de la salle (direction -> porte). */
+    private HashMap<String, Door> aDoors;
     
     /** Le nom du fichier image représentant la salle. */
     private String aImageName;
@@ -30,7 +33,8 @@ public class Room
     public Room(final String pDescription, final String pImage )
     {
         this.aDescription = pDescription;
-        this.exits = new HashMap<String, Room>();
+        this.aExits = new HashMap<String, Room>();
+        this.aDoors = new HashMap<String, Door>();
         this.aImageName = pImage;
         this.aItems = new ItemList();
     } // constructeur
@@ -51,9 +55,9 @@ public class Room
      * @param pDirection la direction de la sortie (ex: "nord", "est", "haut", ...)
      * @param pNeighbor  la salle cible pour cette direction
      */
-    public void setExit(final String pDirection, final Room pNeighbor)
+    private void setExit(final String pDirection, final Room pNeighbor)
     {
-        this.exits.put(pDirection, pNeighbor);
+        this.aExits.put(pDirection, pNeighbor);
     } // setExit(*,*)
 
     /**
@@ -64,8 +68,30 @@ public class Room
      */
     public Room getExit(final String pDirection)
     {
-         return this.exits.get(pDirection);
+         return this.aExits.get(pDirection);
     } // getExit(*)
+
+    /**
+     * Définit une porte dans une direction donnée.
+     *
+     * @param pDirection la direction de la porte (ex: "nord", "est", "haut", ...)
+     * @param pDoor la porte à placer
+     */
+    public void setDoor(final String pDirection, final Door pDoor)
+    {
+        this.aDoors.put(pDirection, pDoor);
+    } // setDoor(*,*)
+
+    /**
+     * Renvoie la porte dans une direction donnée.
+     *
+     * @param pDirection la direction demandée
+     * @return la Door pour cette direction, ou null s'il n'y a pas de porte
+     */
+    public Door getDoor(final String pDirection)
+    {
+        return this.aDoors.get(pDirection);
+    } // getDoor(*)
 
     /**
      * Construit une chaîne de caractères listant les sorties disponibles depuis cette salle.
@@ -75,11 +101,17 @@ public class Room
     public String getExitString() 
     {
         StringBuilder vExitString = new StringBuilder("Les directions possibles sont :");
-        for ( String vDirection : this.exits.keySet() ) {
+        for ( String vDirection : this.aExits.keySet() ) {
             vExitString.append("\n -> ").append(vDirection);
+            
+            // Afficher l'état de la porte si elle existe
+            Door vDoor = this.aDoors.get(vDirection);
+            if ( vDoor != null) {
+                vExitString.append(" [porte ").append(vDoor.getStateDescription()).append("]");
+            }
         }
         return vExitString.toString();
-    } // getExitString
+    } // getExitString()
 
     /**
      * Vérifie s'il existe une sortie de cette salle vers une salle donnée.
@@ -89,7 +121,7 @@ public class Room
      */
     public boolean hasExitTo( final Room pRoom )
     {
-        return this.exits.containsValue( pRoom );
+        return this.aExits.containsValue( pRoom );
     } // hasExitTo(*)
 
 
@@ -155,4 +187,69 @@ public class Room
     {
         return this.aImageName;
     }
+
+    /**
+     * Connecte deux salles de manière unidirectionnelle sans porte (trap door).
+     *
+     * @param pRoom1 la salle de départ
+     * @param pDirection la direction depuis la salle de départ
+     * @param pRoom2 la salle d'arrivée
+     */
+    public static void connectRooms( final Room pRoom1, final String pDirection, final Room pRoom2 )
+    {
+        pRoom1.setExit(pDirection, pRoom2);
+    } // connectRooms(*,*,*)
+
+    /**
+     * Connecte deux salles de manière bidirectionnelle sans porte.
+     *
+     * @param pRoom1 la première salle
+     * @param pDirection1 la direction depuis la première salle vers la seconde
+     * @param pRoom2 la seconde salle
+     * @param pDirection2 la direction depuis la seconde salle vers la première
+     */
+    public static void connectRooms( final Room pRoom1, final String pDirection1, final Room pRoom2, final String pDirection2 )
+    {
+        pRoom1.setExit(pDirection1, pRoom2);
+        pRoom2.setExit(pDirection2, pRoom1);
+    } // connectRooms(*,*,*,*)
+
+    /**
+     * Connecte deux salles de manière unidirectionnelle avec une porte verrouillée (trap door avec clé).
+     *
+     * @param pRoom1 la salle de départ
+     * @param pDirection la direction depuis la salle de départ
+     * @param pRoom2 la salle d'arrivée
+     * @param pKey la clé nécessaire pour ouvrir la porte
+     */
+    public static void connectRooms( final Room pRoom1, final String pDirection, final Room pRoom2, final Item pKey )
+    {
+        pRoom1.setExit(pDirection, pRoom2);
+        Door vDoor = new Door(pKey);
+        pRoom1.setDoor(pDirection, vDoor);
+    } // connectRooms(*,*,*,*)
+
+    /**
+     * Connecte deux salles de manière bidirectionnelle avec une porte verrouillée par une clé.
+     * Crée une seule porte partagée entre les deux directions (ouvrir d'un côté = ouvrir de l'autre).
+     *
+     * @param pRoom1 la première salle
+     * @param pDirection1 la direction depuis la première salle vers la seconde
+     * @param pRoom2 la seconde salle
+     * @param pDirection2 la direction depuis la seconde salle vers la première
+     * @param pKey la clé nécessaire pour ouvrir la porte
+     */
+    public static void connectRooms( final Room pRoom1, final String pDirection1, final Room pRoom2, final String pDirection2, final Item pKey )
+    {
+        // Créer les sorties
+        pRoom1.setExit(pDirection1, pRoom2);
+        pRoom2.setExit(pDirection2, pRoom1);
+        
+        // Créer UNE SEULE porte partagée entre les deux directions
+        Door vDoor = new Door(pKey);
+        
+        pRoom1.setDoor(pDirection1, vDoor);
+        pRoom2.setDoor(pDirection2, vDoor);
+    } // connectRooms(*,*,*,*,*)
+
 } // Room

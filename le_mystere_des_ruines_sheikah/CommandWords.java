@@ -22,7 +22,9 @@ public class CommandWords
         "inventaire",
         "ingérer",
         "charger",
-        "déclencher"
+        "déclencher",
+        "déverrouiller",
+        "verrouiller"
     };
 
     /** Liste des directions valides reconnues par le jeu. */
