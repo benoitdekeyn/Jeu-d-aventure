@@ -27,11 +27,11 @@ public class GameEngine
     /** La salle de départ du jeu. */
     private Room aStartRoom;
 
-    /** Compteur d'actions */
-    private int aActionCount;
+    /** Compteur de déplacements */
+    private int aMovesCount;
 
-    /** Nombre total d'actions autorisées avant le Game Over */
-    private final int aMaxActions = 2;
+    /** Nombre total de déplacements autorisés avant le Game Over */
+    private final int aMaxMoves = 100;
 
     /**
      * Crée un nouveau moteur de jeu.
@@ -40,7 +40,7 @@ public class GameEngine
     public GameEngine()
     {
         this.aParser = new Parser();
-        this.aActionCount = 0;
+        this.aMovesCount = 0;
         this.createRooms();
     }
 
@@ -179,21 +179,21 @@ public class GameEngine
             case "ingérer"     -> ingest(vCommand);
             case "charger"     -> chargeBeamer();
             case "déclencher"  -> triggerBeamer();
-            default            -> System.out.println("Cette commande n'a pas encore d'action associée.");
+            default            -> System.out.println("Cette commande n'a pas encore d'effet associé.");
         }
 
     } // interpretCommand(*)
 
     /**
-     * Incrémente le compteur d'actions et vérifie si le joueur a atteint la limite.
+     * Incrémente le compteur de déplacements et vérifie si le joueur a atteint la limite.
      * Si la limite est atteinte, affiche un message de Game Over et désactive l'interface.
      */
-    private void countActions() 
+    private void countMoves() 
     {
-        this.aActionCount++;
-        if (this.aActionCount == this.aMaxActions) {
+        this.aMovesCount++;
+        if (this.aMovesCount == this.aMaxMoves) {
             this.aGui.println(
-                "\nVous avez atteint la limite de " + this.aActionCount + " actions.\n" +
+                "\nVous avez atteint la limite de " + this.aMovesCount + " déplacements.\n" +
                 "\n=============== GAME OVER ==============\n");
             this.aGui.enable( false );
         }
@@ -245,12 +245,13 @@ public class GameEngine
 
         this.aPlayer.goRoom( vNextRoom );
 
-        if (vNextRoom.getExit(Room.opppositeOf(vDirection)) != vCurrentRoom) {
+        if (! vCurrentRoom.hasExitTo( vNextRoom )) {
             this.aPlayer.clearHistory();
         }
         
         printLocationInfo();
         displayLocationImage();
+        countMoves();
     } // goRoom(*)
 
     /**
@@ -271,6 +272,7 @@ public class GameEngine
         }
         printLocationInfo();
         displayLocationImage();
+        countMoves();
     } // goBack
 
     /**
@@ -354,7 +356,6 @@ public class GameEngine
             this.aPlayer.getCurrentRoom().removeItem( vItemName );
             this.aGui.println("Vous avez ajouté \"" + vItem.getName() + "\" à votre inventaire.");
         }
-        
     } // take(*)
 
     /**
@@ -466,6 +467,7 @@ public class GameEngine
         this.aPlayer.clearHistory();
         printLocationInfo();
         displayLocationImage();
+        countMoves();
     } // triggerBeamer
 
     /**
