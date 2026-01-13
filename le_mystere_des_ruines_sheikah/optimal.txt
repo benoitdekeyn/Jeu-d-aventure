@@ -8,5 +8,6 @@ aller bas
 aller est
 aller sud
 aller nord
-inventaire
+déverrouiller nord
+aller nord
 quitter

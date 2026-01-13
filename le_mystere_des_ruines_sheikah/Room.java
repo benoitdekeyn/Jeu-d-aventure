@@ -224,7 +224,7 @@ public class Room
      */
     public static void connectRooms( final Room pRoom1, final String pDirection, final Room pRoom2, final Item pKey )
     {
-        pRoom1.setExit(pDirection, pRoom2);
+        connectRooms(pRoom1, pDirection, pRoom2);
         Door vDoor = new Door(pKey);
         pRoom1.setDoor(pDirection, vDoor);
     } // connectRooms(*,*,*,*)
@@ -241,13 +241,8 @@ public class Room
      */
     public static void connectRooms( final Room pRoom1, final String pDirection1, final Room pRoom2, final String pDirection2, final Item pKey )
     {
-        // Créer les sorties
-        pRoom1.setExit(pDirection1, pRoom2);
-        pRoom2.setExit(pDirection2, pRoom1);
-        
-        // Créer UNE SEULE porte partagée entre les deux directions
+        connectRooms(pRoom1, pDirection1, pRoom2, pDirection2);
         Door vDoor = new Door(pKey);
-        
         pRoom1.setDoor(pDirection1, vDoor);
         pRoom2.setDoor(pDirection2, vDoor);
     } // connectRooms(*,*,*,*,*)

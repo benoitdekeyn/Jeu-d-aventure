@@ -203,7 +203,7 @@ public class Player
      */
     public boolean tryUnlockDoor( final Door pDoor )
     {
-        for ( final Item vItem : this.aInventory.getAllItems() ) {
+        for ( Item vItem : this.aInventory.getAllItems() ) {
             if ( pDoor.unlock( vItem ) ) {
                 return true;
             }
@@ -219,7 +219,7 @@ public class Player
      */
     public boolean tryLockDoor( final Door pDoor )
     {
-        for ( final Item vItem : this.aInventory.getAllItems() ) {
+        for ( Item vItem : this.aInventory.getAllItems() ) {
             if ( pDoor.lock( vItem ) ) {
                 return true;
             }
