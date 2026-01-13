@@ -1,94 +1,72 @@
-regarder
+absurde
+aller
+aller nordest
+aller haut
+retour maintenant
+retour
+prendre
+prendre licorne
+poser
+poser licorne
+ingérer
+ingérer licorne
+charger
+déclencher
+déverrouiller
+déverrouiller nordest
+déverrouiller nord
+verrouiller
+verrouiller nordest
+verrouiller nord
+test
+test bidon
 aide
 inventaire
 respirer
+regarder
+prendre téléporteur
 prendre bûche
+prendre rocher
 prendre fiole
-inventaire
-poser bûche
-prendre rocher
-poser rocher
+ingérer bûche
 ingérer fiole
-inventaire
-prendre bûche
 prendre rocher
-inventaire
+déclencher
+charger
 aller nord
-regarder
-retour
-aller est
-regarder
 aller nord
-regarder
+verrouiller nord
+déverrouiller nord
 aller sud
-regarder
+aller est
 aller ouest
-regarder
 aller haut
-regarder
-respirer
 aller haut
-regarder
 prendre clé
 prendre branche
-prendre carte
-inventaire
 aller bas
 aller bas
 aller est
-aller sud
-aller ouest
-regarder
+retour
+aller est
 aller nord
-regarder
-aller est
-regarder
-prendre carte
-inventaire
-retour
-retour
 aller sud
+aller nord
 aller ouest
 aller est
-regarder
-prendre épée
-inventaire
-poser épée
-poser branche
+aller ouest
+aller sud
+aller est
+déclencher
+aller nord
+déverrouiller nord
+déverrouiller nord
+verrouiller nord
+déverrouiller nord
 poser clé
-inventaire
+verrouiller nord
 prendre clé
-prendre branche
-prendre épée
-inventaire
-retour
-aller sud
-regarder
+quitter maintenant
 aller nord
 regarder
-poser rocher
-poser bûche
-poser épée
-poser branche
-inventaire
-prendre objet_inexistant
-poser objet_inexistant
-ingérer clé
-aller direction_invalide
-aller
-retour test
-quitter test
-respirer test
-regarder test
-inventaire test
-prendre
-poser
-ingérer
-test
-aide test
-retour
-retour
-retour
-retour
-retour
 quitter
