@@ -1,6 +1,6 @@
 /**
  * Classe Door - représente une porte entre deux salles dans le jeu "le mystère des ruines Sheikah".
- * Une porte peut être ouverte ou vérouillée. Passer d'un état à l'autre nécessite une clé spécifique.
+ * Une porte peut être ouverte ou verrouillée. Passer d'un état à l'autre nécessite une clé spécifique.
  *
  * @author  Benoît de Keyn
  * @version 2026.01.12
@@ -33,11 +33,10 @@ public class Door
     public boolean isLocked()
     {
         return this.aIsLocked;
-    } // canPass()
+    } // isLocked()
     
     /**
      * Tente d'ouvrir la porte avec une clé.
-     * Si la porte n'a pas de clé (porte normale), elle est toujours ouverte.
      *
      * @param pKey la clé utilisée pour ouvrir
      * @return true si la porte a été ouverte avec succès, false si la clé ne correspond pas

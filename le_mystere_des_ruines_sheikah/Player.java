@@ -163,7 +163,8 @@ public class Player
      * Renvoie le poids total des objets portés par le joueur.
      *
      * @return le poids total en kilogrammes
-     */    public double getInventoryWeight() 
+     */
+    public double getInventoryWeight() 
     {
         return this.aInventoryWeight;
     } // getInventoryWeight
@@ -196,7 +197,7 @@ public class Player
     } // clearHistory
 
     /**
-     * Tente de déverrouiller une porte chaque Item de l'inventaire du joueur jusqu'à réussir.
+     * Tente de déverrouiller une porte avec chaque Item de l'inventaire du joueur jusqu'à réussir.
      * 
      * @param pDoor la porte à déverrouiller
      * @return true si la porte a été déverrouillée, false sinon
@@ -212,7 +213,7 @@ public class Player
     } // tryUnlockDoor(*)
 
     /**
-     * Tente de verrouiller une porte chaque Item de l'inventaire du joueur jusqu'à réussir.
+     * Tente de verrouiller une porte avec chaque Item de l'inventaire du joueur jusqu'à réussir.
      * 
      * @param pDoor la porte à verrouiller
      * @return true si la porte a été verrouillée, false sinon

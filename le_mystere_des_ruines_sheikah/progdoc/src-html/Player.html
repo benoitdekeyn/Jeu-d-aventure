@@ -176,39 +176,71 @@
 <span class="source-line-no">163</span><span id="line-163">     * Renvoie le poids total des objets portés par le joueur.</span>
 <span class="source-line-no">164</span><span id="line-164">     *</span>
 <span class="source-line-no">165</span><span id="line-165">     * @return le poids total en kilogrammes</span>
-<span class="source-line-no">166</span><span id="line-166">     */    public double getInventoryWeight() </span>
-<span class="source-line-no">167</span><span id="line-167">    {</span>
-<span class="source-line-no">168</span><span id="line-168">        return this.aInventoryWeight;</span>
-<span class="source-line-no">169</span><span id="line-169">    } // getInventoryWeight</span>
-<span class="source-line-no">170</span><span id="line-170"></span>
-<span class="source-line-no">171</span><span id="line-171">    /**</span>
-<span class="source-line-no">172</span><span id="line-172">     * Renvoie la capacité maximale de l'inventaire du joueur.</span>
-<span class="source-line-no">173</span><span id="line-173">     *</span>
-<span class="source-line-no">174</span><span id="line-174">     * @return la capacité maximale en kilogrammes</span>
-<span class="source-line-no">175</span><span id="line-175">     */</span>
-<span class="source-line-no">176</span><span id="line-176">    public double getInventoryCapacity() </span>
-<span class="source-line-no">177</span><span id="line-177">    {</span>
-<span class="source-line-no">178</span><span id="line-178">        return this.aInventoryCapacity;</span>
-<span class="source-line-no">179</span><span id="line-179">    } // getInventoryCapacity</span>
-<span class="source-line-no">180</span><span id="line-180"></span>
-<span class="source-line-no">181</span><span id="line-181">    /**</span>
-<span class="source-line-no">182</span><span id="line-182">     * Double la capacité maximale de l'inventaire du joueur.</span>
-<span class="source-line-no">183</span><span id="line-183">     */</span>
-<span class="source-line-no">184</span><span id="line-184">    public void doubleInventoryCapacity() </span>
-<span class="source-line-no">185</span><span id="line-185">    {</span>
-<span class="source-line-no">186</span><span id="line-186">        this.aInventoryCapacity *= 2;</span>
-<span class="source-line-no">187</span><span id="line-187">    } // doubleInventoryCapacity</span>
-<span class="source-line-no">188</span><span id="line-188"></span>
-<span class="source-line-no">189</span><span id="line-189">    /**</span>
-<span class="source-line-no">190</span><span id="line-190">     * Vide l'historique des salles visitées.</span>
-<span class="source-line-no">191</span><span id="line-191">     * Cette méthode est appelée lorsqu'un déplacement irréversible est effectué (Trap Door).</span>
-<span class="source-line-no">192</span><span id="line-192">     */</span>
-<span class="source-line-no">193</span><span id="line-193">    public void clearHistory()</span>
-<span class="source-line-no">194</span><span id="line-194">    {</span>
-<span class="source-line-no">195</span><span id="line-195">        this.aPreviousRooms.clear();</span>
-<span class="source-line-no">196</span><span id="line-196">    } // clearHistory</span>
-<span class="source-line-no">197</span><span id="line-197"></span>
-<span class="source-line-no">198</span><span id="line-198">} // Player</span>
+<span class="source-line-no">166</span><span id="line-166">     */</span>
+<span class="source-line-no">167</span><span id="line-167">    public double getInventoryWeight() </span>
+<span class="source-line-no">168</span><span id="line-168">    {</span>
+<span class="source-line-no">169</span><span id="line-169">        return this.aInventoryWeight;</span>
+<span class="source-line-no">170</span><span id="line-170">    } // getInventoryWeight</span>
+<span class="source-line-no">171</span><span id="line-171"></span>
+<span class="source-line-no">172</span><span id="line-172">    /**</span>
+<span class="source-line-no">173</span><span id="line-173">     * Renvoie la capacité maximale de l'inventaire du joueur.</span>
+<span class="source-line-no">174</span><span id="line-174">     *</span>
+<span class="source-line-no">175</span><span id="line-175">     * @return la capacité maximale en kilogrammes</span>
+<span class="source-line-no">176</span><span id="line-176">     */</span>
+<span class="source-line-no">177</span><span id="line-177">    public double getInventoryCapacity() </span>
+<span class="source-line-no">178</span><span id="line-178">    {</span>
+<span class="source-line-no">179</span><span id="line-179">        return this.aInventoryCapacity;</span>
+<span class="source-line-no">180</span><span id="line-180">    } // getInventoryCapacity</span>
+<span class="source-line-no">181</span><span id="line-181"></span>
+<span class="source-line-no">182</span><span id="line-182">    /**</span>
+<span class="source-line-no">183</span><span id="line-183">     * Double la capacité maximale de l'inventaire du joueur.</span>
+<span class="source-line-no">184</span><span id="line-184">     */</span>
+<span class="source-line-no">185</span><span id="line-185">    public void doubleInventoryCapacity() </span>
+<span class="source-line-no">186</span><span id="line-186">    {</span>
+<span class="source-line-no">187</span><span id="line-187">        this.aInventoryCapacity *= 2;</span>
+<span class="source-line-no">188</span><span id="line-188">    } // doubleInventoryCapacity</span>
+<span class="source-line-no">189</span><span id="line-189"></span>
+<span class="source-line-no">190</span><span id="line-190">    /**</span>
+<span class="source-line-no">191</span><span id="line-191">     * Vide l'historique des salles visitées.</span>
+<span class="source-line-no">192</span><span id="line-192">     * Cette méthode est appelée lorsqu'un déplacement irréversible est effectué (Trap Door).</span>
+<span class="source-line-no">193</span><span id="line-193">     */</span>
+<span class="source-line-no">194</span><span id="line-194">    public void clearHistory()</span>
+<span class="source-line-no">195</span><span id="line-195">    {</span>
+<span class="source-line-no">196</span><span id="line-196">        this.aPreviousRooms.clear();</span>
+<span class="source-line-no">197</span><span id="line-197">    } // clearHistory</span>
+<span class="source-line-no">198</span><span id="line-198"></span>
+<span class="source-line-no">199</span><span id="line-199">    /**</span>
+<span class="source-line-no">200</span><span id="line-200">     * Tente de déverrouiller une porte avec chaque Item de l'inventaire du joueur jusqu'à réussir.</span>
+<span class="source-line-no">201</span><span id="line-201">     * </span>
+<span class="source-line-no">202</span><span id="line-202">     * @param pDoor la porte à déverrouiller</span>
+<span class="source-line-no">203</span><span id="line-203">     * @return true si la porte a été déverrouillée, false sinon</span>
+<span class="source-line-no">204</span><span id="line-204">     */</span>
+<span class="source-line-no">205</span><span id="line-205">    public boolean tryUnlockDoor( final Door pDoor )</span>
+<span class="source-line-no">206</span><span id="line-206">    {</span>
+<span class="source-line-no">207</span><span id="line-207">        for ( Item vItem : this.aInventory.getAllItems() ) {</span>
+<span class="source-line-no">208</span><span id="line-208">            if ( pDoor.unlock( vItem ) ) {</span>
+<span class="source-line-no">209</span><span id="line-209">                return true;</span>
+<span class="source-line-no">210</span><span id="line-210">            }</span>
+<span class="source-line-no">211</span><span id="line-211">        }</span>
+<span class="source-line-no">212</span><span id="line-212">        return false;</span>
+<span class="source-line-no">213</span><span id="line-213">    } // tryUnlockDoor(*)</span>
+<span class="source-line-no">214</span><span id="line-214"></span>
+<span class="source-line-no">215</span><span id="line-215">    /**</span>
+<span class="source-line-no">216</span><span id="line-216">     * Tente de verrouiller une porte avec chaque Item de l'inventaire du joueur jusqu'à réussir.</span>
+<span class="source-line-no">217</span><span id="line-217">     * </span>
+<span class="source-line-no">218</span><span id="line-218">     * @param pDoor la porte à verrouiller</span>
+<span class="source-line-no">219</span><span id="line-219">     * @return true si la porte a été verrouillée, false sinon</span>
+<span class="source-line-no">220</span><span id="line-220">     */</span>
+<span class="source-line-no">221</span><span id="line-221">    public boolean tryLockDoor( final Door pDoor )</span>
+<span class="source-line-no">222</span><span id="line-222">    {</span>
+<span class="source-line-no">223</span><span id="line-223">        for ( Item vItem : this.aInventory.getAllItems() ) {</span>
+<span class="source-line-no">224</span><span id="line-224">            if ( pDoor.lock( vItem ) ) {</span>
+<span class="source-line-no">225</span><span id="line-225">                return true;</span>
+<span class="source-line-no">226</span><span id="line-226">            }</span>
+<span class="source-line-no">227</span><span id="line-227">        }</span>
+<span class="source-line-no">228</span><span id="line-228">        return false;</span>
+<span class="source-line-no">229</span><span id="line-229">    } // tryLockDoor(*)</span>
+<span class="source-line-no">230</span><span id="line-230">} // Player</span>
 
 
 

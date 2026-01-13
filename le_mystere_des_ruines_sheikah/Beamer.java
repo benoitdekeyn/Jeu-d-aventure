@@ -1,9 +1,10 @@
-
 /**
- * Classe héritée d'Item représentant un Téléporteur dans le jeu "le mystère des ruines Sheikah".
+ * Classe Beamer - représente un téléporteur dans le jeu "le mystère des ruines Sheikah".
  * Un Beamer permet au joueur de le charger dans une pièce A,
  * puis de le déclencher depuis une pièce B pour s'y téléporter immédiatement.
  *
+ * @author  Benoît de Keyn
+ * @version 2026.01.13
  */
 public class Beamer extends Item
 {
@@ -11,8 +12,7 @@ public class Beamer extends Item
     private Room aChargedRoom;
 
     /**
-     * Constructeur par défaut du Téléporteur.
-     *
+     * Constructeur par défaut du téléporteur.
      */
     public Beamer()
     {

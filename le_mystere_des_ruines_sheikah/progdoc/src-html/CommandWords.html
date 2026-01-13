@@ -33,73 +33,77 @@
 <span class="source-line-no">020</span><span id="line-20">        "prendre",</span>
 <span class="source-line-no">021</span><span id="line-21">        "poser",</span>
 <span class="source-line-no">022</span><span id="line-22">        "inventaire",</span>
-<span class="source-line-no">023</span><span id="line-23">        "ingérer"</span>
-<span class="source-line-no">024</span><span id="line-24">    };</span>
-<span class="source-line-no">025</span><span id="line-25"></span>
-<span class="source-line-no">026</span><span id="line-26">    /** Liste des directions valides reconnues par le jeu. */</span>
-<span class="source-line-no">027</span><span id="line-27">    private final String[] aValidDirection = {</span>
-<span class="source-line-no">028</span><span id="line-28">        "nord", </span>
-<span class="source-line-no">029</span><span id="line-29">        "est", </span>
-<span class="source-line-no">030</span><span id="line-30">        "sud", </span>
-<span class="source-line-no">031</span><span id="line-31">        "ouest", </span>
-<span class="source-line-no">032</span><span id="line-32">        "haut", </span>
-<span class="source-line-no">033</span><span id="line-33">        "bas"</span>
-<span class="source-line-no">034</span><span id="line-34">    };</span>
-<span class="source-line-no">035</span><span id="line-35"></span>
-<span class="source-line-no">036</span><span id="line-36">    /**</span>
-<span class="source-line-no">037</span><span id="line-37">     * Crée un nouvel objet CommandWords.</span>
-<span class="source-line-no">038</span><span id="line-38">     * Les tableaux de commandes et de directions valides sont initialisés directement.</span>
-<span class="source-line-no">039</span><span id="line-39">     */</span>
-<span class="source-line-no">040</span><span id="line-40">    public CommandWords()</span>
-<span class="source-line-no">041</span><span id="line-41">    {</span>
-<span class="source-line-no">042</span><span id="line-42">        // rien à faire : les tableaux sont initialisés directement comme constantes</span>
-<span class="source-line-no">043</span><span id="line-43">    } // constructeur</span>
-<span class="source-line-no">044</span><span id="line-44"></span>
-<span class="source-line-no">045</span><span id="line-45">    /**</span>
-<span class="source-line-no">046</span><span id="line-46">     * Vérifie si une chaîne de caractères donnée est un mot de commande valide.</span>
-<span class="source-line-no">047</span><span id="line-47">     *</span>
-<span class="source-line-no">048</span><span id="line-48">     * @param pString la chaîne de caractères à tester</span>
-<span class="source-line-no">049</span><span id="line-49">     * @return true si la chaîne de caractères est un mot de commande connu, false sinon</span>
-<span class="source-line-no">050</span><span id="line-50">     */</span>
-<span class="source-line-no">051</span><span id="line-51">    public boolean isCommand( final String pString )</span>
-<span class="source-line-no">052</span><span id="line-52">    {</span>
-<span class="source-line-no">053</span><span id="line-53">        for ( int vI=0; vI&lt;this.aValidCommands.length; vI++ ) {</span>
-<span class="source-line-no">054</span><span id="line-54">            if ( this.aValidCommands[vI].equals( pString ) )</span>
-<span class="source-line-no">055</span><span id="line-55">                return true;</span>
-<span class="source-line-no">056</span><span id="line-56">        } // for</span>
-<span class="source-line-no">057</span><span id="line-57">        // si on arrive ici, la chaîne de caractères n'a pas été trouvée parmi les commandes :</span>
-<span class="source-line-no">058</span><span id="line-58">        return false;</span>
-<span class="source-line-no">059</span><span id="line-59">    } // isCommand(*)</span>
-<span class="source-line-no">060</span><span id="line-60"></span>
-<span class="source-line-no">061</span><span id="line-61">    /**</span>
-<span class="source-line-no">062</span><span id="line-62">     * Vérifie si une chaîne de caractères donnée est une direction valide.</span>
-<span class="source-line-no">063</span><span id="line-63">     *</span>
-<span class="source-line-no">064</span><span id="line-64">     * @param pString la chaîne de caractères à tester</span>
-<span class="source-line-no">065</span><span id="line-65">     * @return true si la chaîne de caractères est une direction valide, false sinon</span>
-<span class="source-line-no">066</span><span id="line-66">     */</span>
-<span class="source-line-no">067</span><span id="line-67">    public boolean isDirection( final String pString )</span>
-<span class="source-line-no">068</span><span id="line-68">    {</span>
-<span class="source-line-no">069</span><span id="line-69">        for ( int vI=0; vI&lt;this.aValidDirection.length; vI++ ) {</span>
-<span class="source-line-no">070</span><span id="line-70">            if ( this.aValidDirection[vI].equals( pString ) )</span>
-<span class="source-line-no">071</span><span id="line-71">                return true;</span>
-<span class="source-line-no">072</span><span id="line-72">        } // for</span>
-<span class="source-line-no">073</span><span id="line-73">        // si on arrive ici, la chaîne de caractères n'a pas été trouvée parmi les directions :</span>
-<span class="source-line-no">074</span><span id="line-74">        return false;</span>
-<span class="source-line-no">075</span><span id="line-75">    } // isDirection(*)</span>
-<span class="source-line-no">076</span><span id="line-76"></span>
-<span class="source-line-no">077</span><span id="line-77">    /**</span>
-<span class="source-line-no">078</span><span id="line-78">     * Renvoie une chaîne de caractères contenant toutes les commandes valides.</span>
-<span class="source-line-no">079</span><span id="line-79">     *</span>
-<span class="source-line-no">080</span><span id="line-80">     * @return la liste formatée des commandes valides</span>
-<span class="source-line-no">081</span><span id="line-81">     */</span>
-<span class="source-line-no">082</span><span id="line-82">    public String getValidCommandsString() {</span>
-<span class="source-line-no">083</span><span id="line-83">        StringBuilder commands = new StringBuilder();</span>
-<span class="source-line-no">084</span><span id="line-84">        for(String command : this.aValidCommands) {</span>
-<span class="source-line-no">085</span><span id="line-85">            commands.append("\n -&gt; ").append(command);</span>
-<span class="source-line-no">086</span><span id="line-86">        }</span>
-<span class="source-line-no">087</span><span id="line-87">        return commands.toString();</span>
-<span class="source-line-no">088</span><span id="line-88">    } // getValidCommandsString</span>
-<span class="source-line-no">089</span><span id="line-89">} // CommandWords</span>
+<span class="source-line-no">023</span><span id="line-23">        "ingérer",</span>
+<span class="source-line-no">024</span><span id="line-24">        "charger",</span>
+<span class="source-line-no">025</span><span id="line-25">        "déclencher",</span>
+<span class="source-line-no">026</span><span id="line-26">        "déverrouiller",</span>
+<span class="source-line-no">027</span><span id="line-27">        "verrouiller"</span>
+<span class="source-line-no">028</span><span id="line-28">    };</span>
+<span class="source-line-no">029</span><span id="line-29"></span>
+<span class="source-line-no">030</span><span id="line-30">    /** Liste des directions valides reconnues par le jeu. */</span>
+<span class="source-line-no">031</span><span id="line-31">    private final String[] aValidDirection = {</span>
+<span class="source-line-no">032</span><span id="line-32">        "nord", </span>
+<span class="source-line-no">033</span><span id="line-33">        "est", </span>
+<span class="source-line-no">034</span><span id="line-34">        "sud", </span>
+<span class="source-line-no">035</span><span id="line-35">        "ouest", </span>
+<span class="source-line-no">036</span><span id="line-36">        "haut", </span>
+<span class="source-line-no">037</span><span id="line-37">        "bas"</span>
+<span class="source-line-no">038</span><span id="line-38">    };</span>
+<span class="source-line-no">039</span><span id="line-39"></span>
+<span class="source-line-no">040</span><span id="line-40">    /**</span>
+<span class="source-line-no">041</span><span id="line-41">     * Crée un nouvel objet CommandWords.</span>
+<span class="source-line-no">042</span><span id="line-42">     * Les tableaux de commandes et de directions valides sont initialisés directement.</span>
+<span class="source-line-no">043</span><span id="line-43">     */</span>
+<span class="source-line-no">044</span><span id="line-44">    public CommandWords()</span>
+<span class="source-line-no">045</span><span id="line-45">    {</span>
+<span class="source-line-no">046</span><span id="line-46">        // rien à faire : les tableaux sont initialisés directement comme constantes</span>
+<span class="source-line-no">047</span><span id="line-47">    } // constructeur</span>
+<span class="source-line-no">048</span><span id="line-48"></span>
+<span class="source-line-no">049</span><span id="line-49">    /**</span>
+<span class="source-line-no">050</span><span id="line-50">     * Vérifie si une chaîne de caractères donnée est un mot de commande valide.</span>
+<span class="source-line-no">051</span><span id="line-51">     *</span>
+<span class="source-line-no">052</span><span id="line-52">     * @param pString la chaîne de caractères à tester</span>
+<span class="source-line-no">053</span><span id="line-53">     * @return true si la chaîne de caractères est un mot de commande connu, false sinon</span>
+<span class="source-line-no">054</span><span id="line-54">     */</span>
+<span class="source-line-no">055</span><span id="line-55">    public boolean isCommand( final String pString )</span>
+<span class="source-line-no">056</span><span id="line-56">    {</span>
+<span class="source-line-no">057</span><span id="line-57">        for ( int vI=0; vI&lt;this.aValidCommands.length; vI++ ) {</span>
+<span class="source-line-no">058</span><span id="line-58">            if ( this.aValidCommands[vI].equals( pString ) )</span>
+<span class="source-line-no">059</span><span id="line-59">                return true;</span>
+<span class="source-line-no">060</span><span id="line-60">        } // for</span>
+<span class="source-line-no">061</span><span id="line-61">        // si on arrive ici, la chaîne de caractères n'a pas été trouvée parmi les commandes :</span>
+<span class="source-line-no">062</span><span id="line-62">        return false;</span>
+<span class="source-line-no">063</span><span id="line-63">    } // isCommand(*)</span>
+<span class="source-line-no">064</span><span id="line-64"></span>
+<span class="source-line-no">065</span><span id="line-65">    /**</span>
+<span class="source-line-no">066</span><span id="line-66">     * Vérifie si une chaîne de caractères donnée est une direction valide.</span>
+<span class="source-line-no">067</span><span id="line-67">     *</span>
+<span class="source-line-no">068</span><span id="line-68">     * @param pString la chaîne de caractères à tester</span>
+<span class="source-line-no">069</span><span id="line-69">     * @return true si la chaîne de caractères est une direction valide, false sinon</span>
+<span class="source-line-no">070</span><span id="line-70">     */</span>
+<span class="source-line-no">071</span><span id="line-71">    public boolean isDirection( final String pString )</span>
+<span class="source-line-no">072</span><span id="line-72">    {</span>
+<span class="source-line-no">073</span><span id="line-73">        for ( int vI=0; vI&lt;this.aValidDirection.length; vI++ ) {</span>
+<span class="source-line-no">074</span><span id="line-74">            if ( this.aValidDirection[vI].equals( pString ) )</span>
+<span class="source-line-no">075</span><span id="line-75">                return true;</span>
+<span class="source-line-no">076</span><span id="line-76">        } // for</span>
+<span class="source-line-no">077</span><span id="line-77">        // si on arrive ici, la chaîne de caractères n'a pas été trouvée parmi les directions :</span>
+<span class="source-line-no">078</span><span id="line-78">        return false;</span>
+<span class="source-line-no">079</span><span id="line-79">    } // isDirection(*)</span>
+<span class="source-line-no">080</span><span id="line-80"></span>
+<span class="source-line-no">081</span><span id="line-81">    /**</span>
+<span class="source-line-no">082</span><span id="line-82">     * Renvoie une chaîne de caractères contenant toutes les commandes valides.</span>
+<span class="source-line-no">083</span><span id="line-83">     *</span>
+<span class="source-line-no">084</span><span id="line-84">     * @return la liste formatée des commandes valides</span>
+<span class="source-line-no">085</span><span id="line-85">     */</span>
+<span class="source-line-no">086</span><span id="line-86">    public String getValidCommandsString() {</span>
+<span class="source-line-no">087</span><span id="line-87">        StringBuilder commands = new StringBuilder();</span>
+<span class="source-line-no">088</span><span id="line-88">        for(String command : this.aValidCommands) {</span>
+<span class="source-line-no">089</span><span id="line-89">            commands.append("\n -&gt; ").append(command);</span>
+<span class="source-line-no">090</span><span id="line-90">        }</span>
+<span class="source-line-no">091</span><span id="line-91">        return commands.toString();</span>
+<span class="source-line-no">092</span><span id="line-92">    } // getValidCommandsString</span>
+<span class="source-line-no">093</span><span id="line-93">} // CommandWords</span>
 
 
 

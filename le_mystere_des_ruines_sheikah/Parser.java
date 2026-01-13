@@ -23,13 +23,9 @@ public class Parser
 
     /**
      * Analyse une ligne de commande et la convertit en objet Command.
-     *
-     *  Règles :
-     * - Si le premier mot n'est pas une commande connue, retourne Command(null, null).
-     * - Si la commande accepte une direction et qu'un second mot est fourni :
-     *     - retourne Command(mot, direction) si la direction est valide,
-     *     - retourne Command(mot, "invalid") si la direction est invalide.
-     * - Si aucun second mot n'est fourni, retourne Command(mot, null).
+     * La première chaîne séparée par des espaces est prise comme mot de commande,
+     * la deuxième (si elle existe) comme second mot. Les mots suivants sont ignorés.
+     * Si le premier mot n'est pas une commande connue, une commande inconnue est renvoyée.
      *
      * @param pInputLine la ligne de commande saisie par l'utilisateur
      * @return un objet Command représentant la commande analysée

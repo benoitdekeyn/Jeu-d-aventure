@@ -27,10 +27,10 @@ public class GameEngine
     /** La salle de départ du jeu. */
     private Room aStartRoom;
 
-    /** Compteur de déplacements */
+    /** Compteur de déplacements. */
     private int aMovesCount;
 
-    /** Nombre total de déplacements autorisés avant le Game Over */
+    /** Nombre total de déplacements autorisés avant le Game Over. */
     private final int aMaxMoves = 100;
 
     /**
