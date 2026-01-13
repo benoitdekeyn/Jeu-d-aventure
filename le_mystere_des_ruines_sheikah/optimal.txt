@@ -10,4 +10,3 @@ aller sud
 aller nord
 déverrouiller nord
 aller nord
-quitter

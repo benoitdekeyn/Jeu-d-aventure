@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -8,7 +10,7 @@ import java.util.Scanner;
  * le traitement des commandes et l'affichage des informations dans l'interface utilisateur.
  *
  * @author  Michael Kolling, David J. Barnes, Benoît de Keyn
- * @version 2026.01.10
+ * @version 2026.01.13
  */
 public class GameEngine
 {
@@ -32,6 +34,9 @@ public class GameEngine
 
     /** Nombre total de déplacements autorisés avant le Game Over. */
     private final int aMaxMoves = 100;
+    
+    /** Collection de toutes les salles du jeu */
+    private List<Room> aRooms;
 
     /**
      * Crée un nouveau moteur de jeu.
@@ -40,6 +45,7 @@ public class GameEngine
     public GameEngine()
     {
         this.aParser = new Parser();
+        this.aRooms = new ArrayList<Room>();
         this.aMovesCount = 0;
         this.createRooms();
     }
@@ -73,18 +79,18 @@ public class GameEngine
      */
     private void createRooms()
     {
-        // Création des rooms
-        Room vNord        = new Room("dans la zone au NORD des ruines",               "zone nord.png");
-        Room vEst         = new Room("dans la zone à l'EST des ruines",               "zone est.png");
-        Room vSud         = new Room("dans la zone au SUD des ruines",                "zone sud.png");
-        Room vOuest       = new Room("dans la zone à l'OUEST des ruines",             "zone ouest.png");
-        Room vMurNord     = new Room("devant le mur NORD des ruines",                 "mur nord.png");
-        Room vMurOuest    = new Room("devant le mur OUEST des ruines",                "mur ouest.png");
-        Room vPorte       = new Room("à la porte scellée du mur SUD des ruines",      "porte.png");
-        Room vEscaliers   = new Room("aux escaliers du mur EST des ruines",           "escaliers.png");
-        Room vToitRuines  = new Room("sur le dessus des ruines",                      "toit ruines.png");
-        Room vArbre       = new Room("en hauteur, dans l'arbre au-dessus des ruines", "arbre.png");
-        Room vInterieur   = new Room("à l'intérieur des ruines Sheikah",              "interieur.png");
+        // Création des salles
+        Room vNord        = this.createRoom("dans la zone au NORD des ruines",               "zone nord.png");
+        Room vEst         = this.createRoom("dans la zone à l'EST des ruines",               "zone est.png");
+        Room vSud         = this.createRoom("dans la zone au SUD des ruines",                "zone sud.png");
+        Room vOuest       = this.createRoom("dans la zone à l'OUEST des ruines",             "zone ouest.png");
+        Room vMurNord     = this.createRoom("devant le mur NORD des ruines",                 "mur nord.png");
+        Room vMurOuest    = this.createRoom("devant le mur OUEST des ruines",                "mur ouest.png");
+        Room vPorte       = this.createRoom("à la porte scellée du mur SUD des ruines",      "porte.png");
+        Room vEscaliers   = this.createRoom("aux escaliers du mur EST des ruines",           "escaliers.png");
+        Room vToitRuines  = this.createRoom("sur le dessus des ruines",                      "toit ruines.png");
+        Room vArbre       = this.createRoom("en hauteur, dans l'arbre au-dessus des ruines", "arbre.png");
+        Room vInterieur   = this.createRoom("à l'intérieur des ruines Sheikah",              "interieur.png");
 
         // Création des Items
         Item vTeleporteur = new Beamer();
@@ -109,7 +115,7 @@ public class GameEngine
         Room.connectRooms(vToitRuines, "haut", vArbre, "bas");
         Room.connectRooms(vPorte, "nord", vInterieur, "sud", vClef);
 
-        // Placement des Items dans les rooms
+        // Placement des Items dans les salles
         vSud.addItem(vTeleporteur);
         vSud.addItem(vBuche);
         vSud.addItem(vRocher);
@@ -119,7 +125,7 @@ public class GameEngine
         vArbre.addItem(vClef);
         vArbre.addItem(vBranche);
         
-        // room de départ (sera assignée au joueur quand il sera créé)
+        // Salle de départ (sera assignée au joueur quand il sera créé)
         this.aStartRoom = vSud;
     } // createRooms
 
@@ -569,5 +575,20 @@ public class GameEngine
         } // catch
         
     } // executeTest(*)
+
+    /**
+     * Crée une nouvelle salle, l'ajoute à la HashMap des salles et la retourne.
+     * Méthode helper pour simplifier la création et l'enregistrement simultané des salles.
+     *
+     * @param pDescription la description textuelle de la salle
+     * @param pImage le nom du fichier image représentant la salle
+     * @return la salle nouvellement créée
+     */
+    private Room createRoom(final String pDescription, final String pImage )
+    {
+        Room vRoom = new Room( pDescription, pImage );
+        this.aRooms.add(vRoom);
+        return vRoom;
+    } // createRoom(*,*,*)
 
 }

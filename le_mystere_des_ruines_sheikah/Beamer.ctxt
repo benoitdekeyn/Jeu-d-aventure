@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=Beamer
-comment0.text=\r\n\ Classe\ h\u00E9rit\u00E9e\ d'Item\ repr\u00E9sentant\ un\ T\u00E9l\u00E9porteur\ dans\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Un\ Beamer\ permet\ au\ joueur\ de\ le\ charger\ dans\ une\ pi\u00E8ce\ A,\r\n\ puis\ de\ le\ d\u00E9clencher\ depuis\ une\ pi\u00E8ce\ B\ pour\ s'y\ t\u00E9l\u00E9porter\ imm\u00E9diatement.\r\n\r\n
+comment0.text=\r\n\ Classe\ Beamer\ -\ repr\u00E9sente\ un\ t\u00E9l\u00E9porteur\ dans\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Un\ Beamer\ permet\ au\ joueur\ de\ le\ charger\ dans\ une\ pi\u00E8ce\ A,\r\n\ puis\ de\ le\ d\u00E9clencher\ depuis\ une\ pi\u00E8ce\ B\ pour\ s'y\ t\u00E9l\u00E9porter\ imm\u00E9diatement.\r\n\r\n\ @author\ \ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2026.01.13\r\n
 comment1.params=
 comment1.target=Beamer()
-comment1.text=\r\n\ Constructeur\ par\ d\u00E9faut\ du\ T\u00E9l\u00E9porteur.\r\n\r\n
+comment1.text=\r\n\ Constructeur\ par\ d\u00E9faut\ du\ t\u00E9l\u00E9porteur.\r\n
 comment2.params=pCurrentRoom
 comment2.target=void\ charge(Room)
 comment2.text=\r\n\ Charge\ le\ Beamer\ avec\ la\ salle\ courante\ du\ joueur.\r\n\r\n\ @param\ pCurrentRoom\ la\ salle\ courante\ du\ joueur\r\n
