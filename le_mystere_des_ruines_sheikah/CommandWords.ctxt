@@ -12,5 +12,5 @@ comment3.target=boolean\ isDirection(java.lang.String)
 comment3.text=\r\n\ V\u00E9rifie\ si\ une\ cha\u00EEne\ de\ caract\u00E8res\ donn\u00E9e\ est\ une\ direction\ valide.\r\n\r\n\ @param\ pString\ la\ cha\u00EEne\ de\ caract\u00E8res\ \u00E0\ tester\r\n\ @return\ true\ si\ la\ cha\u00EEne\ de\ caract\u00E8res\ est\ une\ direction\ valide,\ false\ sinon\r\n
 comment4.params=
 comment4.target=java.lang.String\ getValidCommandsString()
-comment4.text=\r\n\ Renvoie\ une\ cha\u00EEne\ de\ caract\u00E8res\ contenant\ toutes\ les\ commandes\ valides.\r\n\r\n\ @return\ la\ liste\ format\u00E9e\ des\ commandes\ valides\r\n
+comment4.text=\r\n\ Renvoie\ une\ cha\u00EEne\ de\ caract\u00E8res\ contenant\ toutes\ les\ commandes\ valides\ hors\ debug.\r\n\r\n\ @return\ la\ liste\ format\u00E9e\ des\ commandes\ valides\ hors\ debug\r\n
 numComments=5

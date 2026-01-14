@@ -27,6 +27,11 @@ public class CommandWords
         "verrouiller"
     };
 
+    /** Liste des commandes de debug reconnues par le jeu. */
+    private final String[] aDebugCommand = {
+        "alea"
+    };
+
     /** Liste des directions valides reconnues par le jeu. */
     private final String[] aValidDirection = {
         "nord", 
@@ -54,11 +59,18 @@ public class CommandWords
      */
     public boolean isCommand( final String pString )
     {
-        for ( int vI=0; vI<this.aValidCommands.length; vI++ ) {
-            if ( this.aValidCommands[vI].equals( pString ) )
+        // for validCommands
+        for (String aValidCommand : this.aValidCommands) {
+            if (aValidCommand.equals(pString)) {
                 return true;
-        } // for
-        // si on arrive ici, la chaîne de caractères n'a pas été trouvée parmi les commandes :
+            }
+        }
+        // for debugCommands
+        for (String aDebugCommand1 : this.aDebugCommand) {
+            if (aDebugCommand1.equals(pString)) {
+                return true;
+            }
+        }
         return false;
     } // isCommand(*)
 
@@ -79,9 +91,9 @@ public class CommandWords
     } // isDirection(*)
 
     /**
-     * Renvoie une chaîne de caractères contenant toutes les commandes valides.
+     * Renvoie une chaîne de caractères contenant toutes les commandes valides hors debug.
      *
-     * @return la liste formatée des commandes valides
+     * @return la liste formatée des commandes valides hors debug
      */
     public String getValidCommandsString() {
         StringBuilder commands = new StringBuilder();

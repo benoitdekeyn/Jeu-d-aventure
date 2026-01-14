@@ -1,5 +1,17 @@
-regarder
-prendre bûche
+prendre téléporteur
 aller est
-aide
-quitter
+aller ouest
+aller haut
+aller haut
+prendre clé
+aller bas
+aller bas
+aller est
+aller sud
+aller nord
+déverrouiller nord
+aller nord
+charger
+aller nord
+alea eleporteur_aleatoire
+aller est

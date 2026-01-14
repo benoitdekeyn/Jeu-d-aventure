@@ -37,6 +37,9 @@ public class GameEngine
     /** Collection de toutes les salles du jeu */
     private HashMap<String, Room> aRooms;
 
+    /** Debug mode pour truquer le hasard avec la commande alea dans les tests */
+    private boolean aDebugMode = false;
+
     /**
      * Crée un nouveau moteur de jeu.
      * Initialise le parseur et crée toutes les salles.
@@ -78,6 +81,16 @@ public class GameEngine
      */
     private void createRooms()
     {
+        // Création des Items
+        Item vTeleporteur = new Beamer();
+        Item vCarte       = new Item("carte", "une carte ancienne", 0.1);
+        Item vClef        = new Item("clé", "une clé ancienne", 0.5);
+        Item vBranche     = new Item("branche", "une branche solide", 1.2);
+        Item vEpee        = new Item("épée", "une épée rouillée", 2.0);
+        Item vBuche       = new Item("bûche", "une bûche lourde", 5.0);
+        Item vRocher      = new Item("rocher", "un gros rocher bien lourd", 12.0);
+        Item vFiole       = new Item("fiole", "une fiole d'eau oxygénée", 0.2);
+
         // Création des salles
         Room vNord        = this.createRoom("zone_nord",        "dans la zone au NORD des ruines",               "zone nord.png");
         Room vEst         = this.createRoom("zone_est",         "dans la zone à l'EST des ruines",               "zone est.png");
@@ -91,21 +104,13 @@ public class GameEngine
         Room vArbre       = this.createRoom("arbre",            "en hauteur, dans l'arbre au-dessus des ruines", "arbre.png");
         Room vInterieur   = this.createRoom("interieur",        "à l'intérieur des ruines Sheikah",              "interieur.png");
 
+        // Salle spéciale TransporterRoom
         Room vTransporter = new TransporterRoom(
-            "dans une salle mystérieuse qui vous aspire sans que vous puissiez vous en extraire",
+            "dans une salle mystérieuse qui vous aspire \nsans que vous puissiez vous en extraire...",
             "transporter.png",
             new RoomRandomizer( this.aRooms )
         );
-
-        // Création des Items
-        Item vTeleporteur = new Beamer();
-        Item vCarte       = new Item("carte", "une carte ancienne", 0.1);
-        Item vClef        = new Item("clé", "une clé ancienne", 0.5);
-        Item vBranche     = new Item("branche", "une branche solide", 1.2);
-        Item vEpee        = new Item("épée", "une épée rouillée", 2.0);
-        Item vBuche       = new Item("bûche", "une bûche lourde", 5.0);
-        Item vRocher      = new Item("rocher", "un gros rocher bien lourd", 12.0);
-        Item vFiole       = new Item("fiole", "une fiole d'eau oxygénée", 0.2);
+        this.aRooms.put( "teleporteur_aleatoire", vTransporter );
 
         // Création des passages entre les salles
         Room.connectRooms(vEst, "nord", vNord);
@@ -119,7 +124,13 @@ public class GameEngine
         Room.connectRooms(vEscaliers, "haut", vToitRuines, "bas");
         Room.connectRooms(vToitRuines, "haut", vArbre, "bas");
         Room.connectRooms(vPorte, "nord", vInterieur, "sud", vClef);
-        Room.connectRooms(vInterieur, "nord", vTransporter, "sud"); // même si ici en réalité la direction nord enverra vers une salle aléatoire.
+
+        // On peut accéder à vTransporter depuis vInterieur par le nord,
+        // En revanche, toute sortie de vTransporter mène à une salle aléatoire.
+        Room.connectRooms(vTransporter, "sud", vInterieur, "nord");
+        Room.connectRooms(vTransporter, "nord", vInterieur);
+        Room.connectRooms(vTransporter, "est", vInterieur);
+        Room.connectRooms(vTransporter, "ouest", vInterieur);
 
         // Placement des Items dans les salles
         vSud.addItem(vTeleporteur);
@@ -134,6 +145,21 @@ public class GameEngine
         // Salle de départ (sera assignée au joueur quand il sera créé)
         this.aStartRoom = vSud;
     } // createRooms
+ 
+    /**
+     * Crée une nouvelle salle, l'ajoute à la HashMap des salles et la retourne.
+     *
+     * @param pName le nom unique de la salle pour la HashMap
+     * @param pDescription la description textuelle de la salle
+     * @param pImage le nom du fichier image représentant la salle
+     * @return la salle nouvellement créée
+     */
+    private Room createRoom(final String pName, final String pDescription, final String pImage )
+    {
+        Room vRoom = new Room( pDescription, pImage );
+        this.aRooms.put( pName, vRoom );
+        return vRoom;
+    } // createRoom(*,*,*)
 
     /**
      * Affiche le message de bienvenue et les informations de localisation initiales.
@@ -181,6 +207,7 @@ public class GameEngine
             case "déclencher"    -> triggerBeamer();
             case "déverrouiller" -> unlockDoor(vCommand);
             case "verrouiller"   -> lockDoor(vCommand);
+            case "alea"          -> bypassRandom(vCommand);
             default              -> System.out.println("Cette commande n'a pas encore d'effet associé.");
         }
 
@@ -554,6 +581,32 @@ public class GameEngine
     } // lockDoor(*)    
 
     /**
+     * Impose une valeur fixe pour les prochains choix aléatoires de RoomRandomizer dans les tests.
+     * 
+     * @param pCommand la commande reçue (doit contenir le nom de la Room à forcer)
+     */
+    private void bypassRandom(final Command pCommand)
+    {
+        if (this.aDebugMode == false) {
+            this.aGui.println("La commande 'alea' ne peut être utilisée que dans un fichier test.");
+            return;
+        }
+
+        if ( ! pCommand.hasSecondWord() ) {
+            this.aGui.println("Veuillez spécifier un nom de salle (ex: alea cuisine ).");
+            return;
+        }
+
+        String vRoomName = pCommand.getSecondWord();
+        Room vRoom = this.aRooms.get( vRoomName );
+        if ( vRoom == null ) {
+            this.aGui.println("Cette salle n'existe pas.");
+            return;
+        }
+        ( (TransporterRoom) this.aRooms.get("teleporteur_aleatoire") ).setForcedRoom( vRoom );
+    } // bypassRandom(*)
+
+    /**
      * Exécute la commande "test" pour lire et exécuter des commandes depuis un fichier.
      * Le fichier doit contenir une commande par ligne et se trouver à la racine du projet.
      *
@@ -570,31 +623,16 @@ public class GameEngine
         try { // pour "essayer" les instructions suivantes :
             vScanner = new Scanner( new File( pNomFichier ) ); // ouverture du fichier s'il existe
             this.aGui.println("\n============= Exécution TEST =============\n");
+            this.aDebugMode = true;
             while ( vScanner.hasNextLine() ) { // tant qu'il y a encore une ligne à lire dans le fichier
                 String vLigne = vScanner.nextLine(); // lecture de la ligne dans le fichier
                 this.interpretCommand( vLigne );
             } // while
+            this.aDebugMode = false;
             this.aGui.println("\n============= TEST terminé =============\n");
         } // try
         catch ( final FileNotFoundException pFNFE ) { // si le fichier n'existe pas
             this.aGui.println("Le fichier '" + pNomFichier + "' est introuvable.");
         } // catch
-        
     } // executeTest(*)
-
-    /**
-     * Crée une nouvelle salle, l'ajoute à la HashMap des salles et la retourne.
-     * Méthode helper pour simplifier la création et l'enregistrement simultané des salles.
-     *
-     * @param pDescription la description textuelle de la salle
-     * @param pImage le nom du fichier image représentant la salle
-     * @return la salle nouvellement créée
-     */
-    private Room createRoom(final String pName, final String pDescription, final String pImage )
-    {
-        Room vRoom = new Room( pDescription, pImage );
-        this.aRooms.put( pName, vRoom );
-        return vRoom;
-    } // createRoom(*,*,*)
-
 }
