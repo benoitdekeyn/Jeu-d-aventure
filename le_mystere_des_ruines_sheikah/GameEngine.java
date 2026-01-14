@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -36,7 +35,7 @@ public class GameEngine
     private final int aMaxMoves = 100;
     
     /** Collection de toutes les salles du jeu */
-    private List<Room> aRooms;
+    private HashMap<String, Room> aRooms;
 
     /**
      * Crée un nouveau moteur de jeu.
@@ -45,7 +44,7 @@ public class GameEngine
     public GameEngine()
     {
         this.aParser = new Parser();
-        this.aRooms = new ArrayList<Room>();
+        this.aRooms = new HashMap<String, Room>();
         this.aMovesCount = 0;
         this.createRooms();
     }
@@ -80,17 +79,17 @@ public class GameEngine
     private void createRooms()
     {
         // Création des salles
-        Room vNord        = this.createRoom("dans la zone au NORD des ruines",               "zone nord.png");
-        Room vEst         = this.createRoom("dans la zone à l'EST des ruines",               "zone est.png");
-        Room vSud         = this.createRoom("dans la zone au SUD des ruines",                "zone sud.png");
-        Room vOuest       = this.createRoom("dans la zone à l'OUEST des ruines",             "zone ouest.png");
-        Room vMurNord     = this.createRoom("devant le mur NORD des ruines",                 "mur nord.png");
-        Room vMurOuest    = this.createRoom("devant le mur OUEST des ruines",                "mur ouest.png");
-        Room vPorte       = this.createRoom("à la porte scellée du mur SUD des ruines",      "porte.png");
-        Room vEscaliers   = this.createRoom("aux escaliers du mur EST des ruines",           "escaliers.png");
-        Room vToitRuines  = this.createRoom("sur le dessus des ruines",                      "toit ruines.png");
-        Room vArbre       = this.createRoom("en hauteur, dans l'arbre au-dessus des ruines", "arbre.png");
-        Room vInterieur   = this.createRoom("à l'intérieur des ruines Sheikah",              "interieur.png");
+        Room vNord        = this.createRoom("zone_nord",        "dans la zone au NORD des ruines",               "zone nord.png");
+        Room vEst         = this.createRoom("zone_est",         "dans la zone à l'EST des ruines",               "zone est.png");
+        Room vSud         = this.createRoom("zone_sud",         "dans la zone au SUD des ruines",                "zone sud.png");
+        Room vOuest       = this.createRoom("zone_ouest",       "dans la zone à l'OUEST des ruines",             "zone ouest.png");
+        Room vMurNord     = this.createRoom("mur_nord",         "devant le mur NORD des ruines",                 "mur nord.png");
+        Room vMurOuest    = this.createRoom("mur_ouest",        "devant le mur OUEST des ruines",                "mur ouest.png");
+        Room vPorte       = this.createRoom("porte_sud",        "à la porte scellée du mur SUD des ruines",      "porte.png");
+        Room vEscaliers   = this.createRoom("escaliers_est",    "aux escaliers du mur EST des ruines",           "escaliers.png");
+        Room vToitRuines  = this.createRoom("toit_ruines",      "sur le dessus des ruines",                      "toit ruines.png");
+        Room vArbre       = this.createRoom("arbre",            "en hauteur, dans l'arbre au-dessus des ruines", "arbre.png");
+        Room vInterieur   = this.createRoom("interieur",        "à l'intérieur des ruines Sheikah",              "interieur.png");
 
         // Création des Items
         Item vTeleporteur = new Beamer();
@@ -584,10 +583,10 @@ public class GameEngine
      * @param pImage le nom du fichier image représentant la salle
      * @return la salle nouvellement créée
      */
-    private Room createRoom(final String pDescription, final String pImage )
+    private Room createRoom(final String pName, final String pDescription, final String pImage )
     {
         Room vRoom = new Room( pDescription, pImage );
-        this.aRooms.add(vRoom);
+        this.aRooms.put( pName, vRoom );
         return vRoom;
     } // createRoom(*,*,*)
 
