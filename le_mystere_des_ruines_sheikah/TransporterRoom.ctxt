@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=TransporterRoom
+comment0.text=\r\n\ Classe\ TransporterRoom\ -\ une\ salle\ sp\u00E9ciale\ qui\ t\u00E9l\u00E9porte\ le\ joueur.\r\n\ Cette\ salle\ est\ une\ sous-classe\ de\ Room.\ Elle\ se\ comporte\ comme\ une\ salle\ normale\r\n\ pour\ l'affichage,\ mais\ lorsque\ le\ joueur\ essaie\ d'en\ sortir\ (peu\ importe\ la\ direction),\r\n\ il\ est\ transport\u00E9\ al\u00E9atoirement\ dans\ une\ autre\ salle\ du\ jeu.\r\n\r\n\ @author\ \ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2026.01.14\r\n
+comment1.params=pDescription\ pImage\ pRandomizer
+comment1.target=TransporterRoom(java.lang.String,\ java.lang.String,\ RoomRandomizer)
+comment1.text=\r\n\ Cr\u00E9e\ une\ salle\ de\ t\u00E9l\u00E9portation.\r\n\r\n\ @param\ pDescription\ la\ description\ textuelle\ de\ la\ salle\r\n\ @param\ pImage\ \ \ \ \ \ \ le\ nom\ du\ fichier\ image\ repr\u00E9sentant\ la\ salle\r\n\ @param\ pRandomizer\ \ le\ g\u00E9n\u00E9rateur\ de\ pi\u00E8ces\ al\u00E9atoires\ \u00E0\ utiliser\r\n
+comment2.params=pDirection
+comment2.target=Room\ getExit(java.lang.String)
+comment2.text=\r\n\ Renvoie\ la\ salle\ de\ destination\ lors\ d'une\ sortie\ de\ cette\ pi\u00E8ce.\r\n\ Cette\ m\u00E9thode\ surcharge\ (override)\ celle\ de\ la\ classe\ Room.\r\n\ Quelle\ que\ soit\ la\ direction\ demand\u00E9e,\ une\ pi\u00E8ce\ al\u00E9atoire\ est\ retourn\u00E9e.\r\n\r\n\ @param\ pDirection\ la\ direction\ demand\u00E9e\ (ignor\u00E9e\ par\ cette\ salle)\r\n\ @return\ une\ salle\ al\u00E9atoire\ choisie\ par\ le\ Randomizer\r\n
+numComments=3

@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=RoomRandomizer
+comment0.text=\r\n\ Classe\ RoomRandomizer\ -\ g\u00E8re\ la\ s\u00E9lection\ al\u00E9atoire\ d'une\ pi\u00E8ce.\r\n\ Cette\ classe\ est\ utilis\u00E9e\ pour\ obtenir\ une\ pi\u00E8ce\ au\ hasard\ parmi\ celles\ du\ jeu,\r\n\ ind\u00E9pendamment\ de\ la\ structure\ de\ stockage\ (HashMap)\ utilis\u00E9e\ par\ le\ moteur.\r\n\r\n\ @author\ \ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2026.01.14\r\n
+comment1.params=pRooms
+comment1.target=RoomRandomizer(java.util.HashMap)
+comment1.text=\r\n\ Cr\u00E9e\ un\ nouveau\ g\u00E9n\u00E9rateur\ de\ pi\u00E8ces\ al\u00E9atoires.\r\n\r\n\ @param\ pRooms\ la\ collection\ de\ toutes\ les\ salles\ du\ jeu\r\n
+comment2.params=
+comment2.target=Room\ findRandomRoom()
+comment2.text=\r\n\ Choisit\ et\ renvoie\ une\ pi\u00E8ce\ au\ hasard\ parmi\ toutes\ les\ salles\ connues.\r\n\r\n\ @return\ une\ salle\ (Room)\ s\u00E9lectionn\u00E9e\ al\u00E9atoirement\r\n
+numComments=3

@@ -91,6 +91,12 @@ public class GameEngine
         Room vArbre       = this.createRoom("arbre",            "en hauteur, dans l'arbre au-dessus des ruines", "arbre.png");
         Room vInterieur   = this.createRoom("interieur",        "à l'intérieur des ruines Sheikah",              "interieur.png");
 
+        Room vTransporter = new TransporterRoom(
+            "dans une salle mystérieuse qui vous aspire sans que vous puissiez vous en extraire",
+            "transporter.png",
+            new RoomRandomizer( this.aRooms )
+        );
+
         // Création des Items
         Item vTeleporteur = new Beamer();
         Item vCarte       = new Item("carte", "une carte ancienne", 0.1);
@@ -113,6 +119,7 @@ public class GameEngine
         Room.connectRooms(vEscaliers, "haut", vToitRuines, "bas");
         Room.connectRooms(vToitRuines, "haut", vArbre, "bas");
         Room.connectRooms(vPorte, "nord", vInterieur, "sud", vClef);
+        Room.connectRooms(vInterieur, "nord", vTransporter, "sud"); // même si ici en réalité la direction nord enverra vers une salle aléatoire.
 
         // Placement des Items dans les salles
         vSud.addItem(vTeleporteur);
@@ -134,7 +141,7 @@ public class GameEngine
     private void printWelcome()
     {
         this.aGui.println(
-            "\nBonjour " + this.aPlayer.getName() + ",\nbienvenue dans la mystérieuse jungle Korugu ! \n" +
+            "\nBonjour " + this.aPlayer.getName() + ",\nbienvenue dans la mystérieuse jungle Korogu ! \n" +
             "Vous êtes enfin parvenu face aux ruines anciennes du peuple Sheikah. \n" +
             "Vous devez maintenant trouver cet artefact si précieux à l'intérieur des ruines. \n" +
             "\n" +
@@ -283,7 +290,7 @@ public class GameEngine
     private void printHelp()
     {
         this.aGui.println(
-            "Vous êtes au milieu de la jungle Korugu, \n" +
+            "Vous êtes au milieu de la jungle Korogu, \n" +
             "parmi les ruines anciennes du peuple Sheikah. \n" +
             "Trouvez l'artefact technologique caché à l'intérieur des ruines !"
         );
