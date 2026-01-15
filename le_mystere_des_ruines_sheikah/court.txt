@@ -1,4 +1,6 @@
+déclencher
 prendre téléporteur
+charger
 aller est
 aller ouest
 aller haut
@@ -11,7 +13,5 @@ aller sud
 aller nord
 déverrouiller nord
 aller nord
-charger
 aller nord
-alea eleporteur_aleatoire
 aller est

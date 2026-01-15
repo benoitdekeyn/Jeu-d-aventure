@@ -28,7 +28,7 @@ public class CommandWords
     };
 
     /** Liste des commandes de debug reconnues par le jeu. */
-    private final String[] aDebugCommand = {
+    private final String[] aDebugCommands = {
         "alea"
     };
 
@@ -66,7 +66,7 @@ public class CommandWords
             }
         }
         // for debugCommands
-        for (String aDebugCommand1 : this.aDebugCommand) {
+        for (String aDebugCommand1 : this.aDebugCommands) {
             if (aDebugCommand1.equals(pString)) {
                 return true;
             }

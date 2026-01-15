@@ -37,8 +37,13 @@ public class RoomRandomizer
      */
     public Room findRandomRoom()
     {
-        // Conversion des valeurs de la HashMap en une liste indexée pour le tirage au sort
-        List<Room> vRoomsList = new ArrayList<Room>( this.aRooms.values() );
+        // Conversion des valeurs de la HashMap en une liste indexée pour le tirage au sort sauf  les salles Transporter
+        List<Room> vRoomsList = new ArrayList<Room>();
+        for ( Room vRoom : this.aRooms.values() ) {
+            if ( ! ( vRoom instanceof TransporterRoom ) ) {
+                vRoomsList.add( vRoom );
+            }
+        }
         
         // Tirage d'un index aléatoire
         int vRandomIndex = this.aRandom.nextInt( vRoomsList.size() );

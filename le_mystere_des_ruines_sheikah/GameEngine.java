@@ -38,7 +38,7 @@ public class GameEngine
     private HashMap<String, Room> aRooms;
 
     /** Debug mode pour truquer le hasard avec la commande alea dans les tests */
-    private boolean aDebugMode = false;
+    private boolean aDebugMode;
 
     /**
      * Crée un nouveau moteur de jeu.
@@ -49,6 +49,7 @@ public class GameEngine
         this.aParser = new Parser();
         this.aRooms = new HashMap<String, Room>();
         this.aMovesCount = 0;
+        this.aDebugMode = false;
         this.createRooms();
     }
 
