@@ -40,6 +40,9 @@ public class GameEngine
     /** Debug mode pour truquer le hasard avec la commande alea dans les tests */
     private boolean aDebugMode;
 
+    /** Etat du jeux (en cours ou finit) */
+    private boolean aGameOver;
+
     /**
      * Crée un nouveau moteur de jeu.
      * Initialise le parseur et crée toutes les salles.
@@ -50,6 +53,7 @@ public class GameEngine
         this.aRooms = new HashMap<String, Room>();
         this.aMovesCount = 0;
         this.aDebugMode = false;
+        this.aGameOver = false;
         this.createRooms();
     }
 
@@ -199,6 +203,10 @@ public class GameEngine
      */
     public void interpretCommand( final String pCommandLine ) 
     {
+        if (this.aGameOver) {
+            return;
+        }
+
         this.aGui.println( "\n> " + pCommandLine );
         Command vCommand = this.aParser.getCommand( pCommandLine );
 
@@ -240,7 +248,8 @@ public class GameEngine
             this.aGui.println(
                 "\nVous avez atteint la limite de " + this.aMovesCount + " déplacements.\n" +
                 "\n=============== GAME OVER ==============\n");
-                this.aGui.showImage("game over.png");
+            this.aGui.showImage("game over.png");
+            this.aGameOver = true;
             this.aGui.enable( false );
         }
     }
@@ -259,6 +268,7 @@ public class GameEngine
         }
         this.aGui.println("Merci d'avoir joué, " + this.aPlayer.getName() + ". Au revoir.");
         this.aGui.enable( false );
+        this.aGameOver = true;
     } // quit(*)
 
     /**
@@ -417,7 +427,8 @@ public class GameEngine
                 "Vous avez accompli votre mission avec succès.\n" +
                 "Merci d'avoir joué à 'Le Mystère des Ruines Sheikah' !\n" +
                 "=============================================\n");
-                this.aGui.showImage("victoire.png");
+            this.aGui.showImage("victoire.png");
+            this.aGameOver = true;
             this.aGui.enable( false );
         }
     } // take(*)
