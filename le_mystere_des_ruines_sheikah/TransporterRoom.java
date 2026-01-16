@@ -31,7 +31,7 @@ public class TransporterRoom extends Room
 
     /**
      * Définit une salle forcée pour le prochain téléport.
-     * Utile pour la commande de debug "alea <nom_salle>".
+     * Utile pour la commande de debug "alea nom_salle".
      *
      * @param pRoom la salle dans laquelle téléporter le joueur
      */

@@ -10,12 +10,12 @@ public class Door
     /** La clé nécessaire pour déverrouiller cette porte (null si porte non verrouillable). */
     private Item aKey;
     
-    /** État de la porte : true = ouverte, false = fermée. */
+    /** État de la porte : true = ouverte, false = verrouillée. */
     private boolean aIsLocked;
 
     /**
      * Constructeur : crée une porte verrouillée avec une clé spécifique.
-     * Par défaut, la porte est fermée au lancement du jeu.
+     * Par défaut, la porte est verrouillée au lancement du jeu.
      *
      * @param pKey la clé nécessaire pour ouvrir/fermer cette porte
      */

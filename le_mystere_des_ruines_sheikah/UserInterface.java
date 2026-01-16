@@ -44,10 +44,10 @@ public class UserInterface implements ActionListener
     private String     aImagesFolder;
     
     /** Le bouton pour exécuter la commande "respirer". */
-    private JButton    aBreathButton;
+    private JButton    aLoadButton;
     
     /** Le bouton pour exécuter la commande "regarder". */
-    private JButton    aLookButton;
+    private JButton    aTriggerButton;
 
     /**
      * Crée une nouvelle interface utilisateur pour le jeu.
@@ -147,23 +147,23 @@ public class UserInterface implements ActionListener
         vListScroller.setMinimumSize( new Dimension(100, 200) );
 
         this.aImage = new JLabel();
-        this.aBreathButton = new JButton( "Respirer" );
-        this.aLookButton = new JButton( "Regarder" );
+        this.aLoadButton = new JButton( "Charger" );
+        this.aTriggerButton = new JButton( "Déclencher" );
 
         JPanel vPanel = new JPanel();
         vPanel.setLayout( new BorderLayout() ); // ==> only five places
         vPanel.add( this.aImage, BorderLayout.NORTH );
         vPanel.add( vListScroller, BorderLayout.CENTER );
         vPanel.add( this.aEntryField, BorderLayout.SOUTH );
-        vPanel.add( this.aBreathButton, BorderLayout.EAST );
-        vPanel.add( this.aLookButton, BorderLayout.WEST );
+        vPanel.add( this.aLoadButton, BorderLayout.EAST );
+        vPanel.add( this.aTriggerButton, BorderLayout.WEST );
 
         this.aMyFrame.getContentPane().add( vPanel, BorderLayout.CENTER );
 
         // add some event listeners to some components
         this.aEntryField.addActionListener( this );
-        this.aBreathButton.addActionListener( this );
-        this.aLookButton.addActionListener( this );
+        this.aLoadButton.addActionListener( this );
+        this.aTriggerButton.addActionListener( this );
 
         // to end program when window is closed
         this.aMyFrame.addWindowListener(
@@ -188,11 +188,11 @@ public class UserInterface implements ActionListener
     @Override public void actionPerformed( final ActionEvent pE ) 
     {
         // clic du bouton
-        if ( pE.getSource() == this.aBreathButton ) {
-            this.aEngine.interpretCommand( "respirer" );
+        if ( pE.getSource() == this.aLoadButton ) {
+            this.aEngine.interpretCommand( "charger" );
         }
-        else if ( pE.getSource() == this.aLookButton ) {
-            this.aEngine.interpretCommand( "regarder" );
+        else if ( pE.getSource() == this.aTriggerButton ) {
+            this.aEngine.interpretCommand( "déclencher" );
         }
         else {
             // commande terminale

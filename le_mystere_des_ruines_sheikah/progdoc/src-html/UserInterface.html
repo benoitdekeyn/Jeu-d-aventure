@@ -57,10 +57,10 @@
 <span class="source-line-no">044</span><span id="line-44">    private String     aImagesFolder;</span>
 <span class="source-line-no">045</span><span id="line-45">    </span>
 <span class="source-line-no">046</span><span id="line-46">    /** Le bouton pour exécuter la commande "respirer". */</span>
-<span class="source-line-no">047</span><span id="line-47">    private JButton    aBreathButton;</span>
+<span class="source-line-no">047</span><span id="line-47">    private JButton    aLoadButton;</span>
 <span class="source-line-no">048</span><span id="line-48">    </span>
 <span class="source-line-no">049</span><span id="line-49">    /** Le bouton pour exécuter la commande "regarder". */</span>
-<span class="source-line-no">050</span><span id="line-50">    private JButton    aLookButton;</span>
+<span class="source-line-no">050</span><span id="line-50">    private JButton    aTriggerButton;</span>
 <span class="source-line-no">051</span><span id="line-51"></span>
 <span class="source-line-no">052</span><span id="line-52">    /**</span>
 <span class="source-line-no">053</span><span id="line-53">     * Crée une nouvelle interface utilisateur pour le jeu.</span>
@@ -160,23 +160,23 @@
 <span class="source-line-no">147</span><span id="line-147">        vListScroller.setMinimumSize( new Dimension(100, 200) );</span>
 <span class="source-line-no">148</span><span id="line-148"></span>
 <span class="source-line-no">149</span><span id="line-149">        this.aImage = new JLabel();</span>
-<span class="source-line-no">150</span><span id="line-150">        this.aBreathButton = new JButton( "Respirer" );</span>
-<span class="source-line-no">151</span><span id="line-151">        this.aLookButton = new JButton( "Regarder" );</span>
+<span class="source-line-no">150</span><span id="line-150">        this.aLoadButton = new JButton( "Charger" );</span>
+<span class="source-line-no">151</span><span id="line-151">        this.aTriggerButton = new JButton( "Déclencher" );</span>
 <span class="source-line-no">152</span><span id="line-152"></span>
 <span class="source-line-no">153</span><span id="line-153">        JPanel vPanel = new JPanel();</span>
 <span class="source-line-no">154</span><span id="line-154">        vPanel.setLayout( new BorderLayout() ); // ==&gt; only five places</span>
 <span class="source-line-no">155</span><span id="line-155">        vPanel.add( this.aImage, BorderLayout.NORTH );</span>
 <span class="source-line-no">156</span><span id="line-156">        vPanel.add( vListScroller, BorderLayout.CENTER );</span>
 <span class="source-line-no">157</span><span id="line-157">        vPanel.add( this.aEntryField, BorderLayout.SOUTH );</span>
-<span class="source-line-no">158</span><span id="line-158">        vPanel.add( this.aBreathButton, BorderLayout.EAST );</span>
-<span class="source-line-no">159</span><span id="line-159">        vPanel.add( this.aLookButton, BorderLayout.WEST );</span>
+<span class="source-line-no">158</span><span id="line-158">        vPanel.add( this.aLoadButton, BorderLayout.EAST );</span>
+<span class="source-line-no">159</span><span id="line-159">        vPanel.add( this.aTriggerButton, BorderLayout.WEST );</span>
 <span class="source-line-no">160</span><span id="line-160"></span>
 <span class="source-line-no">161</span><span id="line-161">        this.aMyFrame.getContentPane().add( vPanel, BorderLayout.CENTER );</span>
 <span class="source-line-no">162</span><span id="line-162"></span>
 <span class="source-line-no">163</span><span id="line-163">        // add some event listeners to some components</span>
 <span class="source-line-no">164</span><span id="line-164">        this.aEntryField.addActionListener( this );</span>
-<span class="source-line-no">165</span><span id="line-165">        this.aBreathButton.addActionListener( this );</span>
-<span class="source-line-no">166</span><span id="line-166">        this.aLookButton.addActionListener( this );</span>
+<span class="source-line-no">165</span><span id="line-165">        this.aLoadButton.addActionListener( this );</span>
+<span class="source-line-no">166</span><span id="line-166">        this.aTriggerButton.addActionListener( this );</span>
 <span class="source-line-no">167</span><span id="line-167"></span>
 <span class="source-line-no">168</span><span id="line-168">        // to end program when window is closed</span>
 <span class="source-line-no">169</span><span id="line-169">        this.aMyFrame.addWindowListener(</span>
@@ -201,11 +201,11 @@
 <span class="source-line-no">188</span><span id="line-188">    @Override public void actionPerformed( final ActionEvent pE ) </span>
 <span class="source-line-no">189</span><span id="line-189">    {</span>
 <span class="source-line-no">190</span><span id="line-190">        // clic du bouton</span>
-<span class="source-line-no">191</span><span id="line-191">        if ( pE.getSource() == this.aBreathButton ) {</span>
-<span class="source-line-no">192</span><span id="line-192">            this.aEngine.interpretCommand( "respirer" );</span>
+<span class="source-line-no">191</span><span id="line-191">        if ( pE.getSource() == this.aLoadButton ) {</span>
+<span class="source-line-no">192</span><span id="line-192">            this.aEngine.interpretCommand( "charger" );</span>
 <span class="source-line-no">193</span><span id="line-193">        }</span>
-<span class="source-line-no">194</span><span id="line-194">        else if ( pE.getSource() == this.aLookButton ) {</span>
-<span class="source-line-no">195</span><span id="line-195">            this.aEngine.interpretCommand( "regarder" );</span>
+<span class="source-line-no">194</span><span id="line-194">        else if ( pE.getSource() == this.aTriggerButton ) {</span>
+<span class="source-line-no">195</span><span id="line-195">            this.aEngine.interpretCommand( "déclencher" );</span>
 <span class="source-line-no">196</span><span id="line-196">        }</span>
 <span class="source-line-no">197</span><span id="line-197">        else {</span>
 <span class="source-line-no">198</span><span id="line-198">            // commande terminale</span>

@@ -83,40 +83,45 @@ public class GameEngine
     private void createRooms()
     {
         // Création des Items
-        Item vTeleporteur = new Beamer();
-        Item vCarte       = new Item("carte", "une carte ancienne", 0.1);
-        Item vClef        = new Item("clé", "une clé ancienne", 0.5);
-        Item vBranche     = new Item("branche", "une branche solide", 1.2);
-        Item vEpee        = new Item("épée", "une épée rouillée", 2.0);
-        Item vBuche       = new Item("bûche", "une bûche lourde", 5.0);
-        Item vRocher      = new Item("rocher", "un gros rocher bien lourd", 12.0);
-        Item vFiole       = new Item("fiole", "une fiole d'eau oxygénée", 0.2);
+        Item vTeleporteur   = new Beamer();
+        Item vOiseau        = new Item("oiseau", "un oiseau qui a fait son nid", 0.1);
+        Item vPoussin       = new Item("poussin", "un poussin tout juste éclos", 0.2);
+        Item vLezard        = new Item("lézard", "un lézard qui prend le soleil", 0.5);
+        Item vPapillon      = new Item("papillon", "un papillon coloré", 0.1);
+        Item vCoccinelle    = new Item("coccinelle", "une coccinelle porte-bonheur", 0.1);
+        Item vLapin         = new Item("lapin", "un lapin qui se promène", 1.5);
+        Item vCle           = new Item("clé", "une clé ancienne", 0.3);
+        Item vTorche        = new Item("torche", "une torche enflammée", 0.7);
+        Item vRocher        = new Item("rocher", "un gros rocher bien lourd", 12.0);
+        Item vFiole         = new Item("fiole", "une fiole d'eau oxygénée", 0.5);
+        Item vPyrotaris     = new Item("pyrotaris", "le fameux bijou de technologie sheikah", 3.0);
 
         // Création des salles
         Room vNord        = this.createRoom("zone_nord",        "dans la zone au NORD des ruines",               "zone nord.png");
-        Room vEst         = this.createRoom("zone_est",         "dans la zone à l'EST des ruines",               "zone est.png");
-        Room vSud         = this.createRoom("zone_sud",         "dans la zone au SUD des ruines",                "zone sud.png");
         Room vOuest       = this.createRoom("zone_ouest",       "dans la zone à l'OUEST des ruines",             "zone ouest.png");
+        Room vSud         = this.createRoom("zone_sud",         "dans la zone au SUD des ruines",                "zone sud.png");
+        Room vEst         = this.createRoom("zone_est",         "dans la zone à l'EST des ruines",               "zone est.png");
         Room vMurNord     = this.createRoom("mur_nord",         "devant le mur NORD des ruines",                 "mur nord.png");
         Room vMurOuest    = this.createRoom("mur_ouest",        "devant le mur OUEST des ruines",                "mur ouest.png");
-        Room vPorte       = this.createRoom("porte_sud",        "à la porte scellée du mur SUD des ruines",      "porte.png");
-        Room vEscaliers   = this.createRoom("escaliers_est",    "aux escaliers du mur EST des ruines",           "escaliers.png");
+        Room vPorte       = this.createRoom("porte_sud",        "à la porte scellée du mur SUD des ruines",      "porte sud.png");
+        Room vEscaliers   = this.createRoom("escaliers_est",    "aux escaliers du mur EST des ruines",           "escaliers est.png");
         Room vToitRuines  = this.createRoom("toit_ruines",      "sur le dessus des ruines",                      "toit ruines.png");
         Room vArbre       = this.createRoom("arbre",            "en hauteur, dans l'arbre au-dessus des ruines", "arbre.png");
-        Room vInterieur   = this.createRoom("interieur",        "à l'intérieur des ruines Sheikah",              "interieur.png");
+        Room vInterieur   = this.createRoom("interieur_ruines", "à l'intérieur des ruines Sheikah",              "interieur ruines.png");
+        Room vSalleFinale = this.createRoom("salle_finale",     "dans la salle qui renferme le trésor ultime",   "salle finale.png");
 
         // Salle spéciale TransporterRoom
         Room vTransporter = new TransporterRoom(
             "dans une salle mystérieuse qui vous aspire \nsans que vous puissiez vous en extraire...",
-            "transporter.png",
+            "tunnel infini.png",
             new RoomRandomizer( this.aRooms )
         );
         this.aRooms.put( "teleporteur_aleatoire", vTransporter );
 
-        // Création des passages entre les salles
-        Room.connectRooms(vEst, "nord", vNord);
+        // Création des passages bidirectionnels entre les salles
         Room.connectRooms(vNord, "sud", vMurNord, "nord");
         Room.connectRooms(vNord, "ouest", vOuest, "nord");
+        Room.connectRooms(vNord, "est", vEst, "nord");
         Room.connectRooms(vEst, "sud", vSud, "est");
         Room.connectRooms(vEst, "ouest", vEscaliers, "est");
         Room.connectRooms(vSud, "nord", vPorte, "sud");
@@ -124,7 +129,13 @@ public class GameEngine
         Room.connectRooms(vOuest, "est", vMurOuest, "ouest");
         Room.connectRooms(vEscaliers, "haut", vToitRuines, "bas");
         Room.connectRooms(vToitRuines, "haut", vArbre, "bas");
-        Room.connectRooms(vPorte, "nord", vInterieur, "sud", vClef);
+        Room.connectRooms(vPorte, "nord", vInterieur, "sud", vCle); // porte verrouillée avec la clé
+        // Connexions trap-door
+        Room.connectRooms(vToitRuines, "nord", vMurNord);
+        Room.connectRooms(vToitRuines, "est", vEscaliers);
+        Room.connectRooms(vToitRuines, "sud", vPorte);
+        Room.connectRooms(vToitRuines, "ouest", vMurOuest);
+        Room.connectRooms(vInterieur, "ouest", vSalleFinale, vRocher); // porte verrouillée avec le rocher
 
         // On peut accéder à vTransporter depuis vInterieur par le nord,
         // En revanche, toute sortie de vTransporter mène à une salle aléatoire.
@@ -134,14 +145,18 @@ public class GameEngine
         Room.connectRooms(vTransporter, "ouest", vInterieur);
 
         // Placement des Items dans les salles
-        vSud.addItem(vTeleporteur);
-        vSud.addItem(vBuche);
-        vSud.addItem(vRocher);
-        vSud.addItem(vFiole);
-        vMurNord.addItem(vCarte);
-        vMurOuest.addItem(vEpee);
-        vArbre.addItem(vClef);
-        vArbre.addItem(vBranche);
+        vSud.addItem(vTorche);
+        vToitRuines.addItem(vLapin);
+        vToitRuines.addItem(vTeleporteur);
+        vArbre.addItem(vOiseau);
+        vArbre.addItem(vPoussin);
+        vArbre.addItem(vCle);
+        vMurNord.addItem(vFiole);
+        vMurNord.addItem(vLezard);
+        vMurOuest.addItem(vCoccinelle);
+        vMurOuest.addItem(vRocher);
+        vEscaliers.addItem(vPapillon);
+        vSalleFinale.addItem(vPyrotaris);
         
         // Salle de départ (sera assignée au joueur quand il sera créé)
         this.aStartRoom = vSud;
@@ -225,6 +240,7 @@ public class GameEngine
             this.aGui.println(
                 "\nVous avez atteint la limite de " + this.aMovesCount + " déplacements.\n" +
                 "\n=============== GAME OVER ==============\n");
+                this.aGui.showImage("game over.png");
             this.aGui.enable( false );
         }
     }
@@ -379,7 +395,7 @@ public class GameEngine
         Item vItem = this.aPlayer.getCurrentRoom().getItem( vItemName );
 
         if ( vItem == null ) {
-            this.aGui.println("Il n'y a pas de tel objet ici.");
+            this.aGui.println("Il n'y a pas de tel objet ici.\n Attention aux accents et à la casse ...");
             return;
         }
     
@@ -392,6 +408,17 @@ public class GameEngine
             this.aPlayer.addItem( vItem );
             this.aPlayer.getCurrentRoom().removeItem( vItemName );
             this.aGui.println("Vous avez ajouté \"" + vItem.getName() + "\" à votre inventaire.");
+        }
+        if (vItem.getName().equals("pyrotaris")) {
+            this.aGui.println(
+                "\n=============== FÉLICITATIONS ===============\n" +
+                "Vous avez trouvé le Pyrotaris, \n" +
+                "l'artefact technologique Sheikah tant recherché !\n" +
+                "Vous avez accompli votre mission avec succès.\n" +
+                "Merci d'avoir joué à 'Le Mystère des Ruines Sheikah' !\n" +
+                "=============================================\n");
+                this.aGui.showImage("victoire.png");
+            this.aGui.enable( false );
         }
     } // take(*)
 
@@ -447,7 +474,7 @@ public class GameEngine
         }
         String vItemName = pCommand.getSecondWord();
         if ( ! this.aPlayer.hasItem( vItemName ) ) {
-            this.aGui.println("Va falloir mieux chercher avec tes petits yeux ! T'as pas ça sur toi.");
+            this.aGui.println("Désolé mais t'as pas ça sur toi.");
             return;
         }
         Item vItem = this.aPlayer.getItem( vItemName );
@@ -468,7 +495,7 @@ public class GameEngine
         this.aGui.println(
             "Vous avez consommé votre fiole d'eau oxygénée.\n"+
             "Mais comme on est dans un jeu,\n" + 
-            "votre taux d'oxygène a doublé, et avec cela votre force 💪.\n" +
+            "votre taux d'oxygène a doublé, et avec cela votre force.\n" +
             "Vous pouvez maintenant porter jusqu'à " + this.aPlayer.getInventoryCapacity() + " kg.");
     } // drinkH202
 
@@ -627,6 +654,10 @@ public class GameEngine
             this.aDebugMode = true;
             while ( vScanner.hasNextLine() ) { // tant qu'il y a encore une ligne à lire dans le fichier
                 String vLigne = vScanner.nextLine(); // lecture de la ligne dans le fichier
+                // ignorer les lignes qui commencent par # (commentaires) et les lignes vides
+                if ( vLigne.startsWith( "#" ) || vLigne.trim().isEmpty() ) {
+                    continue;
+                }
                 this.interpretCommand( vLigne );
             } // while
             this.aDebugMode = false;

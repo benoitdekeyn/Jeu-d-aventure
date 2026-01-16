@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Command
-comment0.text=\ \r\n\ Classe\ Command\ -\ repr\u00E9sente\ une\ commande\ saisie\ par\ l'utilisateur\ dans\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Une\ commande\ est\ compos\u00E9e\ d'un\ mot\ principal\ et\ \u00E9ventuellement\ d'un\ second\ mot.\r\n\r\n\ @author\ \ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2025.10.25\r\n
+comment0.text=\ \r\n\ Classe\ Command\ -\ repr\u00E9sente\ une\ commande\ saisie\ par\ l'utilisateur\ dans\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Une\ commande\ est\ compos\u00E9e\ d'un\ mot\ principal\ et\ \u00E9ventuellement\ d'un\ second\ mot.\r\n\r\n\ @author\ \ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2026.01.15\r\n
 comment1.params=pCommandWord\ pSecondWord
 comment1.target=Command(java.lang.String,\ java.lang.String)
 comment1.text=\r\n\ Cr\u00E9e\ une\ nouvelle\ commande\ avec\ un\ mot\ principal\ et\ \u00E9ventuellement\ un\ second\ mot.\r\n\r\n\ @param\ pCommandWord\ le\ mot\ principal\ de\ la\ commande\ (ex\:\ "aller",\ "aide",\ "quitter")\r\n\ @param\ pSecondWord\ le\ second\ mot\ de\ la\ commande,\ ou\ null\ si\ absent\r\n

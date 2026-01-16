@@ -1,12 +1,22 @@
 aller est
 aller ouest
 aller haut
+prendre téléporteur
+charger
 aller haut
 prendre clé
 aller bas
-aller bas
-aller est
-aller sud
 aller nord
+prendre fiole
+ingérer fiole
+aller nord
+aller ouest
+aller est
+prendre rocher
+déclencher
+aller sud
 déverrouiller nord
 aller nord
+déverrouiller ouest
+aller ouest
+prendre pyrotaris

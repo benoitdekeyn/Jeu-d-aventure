@@ -3,7 +3,7 @@
  * Une commande est composée d'un mot principal et éventuellement d'un second mot.
  *
  * @author  Benoît de Keyn
- * @version 2025.10.25
+ * @version 2026.01.15
  */
 
 public class Command

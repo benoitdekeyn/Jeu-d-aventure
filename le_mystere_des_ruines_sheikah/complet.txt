@@ -1,72 +1,143 @@
-absurde
+# ==========================================
+# PHASE 1 : TEST DES ERREURS & BASIQUES
+# ==========================================
+# Commandes incomplètes ou invalides
 aller
-aller nordest
-aller haut
-retour maintenant
-retour
+aller nullepart
 prendre
-prendre licorne
+prendre rien
 poser
-poser licorne
+poser rien
 ingérer
-ingérer licorne
-charger
-déclencher
+ingérer rien
 déverrouiller
-déverrouiller nordest
-déverrouiller nord
 verrouiller
-verrouiller nordest
-verrouiller nord
-test
-test bidon
-aide
-inventaire
-respirer
-regarder
-prendre téléporteur
-prendre bûche
-prendre rocher
-prendre fiole
-ingérer bûche
-ingérer fiole
-prendre rocher
-déclencher
 charger
-aller nord
-aller nord
-verrouiller nord
-déverrouiller nord
-aller sud
-aller est
-aller ouest
-aller haut
-aller haut
-prendre clé
-prendre branche
-aller bas
-aller bas
-aller est
-retour
-aller est
-aller nord
-aller sud
-aller nord
-aller ouest
-aller est
-aller ouest
-aller sud
-aller est
 déclencher
-aller nord
-déverrouiller nord
-déverrouiller nord
-verrouiller nord
-déverrouiller nord
-poser clé
-verrouiller nord
-prendre clé
-quitter maintenant
-aller nord
+alea
+alea inconnu
+retour avecargument
+
+# Retour impossible au début
+retour
+
+# Inventaire vide
+inventaire
+
+# ==========================================
+# PHASE 2 : EXPLORATION & CLÉ (ARBRE)
+# ==========================================
+# On part de la Zone Sud
+aller est
+# Zone Est -> Escaliers
+aller ouest
+# Escaliers -> Toit
+aller haut
+# Toit -> Arbre
+aller haut
+
+# Dans l'arbre
 regarder
-quitter
+prendre
+prendre truc_qui_nexiste_pas
+prendre clé
+# On prend un item "bonus" pour tester l'inventaire
+prendre oiseau
+inventaire
+
+# ==========================================
+# PHASE 3 : TÉLÉPORTEUR & FIOLE
+# ==========================================
+# Redescente sur le toit
+aller bas
+prendre téléporteur
+
+# Test du chargement du Beamer (mémorise le Toit)
+charger
+charger encore_une_fois
+
+# Saut vers le Mur Nord (Trap door - sens unique)
+aller nord
+
+# Mur Nord : On récupère la potion de force
+prendre fiole
+
+# Test d'ingestion (Double la capacité de 10 à 20kg)
+ingérer
+ingérer caillou
+ingérer fiole
+# Maintenant on est costaud !
+
+# ==========================================
+# PHASE 4 : LE ROCHER & LE PIÈGE
+# ==========================================
+# On retourne vers l'ouest pour chercher le Rocher
+aller sud
+# Zone Nord
+aller ouest
+# Zone Ouest
+aller est
+# Mur Ouest : Le Rocher est là (12kg)
+
+# Test de poids (Si on n'avait pas bu la fiole, ça échouerait)
+prendre rocher
+inventaire
+
+# On retourne à la porte Sud
+aller ouest
+aller sud
+aller nord
+# Porte Sud
+
+# ==========================================
+# PHASE 5 : DÉVERROUILLAGE & PIÈGE ALEA
+# ==========================================
+# Essai d'entrer sans déverrouiller
+aller nord
+
+# Déverrouillage
+déverrouiller
+déverrouiller sud
+déverrouiller nord
+# La porte est ouverte !
+
+# Entrée dans les ruines
+aller nord
+
+# Visite du Transporter (Piège)
+aller nord
+
+# Test de la commande ALEA (Debug)
+alea
+alea salle_inexistante
+# On force la sortie vers la Zone Sud pour s'échapper
+alea zone_sud
+aller sud
+
+# Nous voilà revenus à la case départ (Zone Sud)
+regarder
+
+# ==========================================
+# PHASE 6 : TÉLÉPORTATION & VICTOIRE
+# ==========================================
+# Utilisation du Beamer chargé plus tôt (Retour au Toit)
+déclencher
+
+# Depuis le toit, on saute directement devant la porte Sud
+aller sud
+
+# On rentre (déjà déverrouillé)
+aller nord
+
+# Face à la salle finale (Ouest)
+aller ouest
+# C'est verrouillé (nécessite le Rocher)
+
+# Déverrouillage avec le Rocher
+déverrouiller ouest
+
+# Entrée finale
+aller ouest
+
+# VICTOIRE !
+prendre pyrotaris

@@ -1,7 +1,7 @@
-import java.util.Random;
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Classe RoomRandomizer - gère la sélection aléatoire d'une pièce.
@@ -37,7 +37,7 @@ public class RoomRandomizer
      */
     public Room findRandomRoom()
     {
-        // Conversion des valeurs de la HashMap en une liste indexée pour le tirage au sort sauf  les salles Transporter
+        // Conversion des valeurs de la HashMap en une liste indexée pour le tirage au sort sauf les salles Transporter
         List<Room> vRoomsList = new ArrayList<Room>();
         for ( Room vRoom : this.aRooms.values() ) {
             if ( ! ( vRoom instanceof TransporterRoom ) ) {
