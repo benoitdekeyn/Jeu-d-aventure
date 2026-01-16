@@ -1,143 +1,142 @@
 # ==========================================
-# PHASE 1 : TEST DES ERREURS & BASIQUES
+# PHASE 1 : TEST DES ERREURS (SYNTAXE & LOGIQUE)
 # ==========================================
-# Commandes incomplètes ou invalides
+# Test commande vide ou incomplète
 aller
+# Test direction inexistante
 aller nullepart
+# Test prise d'objet sans préciser lequel
 prendre
+# Test prise d'objet inexistant
 prendre rien
+# Test poser sans préciser
 poser
+# Test poser objet qu'on n'a pas
 poser rien
+# Test ingestion incomplète
 ingérer
+# Test ingestion objet inexistant
 ingérer rien
+# Test commandes porte incomplètes
 déverrouiller
 verrouiller
+# Test téléporteur sans l'avoir
 charger
 déclencher
+# Test commande de triche incomplète
 alea
+# Test triche vers salle inconnue
 alea inconnu
+# Test retour invalide
 retour avecargument
-
-# Retour impossible au début
+# Test retour au tout début (impossible)
 retour
-
-# Inventaire vide
+# Vérification inventaire vide
 inventaire
 
 # ==========================================
-# PHASE 2 : EXPLORATION & CLÉ (ARBRE)
+# PHASE 2 : RÉCUPÉRATION DE LA CLÉ & INVENTAIRE
 # ==========================================
-# On part de la Zone Sud
+# Déplacement vers l'arbre (Sud -> Est -> Escaliers -> Toit -> Arbre)
 aller est
-# Zone Est -> Escaliers
 aller ouest
-# Escaliers -> Toit
 aller haut
-# Toit -> Arbre
 aller haut
-
-# Dans l'arbre
-regarder
-prendre
-prendre truc_qui_nexiste_pas
+# Prise de la clé (indispensable pour la porte Sud)
 prendre clé
-# On prend un item "bonus" pour tester l'inventaire
+# Test de remplissage d'inventaire (objets décoratifs)
 prendre oiseau
+prendre poussin
 inventaire
+# On repose les objets inutiles pour garder du poids libre
+poser oiseau
+poser poussin
 
 # ==========================================
-# PHASE 3 : TÉLÉPORTEUR & FIOLE
+# PHASE 3 : PRÉPARATION DU TÉLÉPORTEUR
 # ==========================================
 # Redescente sur le toit
 aller bas
+# Prise du Beamer
 prendre téléporteur
-
-# Test du chargement du Beamer (mémorise le Toit)
+# Test déclenchement à vide
+déclencher
+# Chargement (Mémorise "Toit des ruines")
 charger
-charger encore_une_fois
 
-# Saut vers le Mur Nord (Trap door - sens unique)
+# ==========================================
+# PHASE 4 : LA FORCE (POTION)
+# ==========================================
+# Saut vers le Mur Nord
 aller nord
-
-# Mur Nord : On récupère la potion de force
+# Prise de la fiole et d'un leurre
 prendre fiole
-
-# Test d'ingestion (Double la capacité de 10 à 20kg)
-ingérer
-ingérer caillou
+prendre lézard
+# Test ingestion d'un objet non comestible
+ingérer lézard
+# Ingestion de la fiole (Capacité passe de 10kg à 20kg)
 ingérer fiole
-# Maintenant on est costaud !
 
 # ==========================================
-# PHASE 4 : LE ROCHER & LE PIÈGE
+# PHASE 5 : LE ROCHER (POIDS LOURD)
 # ==========================================
-# On retourne vers l'ouest pour chercher le Rocher
-aller sud
-# Zone Nord
+# Trajet : Mur Nord -> Zone Nord -> Zone Ouest -> Mur Ouest
+aller nord
 aller ouest
-# Zone Ouest
 aller est
-# Mur Ouest : Le Rocher est là (12kg)
-
-# Test de poids (Si on n'avait pas bu la fiole, ça échouerait)
+# Prise du rocher (12kg). Impossible sans la fiole.
 prendre rocher
+# Vérification du poids total
 inventaire
 
-# On retourne à la porte Sud
-aller ouest
+# ==========================================
+# PHASE 6 : RETOUR RAPIDE & PORTES
+# ==========================================
+# Téléportation immédiate sur le Toit (Beamer)
+déclencher
+# Saut devant la porte Sud
 aller sud
+# Tentative d'entrer (Porte fermée)
 aller nord
-# Porte Sud
-
-# ==========================================
-# PHASE 5 : DÉVERROUILLAGE & PIÈGE ALEA
-# ==========================================
-# Essai d'entrer sans déverrouiller
-aller nord
-
-# Déverrouillage
+# Tests erreurs déverrouillage
 déverrouiller
 déverrouiller sud
+# Déverrouillage réussi avec la Clé
 déverrouiller nord
-# La porte est ouverte !
-
+# Test re-verrouillage (vérification de la mécanique)
+verrouiller nord
+# On rouvre pour passer
+déverrouiller nord
 # Entrée dans les ruines
 aller nord
 
-# Visite du Transporter (Piège)
+# ==========================================
+# PHASE 7 : TEST DU PIÈGE (ALEA)
+# ==========================================
+# Entrée dans la TransporterRoom
 aller nord
-
-# Test de la commande ALEA (Debug)
+# Test erreur commande alea
 alea
 alea salle_inexistante
-# On force la sortie vers la Zone Sud pour s'échapper
+# TRICHE : On force la sortie vers la Zone Sud (extérieur)
 alea zone_sud
+# On sort. Grâce à alea, on atterrit Zone Sud au lieu d'une salle au hasard.
 aller sud
-
-# Nous voilà revenus à la case départ (Zone Sud)
+# Vérification visuelle
 regarder
 
 # ==========================================
-# PHASE 6 : TÉLÉPORTATION & VICTOIRE
+# PHASE 8 : VICTOIRE FINALE
 # ==========================================
-# Utilisation du Beamer chargé plus tôt (Retour au Toit)
-déclencher
-
-# Depuis le toit, on saute directement devant la porte Sud
-aller sud
-
-# On rentre (déjà déverrouillé)
+# On retourne à la porte (à pied cette fois)
 aller nord
-
-# Face à la salle finale (Ouest)
+# On entre dans les ruines
+aller nord
+# On va vers la salle finale (Ouest) - Porte fermée par le rocher
 aller ouest
-# C'est verrouillé (nécessite le Rocher)
-
-# Déverrouillage avec le Rocher
+# Déverrouillage avec le Rocher (levier)
 déverrouiller ouest
-
-# Entrée finale
+# Entrée Salle Finale
 aller ouest
-
-# VICTOIRE !
+# VICTOIRE : On ramasse l'artefact
 prendre pyrotaris
