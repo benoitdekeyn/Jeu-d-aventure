@@ -89,14 +89,4 @@ public class ItemList
             return "aucun objet.";
         }
     } // getItemsString
-
-    /**
-     * Renvoie une liste de tous les Items présents dans la liste.
-     *
-     * @return une vue itérable de tous les objets contenus dans la liste
-     */
-    public Iterable<Item> getAllItems()
-    {
-        return this.aItems.values();
-    } // getAllItems
 } // ItemList

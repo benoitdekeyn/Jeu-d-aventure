@@ -1,0 +1,72 @@
+A SAVOIR EXPLIQUER :
+
+1) Comprendre une 1ère utilisation d'un objet Scanner dans la classe Parser de zuul-bad pour lire au clavier (scanner le clavier ligne par ligne) :
+
+System.in désigne le clavier (comme System.out désigne l'écran)
+Il faut créer un objet Scanner en lui passant le clavier en paramètre :
+Scanner vScan = new Scanner( System.in );
+Pour pouvoir compiler, il faut indiquer au compilateur où se trouve la classe Scanner :
+import java.util.Scanner;
+Il faut créer une String pour contenir les caractères qui seront tapés au clavier :
+String vLigneLue;
+Ensuite, à chaque fois qu'on écrira l'instruction
+vLigneLue = vScan.nextLine();
+toute la ligne de caractères tapés au clavier sera stockée dans vLigneLue
+En attendant que des caractères soient tapés au clavier, le programme reste bloqué. Il est donc indispensable de prévenir l'utilisateur de ce qu'on attend de lui, en affichant quelque chose comme "Veuillez taper une commande : " ou plus simplement "> "
+2) Comprendre une 2ème utilisation d'un objet Scanner dans la classe Parser de zuul-bad pour analyser une String (scanner une chaîne de caractères mot par mot) :
+
+Il faut créer un nouvel objet Scanner en lui passant la String en paramètre :
+Scanner vScan2 = new Scanner( vLigneLue );
+Pas de problème de compilation puisqu'on a déjà importé la classe Scanner.
+Pour savoir s'il y a un prochain mot à analyser dans la String, on utilise la fonction booléenne vScan2.hasNext() qui nous renvoie vrai ou faux, selon que vScan2 a ou non trouvé un mot dans la String.
+S'il en a trouvé un, on le récupère par l'instruction String vMot = vScan2.next();
+On peut ensuite recommencer pour voir s'il y a un second mot, et ainsi de suite ...
+Poser des questions si tout n'est pas clair ci-dessus.
+
+A SAVOIR EXPLIQUER :
+
+HashMap
+Set
+keySet()
+
+A SAVOIR EXPLIQUER :
+
+la boucle for each
+
+for ( typeElement vElement : tableau )
+for ( TypeElement vElement : ensemble )
+
+A SAVOIR EXPLIQUER :
+
+ActionListener
+addActionListener()
+actionPerformed()
+ActionEvent
+getActionCommand()
+getSource()
+
+A SAVOIR EXPLIQUER :
+
+Stack
+push()
+pop()
+empty()
+peek()
+
+A SAVOIR EXPLIQUER :
+
+lecture simple de fichiers de texte
+File
+Scanner (différence avec le 7.2.1 ?)
+hasNextLine()
+nextLine()
+traitement d'une exception du JDK :
+exemple de FileNotFoundException
+try / catch
+Lire ce résumé de cours (jusqu'au 6.5)
+
+A SAVOIR EXPLIQUER :
+
+Random
+nextInt()
+seed

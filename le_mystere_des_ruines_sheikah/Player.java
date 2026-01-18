@@ -195,36 +195,4 @@ public class Player
     {
         this.aPreviousRooms.clear();
     } // clearHistory
-
-    /**
-     * Tente de déverrouiller une porte avec chaque Item de l'inventaire du joueur jusqu'à réussir.
-     * 
-     * @param pDoor la porte à déverrouiller
-     * @return true si la porte a été déverrouillée, false sinon
-     */
-    public boolean tryUnlockDoor( final Door pDoor )
-    {
-        for ( Item vItem : this.aInventory.getAllItems() ) {
-            if ( pDoor.unlock( vItem ) ) {
-                return true;
-            }
-        }
-        return false;
-    } // tryUnlockDoor(*)
-
-    /**
-     * Tente de verrouiller une porte avec chaque Item de l'inventaire du joueur jusqu'à réussir.
-     * 
-     * @param pDoor la porte à verrouiller
-     * @return true si la porte a été verrouillée, false sinon
-     */
-    public boolean tryLockDoor( final Door pDoor )
-    {
-        for ( Item vItem : this.aInventory.getAllItems() ) {
-            if ( pDoor.lock( vItem ) ) {
-                return true;
-            }
-        }
-        return false;
-    } // tryLockDoor(*)
 } // Player

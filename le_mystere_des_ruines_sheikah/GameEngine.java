@@ -575,7 +575,8 @@ public class GameEngine
             return;
         }
         
-        if ( this.aPlayer.tryUnlockDoor( vDoor ) ) {
+        if ( this.aPlayer.hasItem(vDoor.getKey().getName()) ) {
+            vDoor.unlock();
             this.aGui.println("Vous avez déverrouillé la porte " + vDirection + ".");
         } else {
             this.aGui.println("Vous n'avez pas la clé pour déverrouiller cette porte.");
@@ -612,7 +613,8 @@ public class GameEngine
             return;
         }
         
-        if ( this.aPlayer.tryLockDoor( vDoor ) ) {
+        if ( this.aPlayer.hasItem(vDoor.getKey().getName()) ) {
+            vDoor.lock();
             this.aGui.println("Vous avez verrouillé la porte " + vDirection + ".");
         } else {
             this.aGui.println("Vous n'avez pas la clé pour verrouiller cette porte.");

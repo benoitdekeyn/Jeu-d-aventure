@@ -1,0 +1,818 @@
+============ Enoncé Exercice 7.29 ========== 
+
+par anonfirstname2 anonlastname2, vendredi 2 avril 2021, 18:50
+ 
+Lire la suite du chapitre 7 [ci-joint] (si possible en anglais, sinon en français).
+
+Refactor your project to introduce a separate Player class. A Player object should store at least the current room of the player, but you may also like to store the player's name or other information.
+
+Attention ! C'est bien la classe GameEngine (et non plus Game) qui contient trop de code.
+
+[exercice générant beaucoup de modifications, d'où l'utilité des exercices 7.28.1+2]
+
+
+Aide :
+Supposons qu'il existe plusieurs objets Player (*) ; quelles informations devraient alors être différentes pour chaque Player ?
+Ces informations devront donc ne pas être stockées une seule fois dans GameEngine, mais dans chaque objet Player !
+Ensuite, toutes les méthodes qui manipulent ces informations doivent aussi migrer (en partie **) de GameEngine vers Player.
+* Ce n'est qu'une supposition permettant de mieux comprendre où stocker les informations, mais il n'est pas demandé de créer effectivement plusieurs objets Player.
+** Exemple de la méthode goRoom de la classe GameEngine :
+Cette méthode comporte clairement 3 parties (à répartir entre GameEngine et Player ) :
+1) La première reste le travail du GameEngine pour gérer les mots tapés par le joueur et pour déterminer où le Player doit aller.
+2) La seconde devient le travail du Player pour effectuer le déplacement indiqué par le GameEngine.
+(ne pas déranger le Player pour rien, s'il n'a pas besoin de se déplacer !)
+3) La troisième reste à nouveau le travail du GameEngine pour afficher les informations (texte et image) de la nouvelle pièce courante.
+
+Ne pas oublier de lire les échanges ci-dessous pour mieux comprendre la bonne manière de réaliser cet exercice.
+
+ 
+Document PDF 28-29_7en.pdf
+Document PDF 28-29_7fr.pdf
+Permalien | Modifier | Supprimer | Répondre
+
+============ Echange ( professeur : DENIS BUREAU) ===========
+
+
+Avatar anonfirstname144 anonlastname144
+Re: Exercice 7.29
+par anonfirstname144 anonlastname144, mercredi 10 avril 2013, 13:59
+ 
+Bonjour,
+Comment serait il possible de demander au joueur de rentrer son nom au démarage du jeu ?
+Faut il créer une fonction/procedure dans la classe player ou bien ailleurs ?
+
+ 
+
+Merci de votre réponse
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar anonfirstname2 anonlastname2
+Re: Exercice 7.29
+par anonfirstname2 anonlastname2, mercredi 10 avril 2013, 15:51
+ 
+String vPrenom = javax.swing.JOptionPane.showInputDialog( "Quel est ton prenom ?" );
+
+Il me semble plus naturel de faire ça à l'extérieur du Player et de passer le prénom en paramètre du constructeur de Player.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Jean COULOM
+Re: Exercice 7.29
+par Jean COULOM, jeudi 31 octobre 2013, 19:44
+ 
+Bonsoir,
+
+J'ai du mal à voir quelles méthodes bouger de GameEngine à Player.
+
+Je suppose qu'il faut déplacer toutes les méthodes qui avaient dans leur corps une ligne avec aCurrentRoom dedans puisque c'est maintenant un objet player qui contient la room actuelle.
+
+Donc dans mon esprit il faudrait déplacer goRoom puisque c'est cette méthode qui gère les changements de room actuelle, et utiliser un accesseur dans la classe Player pour récupérer la room actuelle pour toutes les méthodes qui ont en besoin dans GameEngine comme printWelcome, printLocationInfo ou encore back.
+
+Cordialement.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, dimanche 4 avril 2021, 19:54
+ 
+> Je suppose qu'il faut déplacer toutes les méthodes qui avaient dans leur corps une ligne avec aCurrentRoom dedans puisque c'est maintenant un objet player qui contient la room actuelle.
+
+Pas exactement. Seulement celles qui modifient aCurrentRoom.
+
+> Donc dans mon esprit il faudrait déplacer goRoom puisque c'est cette méthode qui gère les changements de room actuelle,
+
+Il faut plutôt séparer dans goRoom ce qui peut rester dans GameEngine et ce qui doit aller dans le Player, une partie appelant l'autre.
+
+> et utiliser un accesseur dans la classe Player pour récupérer la room actuelle pour toutes les méthodes qui ont en besoin dans GameEngine comme printWelcome, printLocationInfo ou encore back
+
+OK.
+
+D'une façon générale, vous pouvez essayer d'imaginer comment il faudrait programmer s'il y avait 2 players ; cela vous donnera des indications pour savoir ce qui doit aller dans la classe Player ou rester dans la classe GameEngine.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Jonathan MORELL
+Re: Exercice 7.29
+par Jonathan MORELL, mercredi 16 avril 2014, 23:53
+ 
+Bonjour,
+
+Doit-on déplacer aussi la méthode createRooms dans la class Player qui possède dans son corps l'initialisation de aCurrentRoom ou doit-on séparer l'initialisation de aCurrentRoom du reste du corps de cette méthode ?
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, jeudi 17 avril 2014, 10:17
+ 
+createRooms est la méthode qui sert à créer les pièces du jeu ; est-ce le rôle du Moteur du jeu (GameEngine) ou du joueur (Player) ?
+
+aCurrentRoom est la variable (d'instance) qui mémorise la pièce courante du joueur ou du moteur de jeu ?
+Si la réponse ne vous paraît pas évidente, imaginez qu'il pourrait y avoir 2 joueurs ...
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Benoit FREMENT
+Re: Exercice 7.29
+par Benoit FREMENT, mercredi 7 mai 2014, 11:28
+ 
+Mon binôme et moi ne comprenons pas que doit contenir la classe player. Nous trouvons également cela étrange de déplacer toute les méthodes contenant aCurrentRoom dans la classe Player.
+
+Bref, nous ne savons pas comment démarrer. Serait il possible de vous demander de l'aide ?
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, mercredi 7 mai 2014, 13:07
+ 
+> Mon binôme et moi ne comprenons pas que doit contenir la classe player.
+
+Que ne comprenez-vous pas dans cette phrase :
+A Player object should store at least the current room of the player, but you may also like to store the player's name or other information.
+
+Que ne comprenez-vous pas dans cette aide :
+Aide : Supposons qu'il existe plusieurs objets Player ; quelles informations devraient alors être différentes pour chaque Player ?
+Ces informations devront donc ne pas être stockées une seule fois dans GameEngine, mais dans chaque objet Player !
+
+> Nous trouvons également cela étrange de déplacer toute les méthodes contenant aCurrentRoom dans la classe Player.
+
+Si aCurrentRoom est dans la classe Player, il est logique que toutes les méthodes utilisant aCurrentRoom soient dans Player.
+Ensuite, utilisez votre bon sens pour décider des méthodes qui ont plus rapport avec un moteur de jeu unique et centralisé, et des méthodes qui ont plus rapport avec chaque joueur s'il y en avait plusieurs.
+
+> nous ne savons pas comment démarrer.
+
+Toujours commencer par déplacer un attribut, puis les méthodes s'y rapportant.
+
+Vous aurez peut-être ensuite des questions plus précises.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Quintiliano HARRINGTON
+Re: Exercice 7.29
+par Quintiliano HARRINGTON, mercredi 7 mai 2014, 14:24
+ 
+Bonjour Monsieur,
+
+Je n'arrive pas à trouver comment séparer les éléments de goRoom qui doivent aller dans player et ceux qui doivent aller dans Gameengine malgrés le fait que je sache que tout ce qui est à propos de gui doit rester dans Gameengine et out ce qui est par rapport à currentroom doit aller dans player.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, mercredi 7 mai 2014, 17:45
+ 
+Quel est le rôle du GameEngine (dans le cas d'une commande go) ?
+
+vérifier les mots de la commande, trouver la pièce de destination, demander au joueur de s'y déplacer, afficher des messages appropriés dans tous les cas
+
+Quel est le rôle du Player (dans le cas d'une commande go) ?
+
+se déplacer là où on lui dit, en mémorisant son chemin
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, dimanche 18 mai 2014, 17:23
+ 
+Un étudiant a écrit :
+
+Bonjour,
+
+Est-il possible d'étendre la classe player à gameengine? Car je me dis qu'il est peut-être plus judicieux d'affecter les méthodes take et drop à un player plutôt qu'à gameengine... Or dans la méthode take, j'utilise le gui.println si l'objet dépasse le poids autorisé, ainsi je souhaiterais faire un appel à une méthode située dans le gameengine pour faire un gui.println(vString) où vstring affiche le message souhaité...
+Mais j'ai peur que cela crée des problèmes à l'avenir.
+
+puis :
+
+Bon, j'ai testé mais je pense qu'il ne vaut mieux pas, un gros message d'erreur est apparu dès la création du jeu!
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, dimanche 18 mai 2014, 17:28
+ 
+Attention à ne pas mélanger conception et programmation !
+
+Il n'est pas question que la classe Player hérite de la classe GameEngine car cela n'a aucun sens :  un joueur n'est pas une sorte de moteur de jeu.
+
+Il n'est pas nécessaire d'hériter d'une classe pour appeler ses méthodes ; la preuve : gui.println(); fonctionne, alors que GameEngine n'hérite pas de UserInterface ...
+
+D'autre part, la solution que vous avez essayée n'est pas mauvaise parce-que vous avez eu  un message d'erreur (dû à une mauvaise programmation de votre part), mais pour la raison de conception évoquée ci-dessus.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, mercredi 15 octobre 2014, 22:36
+ 
+Un étudiant a écrit :
+
+Bonsoir, 
+
+Dans ma classe Player (qui prend en paramètre le nom du joueur en String et la CurrentRoom du joueur) j'ai le getter suivant:
+
+  public Room getCurrentRoom()
+    {
+        return this.aCurrentRoom;
+    }
+
+Mais pour les méthodes createRooms() et printWelcome() de GameEngine j'ai au lancement du jeu une NullPointerException pour this.aPlayer.getCurrentRoom() alors que j'ai crée un attribut aPlayer que j'ai initialisé comme ceci  dans le constructeur de cette classe:
+
+private Player aPlayer;
+
+ public GameEngine()
+    {
+        this.aParser = new Parser();  
+        this.createRooms();
+        this.aLastRoom  = new Stack<Room>(); 
+       this.aPlayer = new Player ("Snake" , aFirstRoom);
+        
+    }
+
+Je ne comprends pas pourquoi le compilateur considère qu'aPlayer vaut null.
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, mercredi 15 octobre 2014, 22:45
+ 
+Ce n'est pas le compilateur qui considère qu'aPlayer vaut null (le compilateur n'envoie pas d'exception et, s'il détecte une erreur, il ne vous permet pas d'exécuter votre programme).
+C'est la machine virtuelle java qui, en exécutant votre programme, constate que vous appelez une méthode sur une référence qui vaut null.
+
+Cela n'a rien d'étonnant lorsqu'on regarde l'ordre des instructions dans le constructeur de GameEngine ... (à quel moment aPlayer ne vaut-il plus null ???)
+
+Par contre, une fois cette erreur corrigée, vous aurez un problème avec aFirstRoom. Donc, une meilleure solution est de ne pas passer la first room en paramètre au constructeur de Player et de faire un setCurrentRoom à la fin de createRooms.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Alexandre MONIN
+Re: Exercice 7.29
+par Alexandre MONIN, dimanche 21 juin 2015, 20:11
+ 
+Bonsoir, 
+
+J'ai créé une nouvelle classe player dans laquelle se trouvent maintenant 3 attributs (pour le nom du joueur , la pièce courante où il se situe puis le poids maximum qu'il peut porter ) , j'ai juste créé des accesseurs qui permettent de changer les nouveaux attributs. Le programme se compile sans erreurs et le jeu se lance sans problème mais si je continus vers les exercices suivants je ne sais pas si mes modifications sont les bonnes. 
+
+Voici ma classe player qui me parait un peu légère. De plus je ne vois pas ce que je pourrais ajouter d'autre dans cette classe concernant le personnage.
+
+public class Player
+
+{
+
+     .../... [code supprimé pour ne pas influencer les futurs lecteurs] .../...
+
+}
+
+
+
+Cordialement.
+
+(Modifié par Denis BUREAU. Écrit initialement le lundi 3 novembre 2014, 20:08)
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, mardi 4 novembre 2014, 09:45
+ 
+> 1) "j'ai juste créé des accesseurs qui permettent de changer les nouveaux attributs"
+ce que vous avez fait n'est pas incorrect, mais cela ne correspond pas avec votre description :
+apparemment, vous n'avez créé qu'un seul accesseur, et vous avez aussi créé un modificateur
+
+> 2) "je ne vois pas ce que je pourrais ajouter d'autre dans cette classe"
+je comprends que ce soit long, mais il vous faut absolument lire toute la discussion du forum de l'exercice 7.29 ;
+ensuite, si vous ne voyez toujours pas quoi ajouter dans cette classe ou si vous comprenez pas une explication, alors posez une question en répondant à ce message
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Alexandre MONIN
+Re: Exercice 7.29
+par Alexandre MONIN, mardi 4 novembre 2014, 20:12
+ 
+Bonsoir,
+Après avoir lu tous les messages concernant l'exercice 7.29. J'ai du mal à comprendre les différents problèmes qui ont été posés puisque je ne sais pas ce qui a été codé. Il est donc difficile de m'imaginer tous les changements qui ont pu être effectué avant de rencontrer le problème. Dois-je reprendre chaque message au cas par cas pour arriver à comprendre les erreurs des élèves des années précédentes ? 
+
+Par ailleurs, j'ai encore plus de doutes concernant le déplacement de méthodes dans la classe player. Ce que je vois avec ma classe player c'est que sans déplacer de méthodes j'arrive à avoir un player avec : un nom, une pièce courante et un poids max totalement indépendant d'un autre player.
+
+Pourquoi ne pas faire uniquement des accesseurs ou des modificateurs pour pouvoir stoker tous les attributs de chaque player sans déplacer de méthodes ? 
+
+Cordialement.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, mercredi 5 novembre 2014, 09:54
+ 
+Ce que vous auriez dû comprendre à travers les échanges sur ce forum, ce ne sont pas des problèmes ou erreurs de vos prédécesseurs, mais la "philosophie" de la répartition des méthodes entre notamment le GameEngine et le Player.
+
+Je suppose que votre vision des choses privilégie l'indépendance des classes, mais le plus important reste la responsabilisation de chaque classe (relire l'extrait de livre associé à l'exercice 7.9).
+
+Ensuite, vous comprendrez mieux des indications telles que :
+"Quel est le rôle du GameEngine (dans le cas d'une commande go) ?
+vérifier les mots de la commande, trouver la pièce de destination, demander au joueur de s'y déplacer, afficher des messages appropriés dans tous les cas
+Quel est le rôle du Player (dans le cas d'une commande go) ?
+se déplacer là où on lui dit, en mémorisant son chemin"
+
+Si vous n'en comprenez toujours pas l'esprit, il vaut mieux venir me voir pour que nous en discutions de vive voix.
+Si vous n'avez plus que des problèmes techniques à résoudre, vous pouvez continuer à poser des questions ici.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Mathieu CARANGEOT
+Re: Exercice 7.29
+par Mathieu CARANGEOT, samedi 18 avril 2015, 12:58
+ 
+Bonjour,
+
+Malgré les réponses ci-dessus je rencontre toujours des difficultés:
+
+- est-il judicieux de déplacer une partie de la méthode back et la pile (Stack) de Room dans Player ? (Il s'agit du même raisonnement que pour aCurrentRoom et goRoom)
+
+- est-il judicieux de déplacer la méthode eat dans Player? En effet, cette méthode concerne le joueur. Néanmoins, il faut pour cela créer un attribut de type UserInterface pour afficher le message. Et je pense avoir compris que ce n'est pas le rôle de la classe Player d'afficher les messages mais celui de GameEngine.
+
+- est-il judicieux de déplacer la méthode look dans Player? En effet, la méthode look concerne le joueur. Il me semble logique de la déplacer. Cependant ma méthode look fait appel à printLocationInfo qui elle est située dans GameEngine. Il faudrait alors soit créer un attribut de type GameEngine, soit déplacer dans Player la méthode printLocationInfo pour que look marche . Ce qui me semble étrange...
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, lundi 20 avril 2015, 17:11
+ 
+> - est-il judicieux de déplacer une partie de la méthode back et la pile (Stack) de Room dans Player ?
+oui
+
+> (Il s'agit du même raisonnement que pour aCurrentRoom et goRoom)
+exactement !
+
+> - est-il judicieux de déplacer la méthode eat dans Player?
+une partie : pourquoi pas ?
+C'est toujours le même raisonnement : la partie gestion du mot de commande ou affichage est du ressort du GameEngine , mais l'effet provoqué sur le joueur est du ressort du Player.
+
+> En effet, cette méthode concerne le joueur. Néanmoins, il faut pour cela créer un attribut
+> de type UserInterface pour afficher le message. Et je pense avoir compris que ce n'est pas
+> le rôle de la classe Player d'afficher les messages mais celui de GameEngine.
+oui
+
+> - est-il judicieux de déplacer la méthode look dans Player?
+non
+
+> En effet, la méthode look concerne le joueur.
+bof
+
+> Il me semble logique de la déplacer. Cependant ma méthode look fait appel à printLocationInfo
+> qui elle est située dans GameEngine. Il faudrait alors soit créer un attribut de type GameEngine,
+> soit déplacer dans Player la méthode printLocationInfo pour que look marche . Ce qui me semble étrange...
+tout à fait ; il n'y a pas de raison d'en déplacer une partie puisqu'elle ne modifie pas l'état du joueur.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, dimanche 3 mai 2015, 18:24
+ 
+Un étudiant a écrit :
+
+Bonjour !
+
+Je rencontre un petit problème lorsque je souhaite déplacer certaines méthodes qui affichent quelque chose à l'écran de GameEngine à Player.
+
+L'utilisation de aGui n'étant pas disponible dans les classes autre que GameEngine je me retrouve un peu coincé.
+J'ai essayé d'ajouter la possibilité d'utiliser aGui depuis la classe Player mais le résultat n'était ... pas celui attendu.
+
+Je me suis donc dit que de séparer les méthodes en 2 (laisser la partie de la méthode utilisant aGui dans GameEngine et crée une méthode avec la suite de cette méthode dans Player et de l'appeler depuis GameEngine) mais je pense pas que cela soit vraiment utile car la classe GameEngine contiendra toujours trop de code.
+
+J'avais aussi pensé à ajouter un getter et un setter dans la classe Player pour ne pas avoir à déplacer de méthodes mais au final le problème de GameEngine n'était pas résolu.
+
+Du coup je ne sais pas trop comment faire, si vous pouvez m'apporter un peu d'aide, je suis preneur !
+
+Bonne journée !
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, dimanche 3 mai 2015, 18:49
+ 
+> J'ai essayé d'ajouter la possibilité d'utiliser aGui depuis la classe Player mais le résultat n'était ... pas celui attendu.
+>
+j'aurais éventuellement pu vous aider à mettre en oeuvre cette idée (à l'aide d'une méthode setGui bien placée, par exemple)
+
+> Je me suis donc dit que de séparer les méthodes en 2 (laisser la partie de la méthode utilisant aGui dans GameEngine
+> et crée une méthode avec la suite de cette méthode dans Player et de l'appeler depuis GameEngine)
+> mais je pense pas que cela soit vraiment utile car la classe GameEngine contiendra toujours trop de code.
+>
+si si, c'était une possibilité de produire de l'information dans Player et de laisser GameEngine afficher cette information,
+mais cela peut être délicat si on veut afficher à deux moments pendant l'exécution de la commande
+
+> J'avais aussi pensé à ajouter un getter et un setter dans la classe Player pour ne pas avoir à déplacer de méthodes
+> mais au final le problème de GameEngine n'était pas résolu.
+>
+ça, ce ne serait effectivement pas une bonne idée
+
+
+> Du coup je ne sais pas trop comment faire, si vous pouvez m'apporter un peu d'aide, je suis preneur !
+>
+je privilégie votre première idée : il faut rendre la GUI utilisable depuis le Player ;
+si vous n'y arrivez toujours pas, dites-moi comment vous avez fait et décrivez le pb que vous rencontrez.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Maxime BLOIS
+Re: Exercice 7.29
+par Maxime BLOIS, mardi 12 mai 2015, 10:59
+ 
+Bonjour,
+
+Je n'arrive VRAIMENT pas à trouver comment utiliser aGui dans Player,
+
+le aGui dans GameEngine est bien initialisé par la méthode setGUI  mais appelée depuis la classe Game ?
+
+Mais je ne vois pas ensuite ce qu'il faut faire, faut -il créer une attribut de type UserInterface dans Player, puis un attribut de type Player dans Game et appeler setGui(aGui) dessus ? Ca me parait étrange, les joueurs font parti du moteur du jeu, d'ailleurs GameEngine contient dejà un aPlayer. La classe Game ne se contente que de lancer, charger GameEngine,
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, mardi 12 mai 2015, 11:44
+ 
+> le aGui dans GameEngine est bien initialisé par la méthode setGUI  mais appelée depuis la classe Game ?
+>
+oui
+
+> Mais je ne vois pas ensuite ce qu'il faut faire, faut -il créer une attribut de type UserInterface dans Player,
+>
+tout à fait, puisque vous voulez y avoir accès
+
+> puis un attribut de type Player dans Game et
+>
+non, lire ci-dessous
+
+> appeler setGui(aGui) dessus ?
+>
+c'est justement à cette occasion que GameEngine.setGUI pourrait appeler Player.setGUI (si vous écrivez cette nouvelle méthode)
+
+> Ca me parait étrange, les joueurs font parti du moteur du jeu, d'ailleurs GameEngine contient dejà un aPlayer.
+>
+oui
+
+> La classe Game ne se contente que de lancer, charger GameEngine,
+>
+vous avez bien compris
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Joffrey FORTIN
+Re: Exercice 7.29
+par Joffrey FORTIN, dimanche 22 novembre 2015, 14:46
+ 
+Bonjour,
+
+J'ai effectué pas mal de modifications entre la classe Player et GameEngine, cependant j'ai une cette erreur bien connu (NullPointerException) et je ne comprend pas pourquoi.
+
+Je m'explique:
+
+Dans GameEngine, je crée une nouveau player(en 1ere instruction) :
+
+ Player aPlayer=new Player("Player");
+
+Ensuite createRooms est appelé et dans cette procédure, j'ai écrit à la fin:
+
+  aPlayer.setCurrentRoom(vTemple);
+
+Et c'est ici que j'ai mon erreur alors que aPlayer a bien été crée et n'est donc logiquement pas nul.
+
+Voici le code de la methode setCurrentRoom:
+
+public void setCurrentRoom(final Room pCurrentRoom)
+
+    {       
+
+          this.aCurrentRoom=pCurrentRoom;
+
+    }
+
+
+
+Est-ce possible de venir vous voir en début de cette semaine car je suis en train de passer beaucoup trop de temps à mon sens sur cet exercice ?
+
+Merci bonne journée.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Pierre ZANETTACCI
+Re: Exercice 7.29
+par Pierre ZANETTACCI, dimanche 22 novembre 2015, 17:30
+ 
+aCurrentRoom est défini en deux endroits.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, vendredi 2 avril 2021, 19:25
+ 
+Je pense que Pierre veut dire  que aPlayer est déclaré à 2 endroits (en attribut au début de la classe, et en variable locale dans le constructeur).
+
+Quand vous écrivez aPlayer = ..., c'est toujours la déclaration la plus proche qui compte, donc l'attribut n'est jamais initialisé !
+
+C'est probablement une des erreurs les plus difficiles à retrouver, mais très facile à corriger !
+
+Mais si vous aviez respecté les consignes "Toujours écrire this.attribut quand on veut accéder à un attribut de l'objet courant", le compilateur vous aurait signalé votre contradiction dans Player this.aPlayer =... et ne vous aurait pas laissé commettre cette erreur.
+Player qqch déclare une nouvelle variable, alors que this.qqch accède à une variable déjà déclarée ; il vous faut juste savoir ce que vous voulez faire.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, vendredi 8 avril 2016, 09:17
+ 
+Un étudiant a écrit :
+
+.../... je me demande si je dois déplacer l'attribut de type stack aBackRoom dans la classe Player ou le laisser dans le GameEngine  ? 
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, vendredi 8 avril 2016, 09:21
+ 
+Je vois 2 façons pour vous de trouver la réponse à cette question :
+
+1) Dans quelle classe avez-vous placé aCurrentRoom ?  Pour quelle raison ?  En quoi aBackRoom est différent de aCurrentRoom et pourquoi devrait-il être traité différemment ?
+
+2) Lire la première phrase de l'aide de l'énoncé de cet exercice : cela ne répond-t-il pas directement à votre question ?
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Vincent DECKER
+Re: Exercice 7.29
+par Vincent DECKER, jeudi 27 octobre 2016, 15:52
+ 
+Bonjour,
+Je pense avoir déplacé les bonnes méthodes de GameEngine à Player mais j'ai un problème avec le UserInterface. Doit-on faire un this.aPlayer.setGUI(aGui) dans la classe GameEngine ? Si oui, où ça ?
+
+Merci d'avance
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, lundi 31 octobre 2016, 14:58
+ 
+Il y a plusieurs solutions pour résoudre ce problème d'affichage ; celle que vous proposez convient bien.
+
+Vous pouvez mettre l'instruction que vous avez indiquée dès que vous connaissez la référence vers la GUI ; voyez-vous où ?
+(avant cela, aGUI vaudra null)
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Johan POGNON
+Re: Exercice 7.29
+par Johan POGNON, mercredi 19 avril 2017, 18:02
+ 
+J'ai du mal à bien cerner les choses à déplacer vers la classe Player.  Ce que j'ai fait  :
+
+- créé un attribut pour le nom du joueur
+
+-créé un attribut Room (aCurrentRoom)
+
+-créé un attribut Stack ( qui était initialement dans la classe GameEngine)
+
+Dans le constructeur naturel de la classe Player (à 1 paramètre), j'instancie l'objet Stack et j'initialise le nom du joueur.
+
+Ensuite, j'ai créé un setter de aCurrentRoom et un getter. Puis un getter pour le Stack et un autre pour le nom. Et pour finir, une procédure qui regroupe les instructions qui touchent la pile de déplacement (Stack) qui était initialement dans le back de GameEngine et de même avec les instructions dans le else du goRoom vers une autre procédure dans Player.
+
+Voici le code des parties de méthodes transférées vers la classe Player :
+
+.../... code supprimé pour ne pas influencer les futurs lecteurs .../...
+
+Y aurait il d'autres choses à migrer vers Player? Ce que j'ai fait est il juste ?
+
+Merci
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, dimanche 13 novembre 2016, 16:43
+ 
+Cela me paraît globalement correct.
+
+Mais je ne vois pas l'intérêt de l'accesseur getStack : cela permettrait à une autre classe de modifier cet attribut privé du Player !?
+
+Vous pourriez aussi vous passer d'appeler peek avant pop.
+
+Vous pouvez aussi relire ma réponse du 'mercredi 7 mai 2014, 17:45' ci-dessus pour voir si rien dans votre code ne rentre en contradiction avec elle.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Johan POGNON
+Re: Exercice 7.29
+par Johan POGNON, lundi 14 novembre 2016, 10:42
+ 
+Merci monsieur de votre réponse, j'utilise un accesseur getStack afin de tester si il est vide dans la procédure back() de la classe GameEngine. Si la pile est vide, j'affiche un message.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, lundi 14 novembre 2016, 12:39
+ 
+Il vaut mieux faire cela dans le Player, pour ne pas donner l'accès à la Stack en dehors du Player.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Andrea PANCRAZI
+Re: Exercice 7.29
+par Andrea PANCRAZI, samedi 25 novembre 2017, 17:44
+ 
+Bonjour Monsieur Bureau,
+
+J'ai bien compris que l'exercice est posé de façon à ce que chacun trouve "sa solution" tout en s'assurant une non-régression.
+
+J'ai demandé à d'autres camarades de l'aide mais par soucis de conception dirigée par responsabilités je me suis demandé s'il ne fallait pas mettre également printLocationInfo() dans Player car si on considère qu'il y a plusieurs joueurs, il est logique que printLocationInfo() se trouve dans Player, d'autant plus que back() de Player nécessite cette fonction.
+
+Ou alors on pourrait également penser qu'il faut laisser printLocationInfo() dans GameEngine qui appellerait une fonction locationInfo() de Player. Mais cela créer un problème de couplage entre les deux classes et de cohésion des méthodes je trouve. De plus, back de Player retrouverait le problème de l'appel de printLocationInfo().
+
+Comment faut-il faire, pourriez-vous m'aider, ou me donner seulement une piste, car j'ai bien réfléchi et je ne vois pas trop comment faire autrement ?
+
+Par ailleurs il faudrait donc créer un attribut UserInterface aGuiPlayer dans player (j'ai vu que vous l'indiquiez dans un de vos messages du forum) avec son modificateur (setter) correspondant. Mais il reste néanmoins quelque chose que je ne comprends pas bien, il faudrait laisser aGui dans GameEngine, d'accord , mais il y aurait encore d'autres problèmes sous-jacents car si on pense qu'il y a deux joueurs look() et eat() devraient se retrouver également dans Player car ce sont des actions effectuées par un objet player, elles ne retourneraient d'ailleurs pas la même chose s'il y a deux players situés dans différentes rooms du jeu.
+
+Parallèlement quit(), test() et endGame() appellent aGui de GameEngine; du coup je suis embêté de me dire quand il faut utiliser l'attribut aGui de GameEngine ou aGuiPlayer de Player suivant les méthodes qui seront à créer.  N'y a-t-il pas de problème à ce qu'il y ait plusieurs interfaces pour un même objet Game d'ailleurs ?
+
+Cordialement, Andrea PANCRAZI.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, dimanche 26 novembre 2017, 00:28
+ 
+1) "sa solution", oui ; mais les explications dans le forum de cet exercice vous guident quand-même vers "LA" solution souhaitée ...
+
+2) - "il est logique que printLocationInfo() se trouve dans Player" : non !
+       Vous confondez le lieu de production de l'information (fonction qui retourne une String) et le lieu de son utilisation (gui.println).
+     - "back() de Player nécessite cette fonction" : ça dépend quelle partie !
+       La partie de back restée dans GameEngine appelle effectivement printLocationInfo.
+
+3) "une fonction locationInfo()" : pourquoi pas ?
+     Mais on peut aussi se contenter d'appeler getLongDescription ...
+
+4) dites-moi si vous ne comprenez pas qqch dans les explications ci-dessus ou dans celles du forum de cet exercice
+
+5) - Je n'ai pas bien compris si vous aviez une question à propos de la GUI.
+    - Si vous comprenez comment résoudre le pb pour printLocationInfo, je suppose que vous n'aurez plus de pb pour look.
+    - pour l'instant, eat peut rester dans GameEngine, mais effectivement, une partie ira dans Player à l'exercice 7.34
+
+6) - Il n'y a pas plusieurs interfaces : c'est juste la référence de la seule UserInterface créée qui est recopiée dans plusieurs classes.
+    - aGui dans Player ne sert que lorsqu'une méthode de Player doit afficher qqch, mais la plupart du temps, c'est dans GameEngine qu'ont lieu les affichages.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, mercredi 14 mars 2018, 19:05
+ 
+Un étudiant a écrit :
+
+Sachant qu'on doit créer une collection d'objets propres à un Player,
+quelle classe du JDK utilise-t-on pour faire cette collection :
+Set, List, Collection, HashMap,...?
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, mercredi 14 mars 2018, 19:07
+ 
+Si vous avez su gérer une collection d'items dans une Room, pourquoi ne voulez-vous pas gérer une collection d'items de la même manière dans Player ?
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, mardi 27 mars 2018, 20:25
+ 
+Un étudiant a écrit :
+
+J’ai bien lu les questions/réponses sur le forum et j’en ai déduis que l’attribut aCurrentRoom et la Stack doivent migrer vers le Player
+et donc que des morceaux de goRoom et goBack doivent migrer vers le Player.
+
+Mais lorsque je fais cela, j’ai un problème lorsque j’essaie d’effectuer un affichage.
+En effet, l’attribut aGui étant privé on ne peut pas l’utiliser dans la classe Player .
+J’ai chercher comment résoudre ce problème mais en vain...
+Pouvez-vous me mettre sur la voie s’il vous plait ?
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, mardi 27 mars 2018, 20:31
+ 
+En général, le plus simple est de produire une String dans le Player et de l'afficher dans le GameEngine.
+
+Mais s'il s'avère indispensable d'afficher dans le Player, alors il doit absolument "connaître" la GUI.
+
+Il faut donc mettre en place un système similaire à celui qui permet au GameEngine d'accéder à la GUI.
+
+Comme ce n'est pas complètement évident, si vous êtes coincé, décrivez-moi ce que vous avez mis en place et quelle erreur vous bloque, et je vous aiderai à aboutir.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, dimanche 16 décembre 2018, 17:17
+ 
+Un étudiant a écrit :
+
+J'avais une question par rapport à l'exercice sur player , je me demande s'il faut que dans gameEngine on crée un attribut player pour pouvoir ensuite appeler les méthodes de la classe Player dessus ou mettre ces méthodes publiques? 
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, dimanche 16 décembre 2018, 17:22
+ 
+Ce n'est pas l'un OU l'autre, mais l'un ET l'autre !
+Il vous faut créer un objet Player pour pouvoir l'utiliser dans GameEngine, ET bien sûr déclarer les méthodes en public pour pouvoir les appeler depuis GameEngine.
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, jeudi 21 novembre 2019, 18:19
+ 
+Un étudiant a écrit :
+
+Bonsoir monsieur,
+si j'ai bien compris la classe Player doit contenir l'attribut aCurrentRoom qui etait precedemment dans la classe GameEngine.
+Toutes les méthodes modifiant aCurrentRoom doivent elles aussi etre deplacees, ou du moins en partie.
+Pour les autres, on les laisse dans GameEngine mais on emploie un accesseur si l'on veut juste avoir accès à cet attribut.
+Mais en revanche, puisque l'on déplace une partie des méthodes contenues dans GameEngine dans laquelle nous affichions qqch sur l'interface graphique, comment pouvons nous faire désormais pour afficher depuis la classe Player?
+Doit-on laisser la classe GameEngine afficher? Cela qui me semblerait logique, mais dans ce cas-là, je ne vois pas trop l'utilité de la classe Player pour n'y mettre que si peu d'information...
+Cordialement.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, jeudi 21 novembre 2019, 18:30
+ 
+- Vous avez bien compris pour la current room.
+- Pour l'affichage, on essaye de ne jamais afficher depuis la classe Player en retournant une String qui sera affichée par le GameEngine.
+- La classe Player est indispensable pour représenter dans votre programme l'abstraction "Joueur". Elle contiendra de plus en plus d'informations, et surtout elle propose pas mal de méthodes, dont celles pour gérer les Items que le joueur peut prendre.
+- Enfin, réfléchissez toujours en vous demandant comment vous feriez s'il y avait plusieurs joueurs, donc plusieurs objets de la classe Player ...
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, jeudi 26 novembre 2020, 10:38
+ 
+Un étudiant a écrit :
+
+Dans ma classe Player j'ai programmé les processus take() et drop()  de manière à envoyer une string dépendant de leur réussite, ainsi je peux afficher cette string dans l'interface à partir du moteur. Je me demande s'il est bien judicieux que le joueur produise des strings au lieu du moteur.
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, jeudi 26 novembre 2020, 10:43
+ 
+Vous voulez dire "... les procédures take et drop ..."
+
+Il est tout à fait judicieux que des classes produisent des String, comme il est judicieux que ce soit le moteur de jeu qui se charge de les afficher.
+Cette situation est similaire à celle de getLongDescription() par rapport à printLocationInfo().
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, vendredi 9 avril 2021, 11:11
+ 
+Un étudiant a écrit :
+
+Je suis en pleine transition dans l'ex 7.29 entre goRoom de GameEngine vers Player. 
+
+J'ai un probleme qui semble être le meme pour back, en effet je ne sais pas comment transmettre l'info du second mot que l'on se pose dans player à game engine qui est censé afficher un msg quand il n'y a pas de secondmot. 
+
+Cela est du au fait que mes modif m'ont fait perdre le parametre de commande de la methode (maintenant dans player et non game engine).
+
+
+
+ 
+Permalien | Niveau supérieur | Modifier | Séparer | Supprimer | Répondre
+Avatar Denis BUREAU
+Re: Exercice 7.29
+par Denis BUREAU, vendredi 9 avril 2021, 11:17
+ 
+Il semble que vous n'ayez pas compris la répartition de responsabilités entre GameEngine et Player :
+- le GameEngine s'occupe des commandes et des affichages
+- le Player s'occupe de ses attributs (currentRoom et previousRooms)
+
+Il n'est donc pas question de passer une commande en paramètre à une méthode du Player ; celui-ci a juste de besoin de savoir dans quelle Room le GameEngine lui demande d'aller.
+
+ 

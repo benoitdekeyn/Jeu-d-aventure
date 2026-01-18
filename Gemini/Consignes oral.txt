@@ -1,0 +1,16 @@
+Vous devez savoir exactement quels exercices vous avez inclus dans le jeu que vous avez rendu (vous avez le droit de les avoir notés, seules notes que vous pourrez utiliser), et c'est la première question qui vous sera posée.
+Vous devez connaître le fonctionnement de tout le jeu et vous devez savoir justifier et expliquer en détail les parties que vous prétendez avoir programmées (même si cela remonte à longtemps).
+Vous devez également savoir expliquer (moins en détail) le fonctionnement des autres parties.
+Il vous sera aussi posé des questions sur les 'A SAVOIR EXPLIQUER' répartis dans la liste officielle des exercices, plus éventuellement quelques questions sur le langage java et il vous sera demandé de faire une petite modification de votre jeu en quelques minutes ; le fait de ne pas y arriver suffisamment rapidement sera automatiquement pénalisé puisque l'oral devra s'arrêter pour pouvoir respecter les horaires, notamment pour vous permettre d'aller ensuite en cours/td/tp d'une autre matière.
+
+3)
+Bien que le rapport doive le mentionner clairement (déclaration anti-plagiat), il faut aussi être capable de signaler pendant l'oral les parties de votre programme qui ont été recopiées sur un autre jeu ou sur internet ou réalisés par ChatGPT (ou équivalent).
+Le rapport doit être facilement consultable sur le PC, sinon disponible sur papier (quoique moins bon pour notre planète).
+
+Par contre, il est peu probable que vous ayez le temps de faire une démonstration de votre jeu (ne vous inquiétez pas, il sera évalué off-line dans les semaines qui suivent, à partir de ce que vous avez rendu sur le serveur JNews).
+Cet oral n'est pas une soutenance ni un exposé, donc aucun support visuel n'est à préparer.
+Attention !   Il sera demandé aux évaluateurs de tenir le raisonnement suivant :
+- si un étudiant dit ne pas avoir programmé grand-chose, lui retirer des points en fonction de la quantité et de la difficulté des exercices qu'il n'a pas programmés,
+- si un étudiant tente de faire croire qu'il a programmé certains exercices, alors que ce n'est manifestement pas le cas, doubler le nombre de points retirés
+(ce qui ne préjuge en rien de la note finale du projet qui peut être 00/20 et d'un éventuel conseil de discipline),
+- même si un intervenant ne s'apercevait pas (ce qui est peu probable) que vous avez plagié une bonne partie de votre projet, tous les programmes rendus seront comparés entre eux et avec ceux des années précédentes par un programme de détection de plagiat (ce qui peut également entraîner des points en moins, 00/20 et conseil de discipline, selon l'ampleur de la fraude).

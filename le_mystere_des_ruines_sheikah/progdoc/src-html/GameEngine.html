@@ -588,110 +588,112 @@
 <span class="source-line-no">575</span><span id="line-575">            return;</span>
 <span class="source-line-no">576</span><span id="line-576">        }</span>
 <span class="source-line-no">577</span><span id="line-577">        </span>
-<span class="source-line-no">578</span><span id="line-578">        if ( this.aPlayer.tryUnlockDoor( vDoor ) ) {</span>
-<span class="source-line-no">579</span><span id="line-579">            this.aGui.println("Vous avez déverrouillé la porte " + vDirection + ".");</span>
-<span class="source-line-no">580</span><span id="line-580">        } else {</span>
-<span class="source-line-no">581</span><span id="line-581">            this.aGui.println("Vous n'avez pas la clé pour déverrouiller cette porte.");</span>
-<span class="source-line-no">582</span><span id="line-582">        }</span>
-<span class="source-line-no">583</span><span id="line-583">    } // unlockDoor(*)</span>
-<span class="source-line-no">584</span><span id="line-584"></span>
-<span class="source-line-no">585</span><span id="line-585">    /**</span>
-<span class="source-line-no">586</span><span id="line-586">     * Exécute la commande "verrouiller" pour verrouiller une porte dans une direction donnée.</span>
-<span class="source-line-no">587</span><span id="line-587">     *</span>
-<span class="source-line-no">588</span><span id="line-588">     * @param pCommand la commande reçue (doit contenir la direction de la porte à verrouiller)</span>
-<span class="source-line-no">589</span><span id="line-589">     */</span>
-<span class="source-line-no">590</span><span id="line-590">    private void lockDoor(final Command pCommand)</span>
-<span class="source-line-no">591</span><span id="line-591">    {</span>
-<span class="source-line-no">592</span><span id="line-592">        if ( ! pCommand.hasSecondWord() ) {</span>
-<span class="source-line-no">593</span><span id="line-593">            this.aGui.println("Verrouiller quelle porte ? Spécifiez une direction.");</span>
-<span class="source-line-no">594</span><span id="line-594">            return;</span>
-<span class="source-line-no">595</span><span id="line-595">        }</span>
-<span class="source-line-no">596</span><span id="line-596">        String vDirection = pCommand.getSecondWord();</span>
-<span class="source-line-no">597</span><span id="line-597">        </span>
-<span class="source-line-no">598</span><span id="line-598">        if ( ! pCommand.isDirection( vDirection ) ) {</span>
-<span class="source-line-no">599</span><span id="line-599">            this.aGui.println("Cette direction n'existe pas.");</span>
-<span class="source-line-no">600</span><span id="line-600">            return;</span>
-<span class="source-line-no">601</span><span id="line-601">        }</span>
-<span class="source-line-no">602</span><span id="line-602">        </span>
-<span class="source-line-no">603</span><span id="line-603">        Door vDoor = this.aPlayer.getCurrentRoom().getDoor( vDirection );</span>
-<span class="source-line-no">604</span><span id="line-604">        </span>
-<span class="source-line-no">605</span><span id="line-605">        if ( vDoor == null ) {</span>
-<span class="source-line-no">606</span><span id="line-606">            this.aGui.println("Il n'y a pas de porte dans cette direction.");</span>
-<span class="source-line-no">607</span><span id="line-607">            return;</span>
-<span class="source-line-no">608</span><span id="line-608">        }</span>
-<span class="source-line-no">609</span><span id="line-609">        </span>
-<span class="source-line-no">610</span><span id="line-610">        if ( vDoor.isLocked() ) {</span>
-<span class="source-line-no">611</span><span id="line-611">            this.aGui.println("Cette porte est déjà fermée.");</span>
-<span class="source-line-no">612</span><span id="line-612">            return;</span>
-<span class="source-line-no">613</span><span id="line-613">        }</span>
-<span class="source-line-no">614</span><span id="line-614">        </span>
-<span class="source-line-no">615</span><span id="line-615">        if ( this.aPlayer.tryLockDoor( vDoor ) ) {</span>
-<span class="source-line-no">616</span><span id="line-616">            this.aGui.println("Vous avez verrouillé la porte " + vDirection + ".");</span>
-<span class="source-line-no">617</span><span id="line-617">        } else {</span>
-<span class="source-line-no">618</span><span id="line-618">            this.aGui.println("Vous n'avez pas la clé pour verrouiller cette porte.");</span>
-<span class="source-line-no">619</span><span id="line-619">        }</span>
-<span class="source-line-no">620</span><span id="line-620">    } // lockDoor(*)    </span>
-<span class="source-line-no">621</span><span id="line-621"></span>
-<span class="source-line-no">622</span><span id="line-622">    /**</span>
-<span class="source-line-no">623</span><span id="line-623">     * Impose une valeur fixe pour les prochains choix aléatoires de RoomRandomizer dans les tests.</span>
-<span class="source-line-no">624</span><span id="line-624">     * </span>
-<span class="source-line-no">625</span><span id="line-625">     * @param pCommand la commande reçue (doit contenir le nom de la Room à forcer)</span>
-<span class="source-line-no">626</span><span id="line-626">     */</span>
-<span class="source-line-no">627</span><span id="line-627">    private void bypassRandom(final Command pCommand)</span>
-<span class="source-line-no">628</span><span id="line-628">    {</span>
-<span class="source-line-no">629</span><span id="line-629">        if (this.aDebugMode == false) {</span>
-<span class="source-line-no">630</span><span id="line-630">            this.aGui.println("La commande 'alea' ne peut être utilisée que dans un fichier test.");</span>
-<span class="source-line-no">631</span><span id="line-631">            return;</span>
-<span class="source-line-no">632</span><span id="line-632">        }</span>
-<span class="source-line-no">633</span><span id="line-633"></span>
-<span class="source-line-no">634</span><span id="line-634">        if ( ! pCommand.hasSecondWord() ) {</span>
-<span class="source-line-no">635</span><span id="line-635">            this.aGui.println("Veuillez spécifier un nom de salle (ex: alea cuisine ).");</span>
-<span class="source-line-no">636</span><span id="line-636">            return;</span>
-<span class="source-line-no">637</span><span id="line-637">        }</span>
-<span class="source-line-no">638</span><span id="line-638"></span>
-<span class="source-line-no">639</span><span id="line-639">        String vRoomName = pCommand.getSecondWord();</span>
-<span class="source-line-no">640</span><span id="line-640">        Room vRoom = this.aRooms.get( vRoomName );</span>
-<span class="source-line-no">641</span><span id="line-641">        if ( vRoom == null ) {</span>
-<span class="source-line-no">642</span><span id="line-642">            this.aGui.println("Cette salle n'existe pas.");</span>
-<span class="source-line-no">643</span><span id="line-643">            return;</span>
-<span class="source-line-no">644</span><span id="line-644">        }</span>
-<span class="source-line-no">645</span><span id="line-645">        ( (TransporterRoom) this.aRooms.get("teleporteur_aleatoire") ).setForcedRoom( vRoom );</span>
-<span class="source-line-no">646</span><span id="line-646">    } // bypassRandom(*)</span>
-<span class="source-line-no">647</span><span id="line-647"></span>
-<span class="source-line-no">648</span><span id="line-648">    /**</span>
-<span class="source-line-no">649</span><span id="line-649">     * Exécute la commande "test" pour lire et exécuter des commandes depuis un fichier.</span>
-<span class="source-line-no">650</span><span id="line-650">     * Le fichier doit contenir une commande par ligne et se trouver à la racine du projet.</span>
-<span class="source-line-no">651</span><span id="line-651">     *</span>
-<span class="source-line-no">652</span><span id="line-652">     * @param pCommand la commande test avec le nom du fichier (sans extension .txt)</span>
-<span class="source-line-no">653</span><span id="line-653">     */</span>
-<span class="source-line-no">654</span><span id="line-654">    private void executeTest(final Command pCommand)</span>
-<span class="source-line-no">655</span><span id="line-655">    {</span>
-<span class="source-line-no">656</span><span id="line-656">        if (!pCommand.hasSecondWord()) {</span>
-<span class="source-line-no">657</span><span id="line-657">            this.aGui.println("Test quel fichier ? Spécifiez un nom de fichier.");</span>
-<span class="source-line-no">658</span><span id="line-658">            return;</span>
-<span class="source-line-no">659</span><span id="line-659">        }</span>
-<span class="source-line-no">660</span><span id="line-660">        String pNomFichier = pCommand.getSecondWord() + ".txt";</span>
-<span class="source-line-no">661</span><span id="line-661">        Scanner vScanner;</span>
-<span class="source-line-no">662</span><span id="line-662">        try { // pour "essayer" les instructions suivantes :</span>
-<span class="source-line-no">663</span><span id="line-663">            vScanner = new Scanner( new File( pNomFichier ) ); // ouverture du fichier s'il existe</span>
-<span class="source-line-no">664</span><span id="line-664">            this.aGui.println("\n============= Exécution TEST =============\n");</span>
-<span class="source-line-no">665</span><span id="line-665">            this.aDebugMode = true;</span>
-<span class="source-line-no">666</span><span id="line-666">            while ( vScanner.hasNextLine() ) { // tant qu'il y a encore une ligne à lire dans le fichier</span>
-<span class="source-line-no">667</span><span id="line-667">                String vLigne = vScanner.nextLine(); // lecture de la ligne dans le fichier</span>
-<span class="source-line-no">668</span><span id="line-668">                // ignorer les lignes qui commencent par # (commentaires) et les lignes vides</span>
-<span class="source-line-no">669</span><span id="line-669">                if ( vLigne.startsWith( "#" ) || vLigne.trim().isEmpty() ) {</span>
-<span class="source-line-no">670</span><span id="line-670">                    continue;</span>
-<span class="source-line-no">671</span><span id="line-671">                }</span>
-<span class="source-line-no">672</span><span id="line-672">                this.interpretCommand( vLigne );</span>
-<span class="source-line-no">673</span><span id="line-673">            } // while</span>
-<span class="source-line-no">674</span><span id="line-674">            this.aDebugMode = false;</span>
-<span class="source-line-no">675</span><span id="line-675">            this.aGui.println("\n============= TEST terminé =============\n");</span>
-<span class="source-line-no">676</span><span id="line-676">        } // try</span>
-<span class="source-line-no">677</span><span id="line-677">        catch ( final FileNotFoundException pFNFE ) { // si le fichier n'existe pas</span>
-<span class="source-line-no">678</span><span id="line-678">            this.aGui.println("Le fichier '" + pNomFichier + "' est introuvable.");</span>
-<span class="source-line-no">679</span><span id="line-679">        } // catch</span>
-<span class="source-line-no">680</span><span id="line-680">    } // executeTest(*)</span>
-<span class="source-line-no">681</span><span id="line-681">}</span>
+<span class="source-line-no">578</span><span id="line-578">        if ( this.aPlayer.hasItem(vDoor.getKey().getName()) ) {</span>
+<span class="source-line-no">579</span><span id="line-579">            vDoor.unlock();</span>
+<span class="source-line-no">580</span><span id="line-580">            this.aGui.println("Vous avez déverrouillé la porte " + vDirection + ".");</span>
+<span class="source-line-no">581</span><span id="line-581">        } else {</span>
+<span class="source-line-no">582</span><span id="line-582">            this.aGui.println("Vous n'avez pas la clé pour déverrouiller cette porte.");</span>
+<span class="source-line-no">583</span><span id="line-583">        }</span>
+<span class="source-line-no">584</span><span id="line-584">    } // unlockDoor(*)</span>
+<span class="source-line-no">585</span><span id="line-585"></span>
+<span class="source-line-no">586</span><span id="line-586">    /**</span>
+<span class="source-line-no">587</span><span id="line-587">     * Exécute la commande "verrouiller" pour verrouiller une porte dans une direction donnée.</span>
+<span class="source-line-no">588</span><span id="line-588">     *</span>
+<span class="source-line-no">589</span><span id="line-589">     * @param pCommand la commande reçue (doit contenir la direction de la porte à verrouiller)</span>
+<span class="source-line-no">590</span><span id="line-590">     */</span>
+<span class="source-line-no">591</span><span id="line-591">    private void lockDoor(final Command pCommand)</span>
+<span class="source-line-no">592</span><span id="line-592">    {</span>
+<span class="source-line-no">593</span><span id="line-593">        if ( ! pCommand.hasSecondWord() ) {</span>
+<span class="source-line-no">594</span><span id="line-594">            this.aGui.println("Verrouiller quelle porte ? Spécifiez une direction.");</span>
+<span class="source-line-no">595</span><span id="line-595">            return;</span>
+<span class="source-line-no">596</span><span id="line-596">        }</span>
+<span class="source-line-no">597</span><span id="line-597">        String vDirection = pCommand.getSecondWord();</span>
+<span class="source-line-no">598</span><span id="line-598">        </span>
+<span class="source-line-no">599</span><span id="line-599">        if ( ! pCommand.isDirection( vDirection ) ) {</span>
+<span class="source-line-no">600</span><span id="line-600">            this.aGui.println("Cette direction n'existe pas.");</span>
+<span class="source-line-no">601</span><span id="line-601">            return;</span>
+<span class="source-line-no">602</span><span id="line-602">        }</span>
+<span class="source-line-no">603</span><span id="line-603">        </span>
+<span class="source-line-no">604</span><span id="line-604">        Door vDoor = this.aPlayer.getCurrentRoom().getDoor( vDirection );</span>
+<span class="source-line-no">605</span><span id="line-605">        </span>
+<span class="source-line-no">606</span><span id="line-606">        if ( vDoor == null ) {</span>
+<span class="source-line-no">607</span><span id="line-607">            this.aGui.println("Il n'y a pas de porte dans cette direction.");</span>
+<span class="source-line-no">608</span><span id="line-608">            return;</span>
+<span class="source-line-no">609</span><span id="line-609">        }</span>
+<span class="source-line-no">610</span><span id="line-610">        </span>
+<span class="source-line-no">611</span><span id="line-611">        if ( vDoor.isLocked() ) {</span>
+<span class="source-line-no">612</span><span id="line-612">            this.aGui.println("Cette porte est déjà fermée.");</span>
+<span class="source-line-no">613</span><span id="line-613">            return;</span>
+<span class="source-line-no">614</span><span id="line-614">        }</span>
+<span class="source-line-no">615</span><span id="line-615">        </span>
+<span class="source-line-no">616</span><span id="line-616">        if ( this.aPlayer.hasItem(vDoor.getKey().getName()) ) {</span>
+<span class="source-line-no">617</span><span id="line-617">            vDoor.lock();</span>
+<span class="source-line-no">618</span><span id="line-618">            this.aGui.println("Vous avez verrouillé la porte " + vDirection + ".");</span>
+<span class="source-line-no">619</span><span id="line-619">        } else {</span>
+<span class="source-line-no">620</span><span id="line-620">            this.aGui.println("Vous n'avez pas la clé pour verrouiller cette porte.");</span>
+<span class="source-line-no">621</span><span id="line-621">        }</span>
+<span class="source-line-no">622</span><span id="line-622">    } // lockDoor(*)    </span>
+<span class="source-line-no">623</span><span id="line-623"></span>
+<span class="source-line-no">624</span><span id="line-624">    /**</span>
+<span class="source-line-no">625</span><span id="line-625">     * Impose une valeur fixe pour les prochains choix aléatoires de RoomRandomizer dans les tests.</span>
+<span class="source-line-no">626</span><span id="line-626">     * </span>
+<span class="source-line-no">627</span><span id="line-627">     * @param pCommand la commande reçue (doit contenir le nom de la Room à forcer)</span>
+<span class="source-line-no">628</span><span id="line-628">     */</span>
+<span class="source-line-no">629</span><span id="line-629">    private void bypassRandom(final Command pCommand)</span>
+<span class="source-line-no">630</span><span id="line-630">    {</span>
+<span class="source-line-no">631</span><span id="line-631">        if (this.aDebugMode == false) {</span>
+<span class="source-line-no">632</span><span id="line-632">            this.aGui.println("La commande 'alea' ne peut être utilisée que dans un fichier test.");</span>
+<span class="source-line-no">633</span><span id="line-633">            return;</span>
+<span class="source-line-no">634</span><span id="line-634">        }</span>
+<span class="source-line-no">635</span><span id="line-635"></span>
+<span class="source-line-no">636</span><span id="line-636">        if ( ! pCommand.hasSecondWord() ) {</span>
+<span class="source-line-no">637</span><span id="line-637">            this.aGui.println("Veuillez spécifier un nom de salle (ex: alea cuisine ).");</span>
+<span class="source-line-no">638</span><span id="line-638">            return;</span>
+<span class="source-line-no">639</span><span id="line-639">        }</span>
+<span class="source-line-no">640</span><span id="line-640"></span>
+<span class="source-line-no">641</span><span id="line-641">        String vRoomName = pCommand.getSecondWord();</span>
+<span class="source-line-no">642</span><span id="line-642">        Room vRoom = this.aRooms.get( vRoomName );</span>
+<span class="source-line-no">643</span><span id="line-643">        if ( vRoom == null ) {</span>
+<span class="source-line-no">644</span><span id="line-644">            this.aGui.println("Cette salle n'existe pas.");</span>
+<span class="source-line-no">645</span><span id="line-645">            return;</span>
+<span class="source-line-no">646</span><span id="line-646">        }</span>
+<span class="source-line-no">647</span><span id="line-647">        ( (TransporterRoom) this.aRooms.get("teleporteur_aleatoire") ).setForcedRoom( vRoom );</span>
+<span class="source-line-no">648</span><span id="line-648">    } // bypassRandom(*)</span>
+<span class="source-line-no">649</span><span id="line-649"></span>
+<span class="source-line-no">650</span><span id="line-650">    /**</span>
+<span class="source-line-no">651</span><span id="line-651">     * Exécute la commande "test" pour lire et exécuter des commandes depuis un fichier.</span>
+<span class="source-line-no">652</span><span id="line-652">     * Le fichier doit contenir une commande par ligne et se trouver à la racine du projet.</span>
+<span class="source-line-no">653</span><span id="line-653">     *</span>
+<span class="source-line-no">654</span><span id="line-654">     * @param pCommand la commande test avec le nom du fichier (sans extension .txt)</span>
+<span class="source-line-no">655</span><span id="line-655">     */</span>
+<span class="source-line-no">656</span><span id="line-656">    private void executeTest(final Command pCommand)</span>
+<span class="source-line-no">657</span><span id="line-657">    {</span>
+<span class="source-line-no">658</span><span id="line-658">        if (!pCommand.hasSecondWord()) {</span>
+<span class="source-line-no">659</span><span id="line-659">            this.aGui.println("Test quel fichier ? Spécifiez un nom de fichier.");</span>
+<span class="source-line-no">660</span><span id="line-660">            return;</span>
+<span class="source-line-no">661</span><span id="line-661">        }</span>
+<span class="source-line-no">662</span><span id="line-662">        String pNomFichier = pCommand.getSecondWord() + ".txt";</span>
+<span class="source-line-no">663</span><span id="line-663">        Scanner vScanner;</span>
+<span class="source-line-no">664</span><span id="line-664">        try { // pour "essayer" les instructions suivantes :</span>
+<span class="source-line-no">665</span><span id="line-665">            vScanner = new Scanner( new File( pNomFichier ) ); // ouverture du fichier s'il existe</span>
+<span class="source-line-no">666</span><span id="line-666">            this.aGui.println("\n============= Exécution TEST =============\n");</span>
+<span class="source-line-no">667</span><span id="line-667">            this.aDebugMode = true;</span>
+<span class="source-line-no">668</span><span id="line-668">            while ( vScanner.hasNextLine() ) { // tant qu'il y a encore une ligne à lire dans le fichier</span>
+<span class="source-line-no">669</span><span id="line-669">                String vLigne = vScanner.nextLine(); // lecture de la ligne dans le fichier</span>
+<span class="source-line-no">670</span><span id="line-670">                // ignorer les lignes qui commencent par # (commentaires) et les lignes vides</span>
+<span class="source-line-no">671</span><span id="line-671">                if ( vLigne.startsWith( "#" ) || vLigne.trim().isEmpty() ) {</span>
+<span class="source-line-no">672</span><span id="line-672">                    continue;</span>
+<span class="source-line-no">673</span><span id="line-673">                }</span>
+<span class="source-line-no">674</span><span id="line-674">                this.interpretCommand( vLigne );</span>
+<span class="source-line-no">675</span><span id="line-675">            } // while</span>
+<span class="source-line-no">676</span><span id="line-676">            this.aDebugMode = false;</span>
+<span class="source-line-no">677</span><span id="line-677">            this.aGui.println("\n============= TEST terminé =============\n");</span>
+<span class="source-line-no">678</span><span id="line-678">        } // try</span>
+<span class="source-line-no">679</span><span id="line-679">        catch ( final FileNotFoundException pFNFE ) { // si le fichier n'existe pas</span>
+<span class="source-line-no">680</span><span id="line-680">            this.aGui.println("Le fichier '" + pNomFichier + "' est introuvable.");</span>
+<span class="source-line-no">681</span><span id="line-681">        } // catch</span>
+<span class="source-line-no">682</span><span id="line-682">    } // executeTest(*)</span>
+<span class="source-line-no">683</span><span id="line-683">}</span>
 
 
 

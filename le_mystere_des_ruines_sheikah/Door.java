@@ -36,36 +36,20 @@ public class Door
     } // isLocked()
     
     /**
-     * Tente d'ouvrir la porte avec une clé.
-     *
-     * @param pKey la clé utilisée pour ouvrir
-     * @return true si la porte a été ouverte avec succès, false si la clé ne correspond pas
+     * Permet d'ouvrir/déverrouiller la porte.
      */
-    public boolean unlock( final Item pKey )
-    {   
-        if ( pKey == this.aKey ) {
-            this.aIsLocked = false;
-            return true;
-        }
-        
-        return false;
-    } // unlock(*)
+    public void unlock()
+    {
+        this.aIsLocked = false;
+    } // unlock()
     
     /**
-     * Tente de fermer/verrouiller la porte avec une clé.
-     *
-     * @param pKey la clé utilisée pour fermer
-     * @return true si la porte a été verrouillée, false si la clé ne correspond pas
+     * Permet de fermer/verrouiller la porte.
      */
-    public boolean lock( final Item pKey )
+    public void lock()
     {
-        if ( pKey == this.aKey ) {
-            this.aIsLocked = true;
-            return true;
-        }
-        
-        return false;
-    } // lock(*)
+        this.aIsLocked = true;
+    } // lock()
     
     /**
      * Renvoie une description de l'état de la porte.
@@ -76,4 +60,14 @@ public class Door
     {
         return this.aIsLocked ? "verrouillée" : "ouverte";
     } // getStateDescription()
+
+    /**
+     * Renvoie la clé associée à cette porte.
+     * 
+     * @return la clé de la porte
+     */
+    public Item getKey()
+    {
+        return this.aKey;
+    } // getKey()
 } // Door
