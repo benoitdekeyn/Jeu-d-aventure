@@ -1,0 +1,17 @@
+déclencher
+prendre téléporteur
+charger
+aller est
+aller ouest
+aller haut
+aller haut
+prendre clé
+aller bas
+aller bas
+aller est
+aller sud
+aller nord
+déverrouiller nord
+aller nord
+aller nord
+aller est

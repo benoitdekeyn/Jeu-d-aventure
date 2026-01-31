@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Parser
+comment0.text=\r\n\ Classe\ Parser\ -\ interpr\u00E8te\ les\ commandes\ saisies\ par\ l'utilisateur\ dans\ le\ jeu\ "le\ myst\u00E8re\ des\ ruines\ Sheikah".\r\n\ Cette\ classe\ analyse\ les\ cha\u00EEnes\ de\ caract\u00E8res\ entr\u00E9es\ et\ les\ convertit\ en\ objets\ Command.\r\n\r\n\ @author\ \ Michael\ Kolling,\ David\ J.\ Barnes,\ D.\ Bureau,\ Beno\u00EEt\ de\ Keyn\r\n\ @version\ 2025.12.15\r\n
+comment1.params=
+comment1.target=Parser()
+comment1.text=\r\n\ Cr\u00E9e\ un\ nouveau\ parseur\ de\ commandes.\r\n\ Initialise\ la\ liste\ des\ commandes\ valides.\r\n
+comment2.params=pInputLine
+comment2.target=Command\ getCommand(java.lang.String)
+comment2.text=\r\n\ Analyse\ une\ ligne\ de\ commande\ et\ la\ convertit\ en\ objet\ Command.\r\n\r\n\ \ R\u00E8gles\ \:\r\n\ -\ Si\ le\ premier\ mot\ n'est\ pas\ une\ commande\ connue,\ retourne\ Command(null,\ null).\r\n\ -\ Si\ la\ commande\ accepte\ une\ direction\ et\ qu'un\ second\ mot\ est\ fourni\ \:\r\n\ \ \ \ \ -\ retourne\ Command(mot,\ direction)\ si\ la\ direction\ est\ valide,\r\n\ \ \ \ \ -\ retourne\ Command(mot,\ "invalid")\ si\ la\ direction\ est\ invalide.\r\n\ -\ Si\ aucun\ second\ mot\ n'est\ fourni,\ retourne\ Command(mot,\ null).\r\n\r\n\ @param\ pInputLine\ la\ ligne\ de\ commande\ saisie\ par\ l'utilisateur\r\n\ @return\ un\ objet\ Command\ repr\u00E9sentant\ la\ commande\ analys\u00E9e\r\n
+comment3.params=
+comment3.target=java.lang.String\ getCommandsList()
+comment3.text=\r\n\ Renvoie\ une\ cha\u00EEne\ de\ caract\u00E8res\ contenant\ toutes\ les\ commandes\ valides.\r\n\r\n\ @return\ la\ liste\ des\ commandes\ valides\ sous\ forme\ de\ cha\u00EEne\r\n
+numComments=4
